@@ -2,18 +2,10 @@
   "name": "hedspace",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
-  "main": "index.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-=======
   "source": "./index.html",
   "scripts": {
     "start": "parcel",
     "build": "parcel build"
->>>>>>> 820b07a (new git)
   },
   "keywords": [],
   "author": "",
@@ -23,25 +15,17 @@
     "@splinetool/runtime": "^0.9.503",
     "@vitejs/plugin-react": "^4.1.1",
     "react": "^18.2.0",
-<<<<<<< HEAD
-=======
     "react-dom": "^18.2.0",
->>>>>>> 820b07a (new git)
     "react-router-dom": "^6.18.0",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/react-dom": "^18.2.15",
-    "@types/react-router-dom": "^5.3.3"
-=======
     "@parcel/resolver-default": "^2.10.3",
     "@types/react-dom": "^18.2.15",
     "@types/react-router-dom": "^5.3.3",
     "buffer": "^6.0.3",
     "parcel": "^2.10.3",
     "process": "^0.11.10"
->>>>>>> 820b07a (new git)
   }
 }
