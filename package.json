@@ -2,6 +2,7 @@
   "name": "hedspace",
   "version": "1.0.0",
   "description": "",
+  "main": ".dist/index.html",
   "source": "./index.html",
   "scripts": {
     "start": "parcel",
