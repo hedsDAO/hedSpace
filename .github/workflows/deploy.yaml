@@ -37,8 +37,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-      - name: Clear parcel cache
-        run:  parcel cache clear
       - name: Build
         run: npm run build
       - name: Setup Pages
