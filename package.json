@@ -2,7 +2,7 @@
   "name": "hedspace",
   "version": "1.0.0",
   "description": "",
-  "main": ".dist/index.html",
+  "main": "./dist/index.html",
   "source": "./index.html",
   "scripts": {
     "start": "parcel",
@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
+    "semver": "^7.5.4",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   },
