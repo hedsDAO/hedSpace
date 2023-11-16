@@ -14,7 +14,11 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
+<<<<<<< HEAD
       "jsx": "react-jsx",
+=======
+      "jsx": "react-jsx"
+>>>>>>> 820b07a (new git)
     }
   }
   
