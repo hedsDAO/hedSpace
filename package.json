@@ -20,6 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.19.0",
+    "surge": "^0.23.1",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   },
