@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./src/styles.css";
-import App from "./src/App";
+import "./styles.css";
+import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 // Create a root constant to manage the root element rendering

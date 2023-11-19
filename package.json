@@ -6,7 +6,8 @@
   "source": "./index.html",
   "scripts": {
     "start": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "deploy": "vite build && npx surge dist hypnotic-dinosaurs.surge.sh"
   },
   "keywords": [],
   "author": "",
