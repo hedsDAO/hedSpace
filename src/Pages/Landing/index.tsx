@@ -19,10 +19,14 @@ const LandingPage = () => {
   return (
     <>
       <SplineObject
-        splineUrl="https://prod.spline.design/n9er4ToldE6dqrRj/scene.splinecode"
+        splineUrl="https://prod.spline.design/6O8A9d3yUvB0o6dE/scene.splinecode"
         onLoad={handleSplineLoad}
         // onMouseHover={() => console.log("Hovered")}
       />
+      <div
+        style={{ position: "absolute", top: "10%", left: "10%", zIndex: 100, color: "white" }}
+      >
+      </div>
     </>
   );
 };

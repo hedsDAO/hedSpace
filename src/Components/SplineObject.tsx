@@ -20,7 +20,7 @@ const SplineObject = ({
   return (
     // <Suspense fallback={<div>Loading...</div>}>
     <div className="wrapper">
-      <Spline scene={splineUrl} onLoad={onLoad} onMouseHover={onMouseHover} />
+      <Spline scene={splineUrl} onLoad={onLoad} onMouseDown={onMouseHover} />
     </div>
     // </Suspense>
   );

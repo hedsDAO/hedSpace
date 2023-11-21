@@ -3,6 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./styles.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
+import chakraTheme from '@chakra-ui/theme'
+
+// const { Button } = chakraTheme.components
+
+// const theme = extendBaseTheme({
+//   components: {
+//     Button,
+//   },
+// })
 
 // Create a root constant to manage the root element rendering
 const root = ReactDOM.createRoot(
@@ -12,7 +22,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ChakraBaseProvider>
+        <App />
+      </ChakraBaseProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
