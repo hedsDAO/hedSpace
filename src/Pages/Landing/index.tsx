@@ -23,10 +23,6 @@ const LandingPage = () => {
         onLoad={handleSplineLoad}
         // onMouseHover={() => console.log("Hovered")}
       />
-      <div
-        style={{ position: "absolute", top: "10%", left: "10%", zIndex: 100, color: "white" }}
-      >
-      </div>
     </>
   );
 };
