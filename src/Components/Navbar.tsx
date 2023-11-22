@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import LoginButton from "./LoginButton";
 import HedLogo from "../../public/heddot.png";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <Stack
       direction="row"
@@ -18,7 +20,7 @@ const Navbar = () => {
       bg="rgba(0, 0, 0, 0.5)"
     >
       <Flex alignItems="center" ml={{ base: "0" }}>
-        <Button type="button">
+        <Button type="button" onClick={() => navigate("/")}>
           <Image
             src={HedLogo}
             alt="heds logo"

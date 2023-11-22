@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Image, Stack, Text } from "@chakra-ui/react";
 
 const LandingPage = () => {
+  const naviagte = useNavigate();
   return (
     <Box
       position="fixed"
@@ -16,7 +18,7 @@ const LandingPage = () => {
       >
       <Stack direction={{ base: "column", lg: "row" }} alignItems="center">
         <Image
-          src="https://www.heds.cloud/ipfs/QmXztcYBANafrL6jMaegFtPNk16qTHeqHhheNASUhv5t3F"
+          src="https://www.heds.cloud/ipfs/QmUbdjz8R7xBD8j9nXA3SPE5JxFGfiJ2REzSysKvKoLYtc"
           boxSize={{ base: "212px", lg: "424px" }}
           borderRadius={16}
           // margin="8px"
@@ -94,6 +96,7 @@ const LandingPage = () => {
               height="28px"
               width="96px"
               marginTop={{ base: "8px", lg: "30px" }}
+              onClick={() => naviagte("/event")}
             >
               RSVP
             </Button>
