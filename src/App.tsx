@@ -3,6 +3,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import LandingPage from "./Pages/Landing";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import Event from "./Pages/Event";
 import { Box } from "@chakra-ui/react";
 import Spline from "@splinetool/react-spline";
 
@@ -27,6 +28,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<LandingPage />} />
+        <Route path="/event" element={<Event />} />
       </Route>
     </Routes>
   );
