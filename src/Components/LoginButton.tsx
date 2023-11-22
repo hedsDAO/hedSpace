@@ -5,7 +5,7 @@ const LoginButton = () => {
       <Button
         size={{ base: "sm", lg: "md" }}
         fontSize={{ base: "xs", lg: "sm" }}
-        fontFamily="space-mono"
+        fontFamily="space-grotesque"
         background="#1F1F1F"
         px={4}
         py={1}

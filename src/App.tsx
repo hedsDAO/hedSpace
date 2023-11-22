@@ -8,11 +8,11 @@ import Spline from "@splinetool/react-spline";
 
 const Layout = () => {
   const splineUrl =
-    "https://prod.spline.design/6O8A9d3yUvB0o6dE/scene.splinecode";
+    "https://draft.spline.design/j4oadUDBeyeihaPx/scene.splinecode";
 
   return (
     <Box>
-      <Box>
+      <Box cursor="grab">
         <Spline scene={splineUrl} />
       </Box>
       <Navbar />
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* <Route index element={<LandingPage />} /> */}
+        <Route index element={<LandingPage />} />
       </Route>
     </Routes>
   );

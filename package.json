@@ -7,7 +7,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "deploy": "vite build && cp dist/index.html dist/200.html && npx surge dist hypnotic-dinosaurs.surge.sh"
+    "deploy": "rm -r dist && vite build && cp dist/index.html dist/200.html && npx surge dist hypnotic-dinosaurs.surge.sh"
   },
   "keywords": [],
   "author": "",

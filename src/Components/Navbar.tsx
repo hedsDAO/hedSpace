@@ -11,9 +11,9 @@ const Navbar = () => {
       alignItems="center"
       top={0}
       left={0}
-      zIndex={100}
       color="white"
       width="100%"
+      zIndex={100}
       p={4}
       bg="rgba(0, 0, 0, 0.5)"
     >
@@ -29,7 +29,7 @@ const Navbar = () => {
         <Text
           cursor="default"
           fontSize={{ base: "md", lg: "2xl" }}
-          fontFamily="space-mono"
+          fontFamily="space-grotesque"
           textColor="#B9B9B9"
         >
           heds
@@ -37,7 +37,7 @@ const Navbar = () => {
         <Text
           cursor="default"
           fontSize={{ base: "lg", lg: "3xl" }}
-          fontFamily="space-mono"
+          fontFamily="space-grotesque"
         >
           EVENTS
         </Text>
