@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { EVENT_COMMENTS_API_PREFIX } from "../Store/constants";
+import { EVENT_COMMENTS_API_PREFIX } from "@/Store/constants";
 
 /**
  * Fetch all comments for a specific event.

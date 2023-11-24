@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { MANGAGE_EVENT_API_PREFIX } from "../Store/constants";
+import { MANGAGE_EVENT_API_PREFIX } from "@/Store/constants";
 
 /**
  * Fetch all events.

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { GUEST_STATUS_API_PREFIX } from "../Store/constants";
+import { GUEST_STATUS_API_PREFIX } from "@/Store/constants";
 
 /**
  * Create a new RSVP for an event.

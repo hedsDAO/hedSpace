@@ -1,9 +1,9 @@
 import { Fragment, useState } from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
-import LandingPage from "./Pages/Landing";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import Event from "./Pages/Event";
+import LandingPage from "@/Pages/Landing";
+import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/Footer";
+import Event from "@/Pages/Event";
 import { Box } from "@chakra-ui/react";
 import Spline from "@splinetool/react-spline";
 
