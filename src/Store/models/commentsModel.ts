@@ -1,64 +1,74 @@
 import { createModel } from "@rematch/core";
 import {
-  createEvent,
-  deleteEvent,
-  fetchEvents,
-  fetchEventById,
-  updateEvent,
-} from "@/Api/manageEvents";
+  createEventComment,
+  deleteEventComment,
+  fetchEventComments,
+  fetchCommentById,
+  updateEventComment,
+} from "@/Api/eventComments";
 import type { RootModel } from "@/Store/index";
 
-export const eventModel = createModel<RootModel>()({
+export const commentsModel = createModel<RootModel>()({
   state: {
     error: null as string | null,
     isLoading: false,
-    allEvents: [],
-    selectedEvent: {},
+    allComments: [],
+    newComment: {},
+    selectedComment: {},
   },
   reducers: {
     setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state, error: string) => ({ ...state, error }),
-    setAllEvents: (state, allEvents) => {
-      return { ...state, allEvents };
+    setAllComments: (state, newComment) => {
+      return { ...state, newComment };
     },
-    setSelectedEvent: (state, event) => {
+    setNewComment: (state, event) => {
       return { ...state, event };
     },
   },
   selectors: (slice) => ({
     error: () => slice((state) => state.error),
     isLoading: () => slice((state) => state.isLoading),
-    allEvents: () => slice((state) => state.allEvents),
-    selectedEvent: () => slice((state) => state.selectedEvent),
+    allComments: () => slice((state) => state.allComments),
+    newComment: () => slice((state) => state.newComment),
+    selectedComment: () => slice((state) => state.selectedComment),
   }),
   effects: (dispatch) => ({
-    async fetchEvents() {
+    async fetchComments(id: number) {
       this.setIsLoading(true);
       try {
-        const response = await fetchEvents();
-        this.setAllEvents(response.data);
+        const response = await fetchEventComments(id);
+        this.setAllComments(response.data);
       } catch (error: any) {
         this.setError(error.message || "Failed to fetch events");
       } finally {
         this.setIsLoading(false);
       }
     },
-    async fetchEventById(id: number) {
+    async fetchCommentById(id: number) {
       this.setIsLoading(true);
       try {
-        const response = await fetchEventById(id);
-        this.setSelectedEvent(response.data);
+        const response = await fetchCommentById(id);
+        this.setSelectedComment(response.data);
       } catch (error: any) {
         this.setError(error.message || "Failed to fetch event details");
       } finally {
         this.setIsLoading(false);
       }
     },
-    async createEvent(eventData: object) {
+    async createNewComment({
+      eventId,
+      userId,
+      comment,
+    }: {
+      eventId: number;
+      userId: number;
+      comment: string;
+    }) {
       this.setIsLoading(true);
       try {
-        const response = await createEvent(eventData);
-        this.setSelectedEvent(response.data);
+        await createEventComment(eventId, userId, comment);
+        this.fetchComments(eventId);
       } catch (error: any) {
         this.setError(error.message || "Failed to create event");
       } finally {
@@ -66,11 +76,19 @@ export const eventModel = createModel<RootModel>()({
       }
     },
 
-    async updateEvent({ id, eventData }: { id: number; eventData: object }) {
+    async updateComment({
+      id,
+      eventId,
+      comment,
+    }: {
+      id: number;
+      eventId: number;
+      comment: string;
+    }) {
       this.setIsLoading(true);
       try {
-        const response = await updateEvent(id, eventData);
-        this.setSelectedEvent(response.data);
+        await updateEventComment(id, comment);
+        this.fetchComments(eventId);
       } catch (error: any) {
         this.setError(error.message || "Failed to update event");
       } finally {
@@ -78,11 +96,11 @@ export const eventModel = createModel<RootModel>()({
       }
     },
 
-    async deleteEvent(id: number) {
+    async deleteComment({ id, eventId }: { id: number; eventId: number }) {
       this.setIsLoading(true);
       try {
-        await deleteEvent(id);
-        this.fetchEvents();
+        await deleteEventComment(id);
+        this.fetchComments(eventId);
       } catch (error: any) {
         this.setError(error.message || "Failed to delete event");
       } finally {

@@ -1,22 +1,23 @@
 import { init, Models, RematchDispatch, RematchRootState } from "@rematch/core";
 import selectPlugin from "@rematch/select";
+import { commentsModel } from "@/Store/models/commentsModel";
 import { eventModel } from "@/Store/models/eventModel";
-// import { commentsModel } from "./models/commentsModel";
+import { guestStatusModel } from "@/Store/models/guestStatusModel";
 
 export interface RootModel extends Models<RootModel> {
-//   commentsModel: typeof commentsModel;
-//   eventModel: typeof eventModel;
+  // commentsModel: typeof commentsModel;
+  // eventModel: typeof eventModel;
 }
 
 export const models: RootModel = {
-//   commentsModel,
+  commentsModel,
   eventModel,
+  guestStatusModel,
 };
 
 export const store = init({
-
   plugins: [selectPlugin()],
-    models,
+  models,
 });
 
 export type Store = typeof store;
