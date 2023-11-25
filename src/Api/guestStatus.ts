@@ -8,7 +8,7 @@ import { GUEST_STATUS_API_PREFIX } from "@/Store/constants";
  * @param status - The RSVP status.
  * @returns {Promise<AxiosResponse>} Axios response promise with the created RSVP.
  */
-export const createEventRSVP = (
+export const createEventRsvp = (
   eventId: number,
   userId: number,
   status: string
@@ -25,7 +25,7 @@ export const createEventRSVP = (
  * @param status - The new status of the RSVP.
  * @returns {Promise<AxiosResponse>} Axios response promise with the updated RSVP.
  */
-export const updateRSVP = (
+export const updateEventRsvp = (
   id: number,
   status: string
 ): Promise<AxiosResponse> => {
@@ -37,7 +37,7 @@ export const updateRSVP = (
  * @param id - The ID of the RSVP to delete.
  * @returns {Promise<AxiosResponse>} Axios response promise with the deletion result.
  */
-export const deleteRSVP = (id: number): Promise<AxiosResponse> => {
+export const deleteEventRsvp = (id: number): Promise<AxiosResponse> => {
   return axios.delete(`${GUEST_STATUS_API_PREFIX}/rsvps/${id}`);
 };
 
@@ -64,6 +64,6 @@ export const addToEventWaitlist = (
  * @param id - The ID of the waitlist entry to delete.
  * @returns {Promise<AxiosResponse>} Axios response promise with the removal result.
  */
-export const removeFromWaitlist = (id: number): Promise<AxiosResponse> => {
+export const removeFromEventWaitlist = (id: number): Promise<AxiosResponse> => {
   return axios.delete(`${GUEST_STATUS_API_PREFIX}/waitlist/${id}`);
 };

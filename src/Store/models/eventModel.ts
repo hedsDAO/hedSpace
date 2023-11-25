@@ -48,6 +48,9 @@ export const eventModel = createModel<RootModel>()({
       try {
         const response = await fetchEventById(id);
         this.setSelectedEvent(response.data);
+        dispatch.commentsModel.setAllComments(response.data.event_comments);
+        dispatch.guestStatusModel.setRsvps(response.data.event_rsvps);
+        dispatch.guestStatusModel.setWaitlist(response.data.event_waitlist);
       } catch (error: any) {
         this.setError(error.message || "Failed to fetch event details");
       } finally {
