@@ -7,14 +7,22 @@ import {
   updateEvent,
 } from "@/Api/manageEvents";
 import type { RootModel } from "@/Store/index";
+import { Event } from "../types";
+
+interface EventState {
+  error: string | null;
+  isLoading: boolean;
+  allEvents?: Event[];
+  selectedEvent?: Event;
+}
 
 export const eventModel = createModel<RootModel>()({
   state: {
-    error: null as string | null,
+    error: null,
     isLoading: false,
     allEvents: [],
-    selectedEvent: {},
-  },
+    selectedEvent: undefined,
+  } as EventState,
   reducers: {
     setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state, error: string) => ({ ...state, error }),
@@ -48,16 +56,22 @@ export const eventModel = createModel<RootModel>()({
       try {
         const response = await fetchEventById(id);
         this.setSelectedEvent(response.data);
-        dispatch.commentsModel.setAllComments(response.data.event_comments);
-        dispatch.guestStatusModel.setRsvps(response.data.event_rsvps);
-        dispatch.guestStatusModel.setWaitlist(response.data.event_waitlist);
+        dispatch.commentsModel.setAllComments(
+          Object.values(response.data.eventComments)
+        );
+        dispatch.guestStatusModel.setRsvps(
+          Object.values(response.data.eventRsvps)
+        );
+        dispatch.guestStatusModel.setWaitlist(
+          Object.values(response.data.eventWaitlists)
+        );
       } catch (error: any) {
         this.setError(error.message || "Failed to fetch event details");
       } finally {
         this.setIsLoading(false);
       }
     },
-    async createEvent(eventData: object) {
+    async createEvent(eventData: Event) {
       this.setIsLoading(true);
       try {
         const response = await createEvent(eventData);
@@ -69,7 +83,13 @@ export const eventModel = createModel<RootModel>()({
       }
     },
 
-    async updateEvent({ id, eventData }: { id: number; eventData: object }) {
+    async updateEvent({
+      id,
+      eventData,
+    }: {
+      id: number;
+      eventData: Partial<Event>;
+    }) {
       this.setIsLoading(true);
       try {
         const response = await updateEvent(id, eventData);

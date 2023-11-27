@@ -33,7 +33,7 @@ export const createEventComment = (
 ): Promise<AxiosResponse> => {
   return axios.post(`${EVENT_COMMENTS_API_PREFIX}/events/${eventId}/comments`, {
     userId,
-    comment,
+    userComment: comment,
   });
 };
 

@@ -7,23 +7,32 @@ import {
   updateEventComment,
 } from "@/Api/eventComments";
 import type { RootModel } from "@/Store/index";
+import { EventComment } from "../types";
+
+interface CommentsState {
+  error: string | null;
+  isLoading: boolean;
+  allComments?: EventComment[];
+  newComment?: EventComment;
+  selectedComment?: EventComment;
+}
 
 export const commentsModel = createModel<RootModel>()({
   state: {
-    error: null as string | null,
+    error: null,
     isLoading: false,
     allComments: [],
-    newComment: {},
-    selectedComment: {},
-  },
+    newComment: undefined,
+    selectedComment: undefined,
+  } as CommentsState,
   reducers: {
     setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state, error: string) => ({ ...state, error }),
-    setAllComments: (state, newComment) => {
-      return { ...state, newComment };
+    setAllComments: (state, allComments) => {
+      return { ...state, allComments };
     },
-    setNewComment: (state, event) => {
-      return { ...state, event };
+    setNewComment: (state, newComment) => {
+      return { ...state, newComment };
     },
   },
   selectors: (slice) => ({

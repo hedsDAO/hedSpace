@@ -5,8 +5,9 @@ import { eventModel } from "@/Store/models/eventModel";
 import { guestStatusModel } from "@/Store/models/guestStatusModel";
 
 export interface RootModel extends Models<RootModel> {
-  // commentsModel: typeof commentsModel;
-  // eventModel: typeof eventModel;
+  commentsModel: typeof commentsModel;
+  eventModel: typeof eventModel;
+  guestStatusModel: typeof guestStatusModel;
 }
 
 export const models: RootModel = {
@@ -15,7 +16,7 @@ export const models: RootModel = {
   guestStatusModel,
 };
 
-export const store = init({
+export const store = init<RootModel>({
   plugins: [selectPlugin()],
   models,
 });
