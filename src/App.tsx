@@ -1,20 +1,30 @@
-import { Fragment, useState } from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
 import LandingPage from "@/Pages/Landing";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Event from "@/Pages/Event";
 import { Box } from "@chakra-ui/react";
-import Spline from "@splinetool/react-spline";
+import { splineBgVideo1 } from "./Store/constants";
 
 const Layout = () => {
-  const splineUrl =
-    "https://draft.spline.design/j4oadUDBeyeihaPx/scene.splinecode";
-
   return (
     <Box>
-      <Box cursor="grab">
-        <Spline scene={splineUrl} />
+      <Box>
+        <video
+          autoPlay
+          muted
+          loop
+          style={{
+            position: "relative",
+            minWidth: "100vw",
+            minHeight: "100vh",
+            objectFit: "cover",
+            zIndex: -1,
+          }}
+        >
+          <source src={splineBgVideo1} type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
       </Box>
       <Navbar />
       <Outlet />

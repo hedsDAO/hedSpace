@@ -6,7 +6,6 @@ const LandingPage = () => {
   return (
     <Box
       position="fixed"
-      zIndex={100}
       top={{ base: "10%", lg: "20%" }}
       left={{ base: "10%", lg: "20%" }}
       right={{ base: "10%", lg: "20%" }}
@@ -15,7 +14,7 @@ const LandingPage = () => {
       p={4}
       mt={4}
       bg="rgba(0, 0, 0, 0.5)"
-      >
+    >
       <Stack direction={{ base: "column", lg: "row" }} alignItems="center">
         <Image
           src="https://www.heds.cloud/ipfs/QmUbdjz8R7xBD8j9nXA3SPE5JxFGfiJ2REzSysKvKoLYtc"
@@ -49,7 +48,7 @@ const LandingPage = () => {
             </Text>
           </Stack>
           <Stack
-            pt={{ base: 0, lg: 4}}
+            pt={{ base: 0, lg: 4 }}
             gap={0}
             alignItems={{ base: "center", lg: "flex-start" }}
           >
@@ -61,10 +60,7 @@ const LandingPage = () => {
                 {" "}
                 Where{" "}
               </Text>
-              <Text
-                textColor="#D9CCCE"
-                fontSize={{ base: "xs", lg: "medium" }}
-              >
+              <Text textColor="#D9CCCE" fontSize={{ base: "xs", lg: "medium" }}>
                 {" "}
                 7515 Melrose Ave, Los Angeles{" "}
               </Text>
