@@ -8,10 +8,33 @@ import {
   Text,
   Avatar,
   Button,
-  AvatarGroup,
 } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Event = () => {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    console.log("URL Search Params: ", Array.from(query.entries()));
+
+    const successMessage = query.get("success");
+    const canceledMessage = query.get("canceled");
+
+    if (successMessage) {
+      setMessage("Order placed! You will receive an email confirmation.");
+    }
+
+    if (canceledMessage) {
+      setMessage(
+        "Order canceled -- continue to shop around and checkout when you're ready."
+      );
+    }
+  }, []);
+
+  console.log("Message: ", message);
+
   return (
     <Box
       position="relative"
@@ -260,183 +283,26 @@ const Event = () => {
                   7515 Melrose Ave, Los Angeles CA 90040{" "}
                 </Text>
               </Flex>
-
-              <Flex direction="column">
-                <Text
-                  fontSize="2xl"
+              <form
+                action="https://stripe-v6adscuyxq-uc.a.run.app/create-checkout-session"
+                method="POST"
+              >
+                <Button
+                  w={{ base: "80%", lg: "40%" }}
+                  h={{ base: "42px", lg: "34px" }}
+                  mx={{ base: 0, lg: 4 }}
+                  my={{ base: 4, lg: 2 }}
+                  borderRadius="16px"
+                  bg="#D9CCCE"
+                  textColor="black"
                   fontFamily="space-grotesque"
-                  textColor="white"
+                  fontSize="md"
+                  type="submit"
                 >
                   {" "}
-                  ATTENDING{" "}
-                </Text>
-                <Flex
-                  bg="rgba(0, 0, 0, 0.5)"
-                  borderRadius="16px"
-                  alignItems="center"
-                  mt={2}
-                  px={4}
-                  py={2}
-                >
-                  <AvatarGroup max={2} spacing={2}>
-                    <Avatar
-                      boxSize="48px"
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Avatar
-                      boxSize="48px"
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
-                    />
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
-
-              <Flex direction="column">
-                <Text
-                  fontSize={{ base: "lg", lg: "2xl" }}
-                  fontFamily="space-grotesque"
-                  textColor="white"
-                >
-                  {" "}
-                  ATTENDING{" "}
-                </Text>
-                <Flex
-                  bg="rgba(0, 0, 0, 0.5)"
-                  borderRadius="16px"
-                  alignItems="center"
-                  mt={2}
-                  px={4}
-                  py={2}
-                >
-                  <AvatarGroup max={2} spacing={2}>
-                    <Avatar
-                      boxSize="48px"
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Avatar
-                      boxSize="48px"
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
-                    />
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
-              <Flex direction="column">
-                <Text
-                  fontSize="2xl"
-                  fontFamily="space-grotesque"
-                  textColor="white"
-                >
-                  {" "}
-                  ATTENDING{" "}
-                </Text>
-                <Flex
-                  bg="rgba(0, 0, 0, 0.5)"
-                  borderRadius="16px"
-                  alignItems="center"
-                  mt={2}
-                  px={4}
-                  py={2}
-                >
-                  <AvatarGroup max={2} spacing={2}>
-                    <Avatar
-                      boxSize="48px"
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Avatar
-                      boxSize="48px"
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
-                    />
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
-              <Flex direction="column">
-                <Text
-                  fontSize="2xl"
-                  fontFamily="space-grotesque"
-                  textColor="white"
-                >
-                  {" "}
-                  ATTENDING{" "}
-                </Text>
-                <Flex
-                  bg="rgba(0, 0, 0, 0.5)"
-                  borderRadius="16px"
-                  alignItems="center"
-                  mt={2}
-                  px={4}
-                  py={2}
-                >
-                  <AvatarGroup max={2} spacing={2}>
-                    <Avatar
-                      boxSize="48px"
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Avatar
-                      boxSize="48px"
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
-                    />
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
-              <Flex direction="column">
-                <Text
-                  fontSize="2xl"
-                  fontFamily="space-grotesque"
-                  textColor="white"
-                >
-                  {" "}
-                  ATTENDING{" "}
-                </Text>
-                <Flex
-                  bg="rgba(0, 0, 0, 0.5)"
-                  borderRadius="16px"
-                  alignItems="center"
-                  mt={2}
-                  px={4}
-                  py={2}
-                >
-                  <AvatarGroup max={2} spacing={2}>
-                    <Avatar
-                      boxSize="48px"
-                      name="Ryan Florence"
-                      src="https://bit.ly/ryan-florence"
-                    />
-                    <Avatar
-                      boxSize="48px"
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
-                    />
-                    <Avatar
-                      name="Kent Dodds"
-                      src="https://bit.ly/kent-c-dodds"
-                    />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
+                  Buy
+                </Button>
+              </form>
             </Stack>
           </Box>
         </GridItem>
