@@ -3,13 +3,14 @@ const LoginButton = () => {
   return (
     <Box mr={{ base: "0px", lg: "4px" }}>
       <Button
-        size={{ base: "sm", lg: "xl" }}
+        size={{ base: "xs", lg: "xl" }}
         fontSize={{ base: "xs", lg: "sm" }}
-        fontFamily="space-grotesque"
-        background="#1F1F1F"
+        fontFamily='"space-grotesk", sans-serif'
+        bg="white"
         px={4}
         py={1}
         letterSpacing="wider"
+        variant="outline"
       >
         LOGIN / SIGNUP
       </Button>

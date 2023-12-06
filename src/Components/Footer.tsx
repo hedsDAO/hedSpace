@@ -9,7 +9,7 @@ export const Footer = () => {
     <Flex
       direction="row"
       position="relative"
-      justifyContent={{base: "space-between" , lg: "flex-start"}}
+      justifyContent={{ base: "space-between", lg: "flex-start" }}
       alignItems="center"
       color="white"
       width="100%"
@@ -44,18 +44,18 @@ export const Footer = () => {
       </Flex>
       {/* Temp Below */}
       <Flex gap={2} alignItems={"baseline"}>
-          <Text
-          ml={{base: "0", lg: "8px"}}
-            letterSpacing={"wide"}
-            fontFamily={"space mono"}
-            opacity={"80%"}
-            fontWeight={100}
-            fontSize={"md"}
-            color="white"
-          >
-            heds
-          </Text>
-        </Flex>
+        <Text
+          ml={{ base: "0", lg: "8px" }}
+          letterSpacing={"wide"}
+          fontFamily={"space mono"}
+          opacity={"80%"}
+          fontWeight={100}
+          fontSize={"md"}
+          color="white"
+        >
+          heds
+        </Text>
+      </Flex>
       {/* <Flex
         justifyContent={"space-between"}
         fontFamily={"space mono"}

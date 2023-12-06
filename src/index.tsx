@@ -6,6 +6,16 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraBaseProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/Store";
+import "@fontsource/space-grotesk"; // Defaults to weight 400.
+import { extendTheme } from "@chakra-ui/react";
+
+const theme = extendTheme({
+  fonts: {
+    space: `"space-grotesk", sans-serif`,
+  },
+});
+
+export default theme;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +24,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ChakraBaseProvider>
+      <ChakraBaseProvider theme={theme}>
         <Provider store={store}>
           <App />
         </Provider>

@@ -27,8 +27,7 @@ const Layout = () => {
             minHeight: "100vh",
             objectFit: "cover",
           }}
-        >
-        </video>
+        ></video>
       </Box>
       <Navbar />
       <Box flex="1" display="flex" flexDirection="column">

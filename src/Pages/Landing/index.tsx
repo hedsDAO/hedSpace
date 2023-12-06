@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
-  Flex,
-  Image,
   Stack,
   Text,
   useBreakpointValue,
@@ -12,28 +10,7 @@ import {
 const LandingPage = () => {
   const naviagte = useNavigate();
   const maxHeight = useBreakpointValue({ base: "45vh", lg: "55vh" });
-  // const maxWidth = useBreakpointValue({ base: "80vw", lg: "20vw" });
   return (
-    // <Flex dir="column" justifyContent="center" alignItems="center" mt={{ base: "140px", lg: "120px"}} >
-    // <video
-    //   autoPlay
-    //   muted
-    //   loop
-    //   playsInline
-    //   typeof="video/quicktime"
-    //   src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FclubLIWAG-FLYER-3.5.mov?alt=media&token=7bc6a71b-c2c8-4556-8008-199249869d3c"
-    //   style={{
-    //     // top: "10%",
-    //     // left: "25%",
-    //     // right: "25%",
-    //     // bottom: "55%",
-    //     // position: "fixed",
-    //     maxHeight,
-    //     maxWidth,
-    //     // objectFit: "cover",
-    //   }}
-    // >
-    // </video>
     <Box
       position="fixed"
       maxWidth="900px"
@@ -55,21 +32,23 @@ const LandingPage = () => {
           typeof="video/quicktime"
           src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FclubLIWAG-FLYER-3.5.mov?alt=media&token=7bc6a71b-c2c8-4556-8008-199249869d3c"
           style={{ maxHeight }}
-          // boxSize={{ base: "212px", lg: "424px" }}
-          // borderRadius={16}
-          // margin="8px"
         />
         <Stack ml={{ base: 0, lg: 8 }}>
           <Stack
             gap={1}
-            maxWidth="300px"
+            maxWidth="320px"
             maxHeight={maxHeight}
             alignItems={{ base: "center", lg: "flex-start" }}
           >
-            <Stack flexDir="row" justifyContent="center" alignItems="baseline" gap={0}>
+            <Stack
+              flexDir="row"
+              justifyContent="center"
+              alignItems="baseline"
+              gap={0}
+            >
               <Text
                 fontSize={{ base: "xl", lg: "6xl" }}
-                fontFamily="space-grotesque"
+                fontFamily='"space-grotesk", sans-serif'
                 letterSpacing={3}
               >
                 {" "}
@@ -77,7 +56,7 @@ const LandingPage = () => {
               </Text>
               <Text
                 fontSize={{ base: "2xl", lg: "8xl" }}
-                fontFamily="space-grotesque"
+                fontFamily='"space-grotesk", sans-serif'
                 letterSpacing={3}
               >
                 {" "}
@@ -86,15 +65,15 @@ const LandingPage = () => {
             </Stack>
             <Text
               textColor="#D7CCD0"
-              fontFamily="space-grotesque"
-              fontSize={{ base: "small", lg: "large" }}
+              fontFamily= '"space-grotesk", sans-serif'
+              fontSize={{ base: "sm", lg: "large" }}
               minW={{ base: "100%", lg: "500px" }}
+              fontWeight="bold"
             >
               {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque in
-              at nisi voluptatum repellendus iure beatae a, illum hic tempore
-              consequatur consectetur corrupti ut? Dignissimos at repudiandae
-              maiores nulla ipsam.
+              ATTN: LOS ANGELES! Live and direct from the new @heds.app space on
+              December 20, we proudly announce an audiovisual show/experience by
+              @johnliwag x @clubaction
             </Text>
           </Stack>
           <Stack
@@ -105,7 +84,7 @@ const LandingPage = () => {
             <Stack direction="row" alignItems="center" justifyContent="start">
               <Text
                 fontSize={{ base: "lg", lg: "xl" }}
-                fontFamily="space-grotesque"
+                fontFamily='"space-grotesk", sans-serif'
               >
                 {" "}
                 Where{" "}
@@ -118,7 +97,7 @@ const LandingPage = () => {
             <Stack direction="row" alignItems="center" justifyContent="start">
               <Text
                 fontSize={{ base: "lg", lg: "xl" }}
-                fontFamily="space-grotesque"
+                fontFamily='"space-grotesk", sans-serif'
               >
                 {" "}
                 When{" "}
@@ -134,7 +113,7 @@ const LandingPage = () => {
             </Stack>
             <Button
               alignItems="center"
-              fontFamily="space-grotesque"
+              fontFamily='"space-grotesk", sans-serif'
               justifyContent="center"
               textColor="#000000"
               bgColor="#B099A0"
@@ -150,7 +129,6 @@ const LandingPage = () => {
         </Stack>
       </Stack>
     </Box>
-    // </Flex>
   );
 };
 
