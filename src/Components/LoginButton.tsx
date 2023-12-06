@@ -1,7 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 const LoginButton = () => {
   return (
-    <Box mr={{ base: "2px", lg: "4px" }}>
+    <Box mr={{ base: "52px", lg: "4px" }}>
       <Button
         size={{ base: "sm", lg: "md" }}
         fontSize={{ base: "xs", lg: "sm" }}

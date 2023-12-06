@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import LoginButton from "./LoginButton";
-import HedLogo from "../../public/heddot.png";
+import HedLogo from "../../public/heddot.webp";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Navbar = () => {
       left={0}
       color="white"
       width="100%"
-      zIndex={100}
+      // 
       p={4}
       bg="rgba(0, 0, 0, 0.5)"
     >

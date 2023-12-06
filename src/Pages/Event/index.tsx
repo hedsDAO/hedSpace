@@ -14,12 +14,14 @@ import {
 const Event = () => {
   return (
     <Box
-      position="fixed"
-      overflowY={{ base: "auto" }}
-      top={{ base: "12%", lg: "10%" }}
-      left={{ base: "2.5%", lg: "0" }}
-      right={{ base: "5%", lg: "0" }}
-      minW={{ base: "95%", lg: "95%" }}
+      position="relative"
+      overflowY={{ base: "hidden", lg: "hidden" }}
+      // top={{ base: "12%", lg: "10%" }}
+      // left={{ base: "2.5%", lg: "0" }}
+      // right={{ base: "5%", lg: "0" }}
+      // minW={{ base: "95%", lg: "95%" }}
+      mt={{ base: 52, lg: 28 }}
+      // height={{ base: "auto", lg: "auto" }}
     >
       <SimpleGrid columns={{ base: 1, lg: 2 }}>
         <GridItem
@@ -32,13 +34,13 @@ const Event = () => {
           <Image
             src="https://www.heds.cloud/ipfs/QmW9KRsc8LZNUAJG59ZHxqZcGPppSn1LzSC3qoZEJtPaoT"
             borderRadius="12px"
-            h={{ base: "400px", lg: "800px" }}
+            h={{ base: "400px", lg: "780px" }}
             w={{ base: "300px", lg: "600px" }}
-            zIndex={100}
+            // zIndex={100}
           />
         </GridItem>
         <GridItem colSpan={1} ml={{ base: 0, lg: 20 }}>
-          <Box maxHeight="90vh" overflowY={{ lg: "auto" }} maxW="100vw">
+          <Box maxHeight="80vh" overflowY={{ lg: "auto" }} maxW="100vw">
             <Stack mr={{ base: 0, lg: 20 }}>
               <Flex
                 direction="column"

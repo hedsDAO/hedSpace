@@ -4,6 +4,7 @@ import { Box, Button, Image, Stack, Text } from "@chakra-ui/react";
 const LandingPage = () => {
   const naviagte = useNavigate();
   return (
+    <>
     <Box
       position="fixed"
       top={{ base: "10%", lg: "20%" }}
@@ -100,6 +101,7 @@ const LandingPage = () => {
         </Stack>
       </Stack>
     </Box>
+    </>
   );
 };
 

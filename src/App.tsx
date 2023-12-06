@@ -3,31 +3,38 @@ import LandingPage from "@/Pages/Landing";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Event from "@/Pages/Event";
-import { Box } from "@chakra-ui/react";
+import { Box, Spacer } from "@chakra-ui/react";
 import { splineBgVideo1 } from "./Store/constants";
 
 const Layout = () => {
   return (
-    <Box>
-      <Box>
+    <Box
+      display="flex"
+      flexDirection="column"
+      position="relative"
+      minHeight="100vh"
+    >
+      <Box position="absolute" width="100%" height="100%" zIndex="-1">
         <video
           autoPlay
           muted
           loop
+          playsInline
+          typeof="video/mp4"
+          src={splineBgVideo1}
           style={{
-            position: "relative",
-            minWidth: "100vw",
+            position: "fixed",
             minHeight: "100vh",
             objectFit: "cover",
-            zIndex: -1,
           }}
         >
-          <source src={splineBgVideo1} type="video/webm" />
-          Your browser does not support the video tag.
         </video>
       </Box>
       <Navbar />
-      <Outlet />
+      <Box flex="1" display="flex" flexDirection="column">
+        <Outlet />
+      </Box>
+      <Spacer />
       <Footer />
     </Box>
   );
