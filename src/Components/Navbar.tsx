@@ -9,7 +9,7 @@ const Navbar = () => {
     <Stack
       direction="row"
       position="fixed"
-      justifyContent="space-between"
+      justifyContent={{ base:"space-between", lg:"space-between"}}
       alignItems="center"
       top={0}
       left={0}
@@ -25,12 +25,12 @@ const Navbar = () => {
             src={HedLogo}
             alt="heds logo"
             height="auto"
-            boxSize={{ base: "32px", md: "40px", lg: "52px" }}
+            boxSize={{ base: "20px", md: "40px", lg: "52px" }}
           />
         </Button>
         <Text
           cursor="default"
-          fontSize={{ base: "md", lg: "2xl" }}
+          fontSize={{ base: "xl", lg: "3xl" }}
           fontFamily="space-grotesque"
           textColor="#B9B9B9"
         >
@@ -38,7 +38,7 @@ const Navbar = () => {
         </Text>
         <Text
           cursor="default"
-          fontSize={{ base: "lg", lg: "3xl" }}
+          fontSize={{ base: "2xl", lg: "5xl" }}
           fontFamily="space-grotesque"
         >
           EVENTS

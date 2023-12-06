@@ -7,7 +7,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "deploy": "rm -r dist && vite build && cp dist/index.html dist/200.html && npx surge dist heds.space"
+    "deploy": "rm -r dist && vite build && cp dist/index.html dist/200.html && firebase deploy --only hosting:hed-space"
   },
   "keywords": [],
   "author": "",

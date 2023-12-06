@@ -9,8 +9,8 @@ export const Footer = () => {
     <Flex
       direction="row"
       position="relative"
-      justifyContent="space-between"
-      alignItems="space-between"
+      justifyContent={{base: "space-between" , lg: "flex-start"}}
+      alignItems="center"
       color="white"
       width="100%"
       bg="rgba(0, 0, 0, 0.5)"
@@ -29,7 +29,7 @@ export const Footer = () => {
           src={HedLogo}
           boxSize={{ base: "32px", md: "40px", lg: "36px" }}
         />
-        <Flex gap={2} alignItems={"baseline"}>
+        {/* <Flex gap={2} alignItems={"baseline"}>
           <Text
             letterSpacing={"wide"}
             fontFamily={"space mono"}
@@ -40,9 +40,23 @@ export const Footer = () => {
           >
             heds
           </Text>
-        </Flex>
+        </Flex> */}
       </Flex>
-      <Flex
+      {/* Temp Below */}
+      <Flex gap={2} alignItems={"baseline"}>
+          <Text
+          ml={{base: "0", lg: "8px"}}
+            letterSpacing={"wide"}
+            fontFamily={"space mono"}
+            opacity={"80%"}
+            fontWeight={100}
+            fontSize={"md"}
+            color="white"
+          >
+            heds
+          </Text>
+        </Flex>
+      {/* <Flex
         justifyContent={"space-between"}
         fontFamily={"space mono"}
         minW={{ base: "full", lg: "auto" }}
@@ -62,12 +76,12 @@ export const Footer = () => {
           >
             FAQ
           </Text>
-          {/* <Text letterSpacing={'widest'} opacity={'70%'} fontSize={'2xs'} color={'white'}>
+          <Text letterSpacing={'widest'} opacity={'70%'} fontSize={'2xs'} color={'white'}>
             PRIVACY
           </Text>
           <Text letterSpacing={'widest'} opacity={'70%'} fontSize={'2xs'} color={'white'}>
             TERMS
-          </Text> */}
+          </Text>
         </Flex>
         <Flex
           fontSize={{ base: "sm", lg: "md" }}
@@ -90,8 +104,8 @@ export const Footer = () => {
           >
             <i className="fa-brands fa-discord"></i>
           </a>
-        </Flex>
-      </Flex>
+        </Flex> */}
+      {/* </Flex> */}
     </Flex>
   );
 };

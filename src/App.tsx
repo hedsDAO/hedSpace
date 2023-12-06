@@ -45,7 +45,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<LandingPage />} />
-        <Route path="/event" element={<Event />} />
+        {/* <Route path="/event" element={<Event />} /> */}
       </Route>
     </Routes>
   );
