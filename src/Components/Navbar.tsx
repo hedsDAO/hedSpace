@@ -9,7 +9,7 @@ const Navbar = () => {
     <Stack
       direction="row"
       position="fixed"
-      justifyContent={{ base: "space-between", lg: "space-between" }}
+      justifyContent="center"
       alignItems="center"
       top={0}
       left={0}
@@ -48,7 +48,7 @@ const Navbar = () => {
           EVENTS
         </Text>
       </Flex>
-      <LoginButton />
+      {/* <LoginButton /> */}
     </Stack>
   );
 };

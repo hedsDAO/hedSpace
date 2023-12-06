@@ -6,11 +6,12 @@ const LoginButton = () => {
         size={{ base: "xs", lg: "xl" }}
         fontSize={{ base: "xs", lg: "sm" }}
         fontFamily='"space-grotesk", sans-serif'
-        bg="white"
+        textColor="#000000"
+        bgColor="#CECFCF"
         px={4}
         py={1}
         letterSpacing="wider"
-        variant="outline"
+        // variant="outline"
       >
         LOGIN / SIGNUP
       </Button>
