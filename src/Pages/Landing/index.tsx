@@ -1,59 +1,51 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Stack,
-  Text,
-  useBreakpointValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Stack, Text, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import RsvpModal from "../../Components/RsvpModal";
+import { Link } from "react-router-dom";
 
 const LandingPage = (props: any) => {
   const naviagte = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const maxHeight = useBreakpointValue({ base: "35vh", lg: "55vh" });
+  const maxHeight = useBreakpointValue({ base: "35vh", lg: "45vh" });
 
   return (
     <>
       <Box
         position="fixed"
-        maxWidth="900px"
+        maxWidth={{ base: "full", "2xl": "1200px" }}
+        minW={{ base: "100%", xl: "full", "2xl": "unset" }}
+        minH={{ base: "80%", lg: "unset" }}
         top={{ base: "10%", lg: "20%" }}
-        left={{ base: "10%", lg: "20%" }}
-        right={{ base: "10%", lg: "20%" }}
+        left={{ base: "0", lg: "20%" }}
+        right={{ base: "0", lg: "20%" }}
         color="white"
-        borderRadius={16}
+        borderRadius={{ base: 0, lg: 2 }}
         p={4}
-        mt={4}
-        bg="rgba(0, 0, 0, 0.5)"
+        mt={{ base: 2.5, lg: 4 }}
+        bg="rgba(0, 0, 0, 0.65)"
       >
-        <Stack direction={{ base: "column", lg: "row" }} alignItems="center">
+        <Stack mt={{ base: 2, lg: 0 }} gap={{ base: 7, lg: 0 }} direction={{ base: "column", lg: "row" }} alignItems="center">
           <video
             autoPlay
             muted
             loop
             playsInline
             typeof="video/quicktime"
-            src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FclubLIWAG-FLYER-3.5.mov?alt=media&token=7bc6a71b-c2c8-4556-8008-199249869d3c"
+            src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2F2652e281-abd8-46b7-bd8f-db19fd1f9719.mp4?alt=media&token=a18ae904-4699-420e-b989-081fc8989332"
             style={{ maxHeight }}
           />
-          <Stack ml={{ base: 0, lg: 8 }}>
+          <Stack gap={{ base: 1, lg: 0 }} ml={{ base: 0, lg: 8 }}>
             <Stack
-              gap={1}
+              gap={{ base: 2, lg: 1 }}
               maxWidth="320px"
               maxHeight={maxHeight}
               alignItems={{ base: "center", lg: "flex-start" }}
             >
-              <Stack
-                flexDir="row"
-                justifyContent="center"
-                alignItems="baseline"
-                gap={0}
-              >
+              <Stack flexDir="row" justifyContent="center" alignItems="baseline" gap={0}>
                 <Text
-                  fontSize={{ base: "xl", lg: "6xl" }}
+                  fontSize={{ base: "3xl", lg: "5xl" }}
+                  opacity={0.75}
                   fontFamily='"space-grotesk", sans-serif'
                   letterSpacing={3}
                 >
@@ -61,7 +53,8 @@ const LandingPage = (props: any) => {
                   club{" "}
                 </Text>
                 <Text
-                  fontSize={{ base: "2xl", lg: "8xl" }}
+                  fontSize={{ base: "4xl", lg: "7xl" }}
+                  opacity={0.9}
                   fontFamily='"space-grotesk", sans-serif'
                   letterSpacing={3}
                 >
@@ -70,51 +63,58 @@ const LandingPage = (props: any) => {
                 </Text>
               </Stack>
               <Text
-                textColor="#D7CCD0"
+                textColor=""
+                textAlign={{base: 'center', lg: 'left'}}
                 fontFamily='"space-grotesk", sans-serif'
-                fontSize={{ base: "sm", lg: "large" }}
-                minW={{ base: "100%", lg: "500px" }}
-                fontWeight="bold"
+                fontSize={{ base: "xs", lg: "large" }}
+                minW={{ base: "100%", lg: "520px" }}
+                px={{base: 2, lg: 0}}
               >
                 {" "}
-                ATTN: LOS ANGELES! Live and direct from the new @heds.app space
-                on December 20, we proudly announce an audiovisual
-                show/experience by @johnliwag x @clubaction
+                <Text mr={0.5} as="span" fontWeight={"bold"}>
+                  ATTN: LOS ANGELES
+                </Text>{" "}
+                <Text fontWeight='light' as="span" color="#D7CCD0">
+                  Live and direct from the new{" "}
+                  <Link target="_blank" rel="noopener noreferrer" to={"https://twitter.com/hedsDAO"}>
+                    <Text _hover={{ textDecoration: "underline" }} color="whiteAlpha.800" as="span" fontWeight={"semibold"}>
+                      @heds.app
+                    </Text>{" "}
+                  </Link>
+                  space on December 20, we proudly announce an audiovisual show/experience by{" "}
+                  <Link target="_blank" rel="noopener noreferrer" to={"https://twitter.com/JohnLiwag"}>
+                    <Text _hover={{ textDecoration: "underline" }} color="whiteAlpha.800" as="span" fontWeight={"semibold"}>
+                      @johnliwag
+                    </Text>{" "}
+                  </Link>
+                  x{" "}
+                  <Link target="_blank" rel="noopener noreferrer" to={"https://twitter.com/clubacti0n"}>
+                    <Text _hover={{ textDecoration: "underline" }} color="whiteAlpha.800" as="span" fontWeight={"semibold"}>
+                      @clubaction
+                    </Text>
+                  </Link>
+                </Text>
               </Text>
             </Stack>
-            <Stack
-              pt={{ base: 0, lg: 4 }}
-              gap={0}
-              alignItems={{ base: "center", lg: "flex-start" }}
-            >
+            <Stack pb={1} pt={{ base: 1.5, lg: 4 }} gap={{ base: 1, lg: 0 }} alignItems={{ base: "center", lg: "flex-start" }}>
               <Stack direction="row" alignItems="center" justifyContent="start">
-                <Text
-                  fontSize={{ base: "lg", lg: "xl" }}
-                  fontFamily='"space-grotesk", sans-serif'
-                >
+                <Text fontSize={{ base: "md", lg: "lg" }} fontWeight={"semibold"} fontFamily='"space-grotesk", sans-serif'>
                   {" "}
-                  Where{" "}
+                  WHERE{" "}
                 </Text>
-                <Text
-                  fontFamily='"space-grotesk", sans-serif'
-                  textColor="#D9CCCE"
-                  fontSize={{ base: "xs", lg: "medium" }}
-                >
+                <Text fontFamily='"space-grotesk", sans-serif' textColor="whiteAlpha.800" fontSize={{ base: "xs", lg: "medium" }}>
                   {" "}
                   7515 Melrose Ave, Los Angeles{" "}
                 </Text>
               </Stack>
               <Stack direction="row" alignItems="center" justifyContent="start">
-                <Text
-                  fontSize={{ base: "lg", lg: "xl" }}
-                  fontFamily='"space-grotesk", sans-serif'
-                >
+                <Text fontSize={{ base: "md", lg: "lg" }} fontWeight={"semibold"} fontFamily='"space-grotesk", sans-serif'>
                   {" "}
-                  When{" "}
+                  WHEN{" "}
                 </Text>
                 <Text
                   ml={1}
-                  textColor="#D9CCCE"
+                  textColor="whiteAlpha.800"
                   fontSize={{ base: "xs", lg: "medium" }}
                   fontFamily='"space-grotesk", sans-serif'
                 >
@@ -123,15 +123,16 @@ const LandingPage = (props: any) => {
                 </Text>
               </Stack>
               <Button
+                _hover={{ color: 'black', bg: 'white' }}
                 alignItems="center"
                 fontFamily='"space-grotesk", sans-serif'
                 justifyContent="center"
-                textColor="#000000"
-                bgColor="#CECFCF"
-                borderRadius={12}
-                height="28px"
+                textColor="blackAlpha.800"
+                bgColor="whiteAlpha.900"
+                borderRadius={"sm"}
+                height="32px"
                 width="96px"
-                marginTop={{ base: "8px", lg: "30px" }}
+                marginTop={{ base: "12px", lg: "30px" }}
                 onClick={onOpen}
               >
                 RSVP

@@ -9,27 +9,43 @@ export const Footer = () => {
     <Flex
       direction="row"
       position="relative"
-      justifyContent={{ base: "space-between", lg: "flex-start" }}
+      justifyContent={{ base: "space-between", lg: "space-between" }}
       alignItems="center"
       color="white"
       width="100%"
-      bg="rgba(0, 0, 0, 0.5)"
-      py={3}
-      px={4}
+      bg="rgba(0, 0, 0, 0.65)"
+      py={{ base: 1.5, lg: 2 }}
+      px={3}
     >
-      <Flex
-        display={{ base: "flex", lg: "flex" }}
-        ml={-1}
-        gap={{ base: 2, lg: 4 }}
-        alignItems={"center"}
-      >
+      {/* Temp Below */}
+      <Flex gap={2} alignItems={"baseline"}>
+        <Text
+          ml={{ base: "0", lg: "8px" }}
+          letterSpacing={"wide"}
+          fontFamily={"space mono"}
+          opacity={"60%"}
+          fontWeight={100}
+          fontSize={{ base: "xs", lg: "xs" }}
+          color="white"
+        >
+          heds / 2023
+        </Text>
+      </Flex>
+      <Flex>
+        <Text fontSize='xs' opacity={'0.5'}>
+          7515 Melrose Ave
+        </Text>
+      </Flex>
+      {/* <Flex display={{ base: "flex", lg: "flex" }} ml={-1} gap={{ base: 2, lg: 4 }} alignItems={"center"}>
         <Avatar
           borderRadius={"none"}
           size="xs"
           src={HedLogo}
-          boxSize={{ base: "32px", md: "40px", lg: "36px" }}
-        />
-        {/* <Flex gap={2} alignItems={"baseline"}>
+          aspectRatio={1}
+          maxH={{ base: "20px", md: "25px", lg: "25px" }}
+          minH={{ base: "20px", md: "25px", lg: "25px" }}
+        /> */}
+      {/* <Flex gap={2} alignItems={"baseline"}>
           <Text
             letterSpacing={"wide"}
             fontFamily={"space mono"}
@@ -41,21 +57,7 @@ export const Footer = () => {
             heds
           </Text>
         </Flex> */}
-      </Flex>
-      {/* Temp Below */}
-      <Flex gap={2} alignItems={"baseline"}>
-        <Text
-          ml={{ base: "0", lg: "8px" }}
-          letterSpacing={"wide"}
-          fontFamily={"space mono"}
-          opacity={"80%"}
-          fontWeight={100}
-          fontSize={"md"}
-          color="white"
-        >
-          heds
-        </Text>
-      </Flex>
+      {/* </Flex> */}
       {/* <Flex
         justifyContent={"space-between"}
         fontFamily={"space mono"}

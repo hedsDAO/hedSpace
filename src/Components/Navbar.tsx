@@ -16,37 +16,26 @@ const Navbar = () => {
       color="white"
       width="100%"
       //
-      p={4}
-      bg="rgba(0, 0, 0, 0.5)"
+      py={3}
+      bg="rgba(0, 0, 0, 0.6)"
     >
-      <Flex alignItems="center" ml={{ base: "0" }} gap={0}>
-        <Button
-          type="button"
-          onClick={() => navigate("/")}
-          variant="transparent"
-        >
-          <Image
-            src={HedLogo}
-            alt="heds logo"
-            height="auto"
-            boxSize={{ base: "40px", md: "40px", lg: "52px" }}
-          />
+      <Flex minW="full" justifyContent={"space-between"} alignItems="center" ml={{ base: "0" }} gap={2}>
+        <Button type="button" onClick={() => navigate("/")} variant="transparent">
+          <Image src={HedLogo} alt="heds logo" height="auto" boxSize={{ base: "30px", md: "30px", lg: "40px" }} />
         </Button>
-        <Text
-          cursor="default"
-          fontSize={{ base: "xl", lg: "3xl" }}
-          fontFamily='"space-grotesk", sans-serif'
-          textColor="#B9B9B9"
-        >
-          heds
-        </Text>
-        <Text
-          cursor="default"
-          fontSize={{ base: "2xl", lg: "5xl" }}
-          fontFamily='"space-grotesk", sans-serif'
-        >
-          EVENTS
-        </Text>
+        <Flex pr={{base:5, lg: 4}} alignItems={"baseline"}>
+          <Text
+            cursor="default"
+            fontSize={{ base: "lg", lg: "2xl" }}
+            fontFamily='"space-grotesk", sans-serif'
+            textColor="#B9B9B9"
+          >
+            heds
+          </Text>
+          <Text cursor="default" ml={1} fontSize={{ base: "xl", lg: "3xl" }} fontFamily='"space-grotesk", sans-serif'>
+            EVENTS
+          </Text>
+        </Flex>
       </Flex>
       {/* <LoginButton /> */}
     </Stack>
