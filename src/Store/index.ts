@@ -1,4 +1,6 @@
 import { init, Models, RematchDispatch, RematchRootState } from "@rematch/core";
+import persistPlugin from "@rematch/persist";
+import storage from "redux-persist/lib/storage";
 import selectPlugin from "@rematch/select";
 import { commentsModel } from "@/Store/models/commentsModel";
 import { eventModel } from "@/Store/models/eventModel";
@@ -19,8 +21,22 @@ export const models: RootModel = {
   userModel,
 };
 
+/** Local Storage Persist for Audio Model */
+const persistConfig = {
+  key: "root",
+  storage,
+  version: 2,
+  whitelist: ["userModel"],
+  // transforms: [],
+};
+
 export const store = init<RootModel>({
-  plugins: [selectPlugin()],
+  redux: {
+    devtoolOptions: {
+      disabled: true,
+    },
+  },
+  plugins: [selectPlugin(), persistPlugin(persistConfig)],
   models,
 });
 

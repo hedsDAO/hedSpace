@@ -22,10 +22,11 @@ export const userModel = createModel<RootModel>()({
   reducers: {
     setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state, error: string) => ({ ...state, error }),
+    setIsLoggedIn: (state, isLoggedIn: boolean) => ({ ...state, isLoggedIn }),
     setDidSendSMS: (state, didSendSMS: boolean) => ({
-        ...state,
-        didSendSMS,
-        }),
+      ...state,
+      didSendSMS,
+    }),
     setUser: (state, user) => {
       return { ...state, user };
     },
@@ -41,8 +42,7 @@ export const userModel = createModel<RootModel>()({
     async loginUser(to: string) {
       this.setIsLoading(true);
       try {
-        const response = await getSMSCode(to);
-        console.log(response)
+        await getSMSCode(to);
         this.setDidSendSMS(true);
         // this.setUser(response.data);
       } catch (error: any) {
@@ -61,11 +61,12 @@ export const userModel = createModel<RootModel>()({
       name: string;
     }) {
       this.setIsLoading(true);
+      this.setError(null);
       try {
         const response = await verifySMSCode(to, code, name);
         this.setUser(response.data);
         this.setDidSendSMS(false);
-        this.isLoggedIn(true);
+        this.setIsLoggedIn(true);
       } catch (error: any) {
         this.setError(error.message || "Failed to verify user");
       } finally {

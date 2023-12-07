@@ -34,7 +34,7 @@ const Layout = () => {
         <Outlet />
       </Box>
       <Spacer />
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };

@@ -4,7 +4,6 @@
     "site": "hed-space",
     "ignore": [
       "firebase.json",
-      "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [

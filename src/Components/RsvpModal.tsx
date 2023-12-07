@@ -37,6 +37,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
   const didSendSMS = useSelector(
     (state: RootState) => state.userModel.didSendSMS
   );
+  const isError = useSelector((state: RootState) => state.userModel.error);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFullName(event.target.value);
@@ -102,10 +103,20 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
     setIsCodeValid(codeRegex.test(event.target.value));
   };
 
+  const handleBackToNameScreen = () => {
+    disptach.userModel.setDidSendSMS(false);
+  };
   const handleVerifyCode = () => {
     // Check if the code is valid before proceeding
     if (!isCodeValid) {
       alert("Please enter a valid code.");
+      return;
+    }
+
+    if (isError) {
+      setVerificationCode("");
+      alert("You entered the wrong code. Please try again.");
+      disptach.userModel.setDidSendSMS(false);
       return;
     }
     disptach.userModel.verifyUser({
@@ -113,6 +124,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
       code: verificationCode,
       name: fullName,
     });
+    onClose();
   };
 
   return (
@@ -123,8 +135,8 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
       isCentered
     >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+      <ModalContent bg="#C6C7C7">
+        <ModalHeader textColor="black">Sign In or Sign Up</ModalHeader>
         <ModalCloseButton />
         {!isLoggedin && !didSendSMS && (
           <>
@@ -142,7 +154,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 <InputLeftAddon children="(US)+1 " />
                 <Input
                   type="tel"
-                  placeholder="222-222-222"
+                  placeholder="222-222-2222"
                   value={phoneNumber}
                   onChange={handleChange}
                 />
@@ -157,7 +169,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 py={1}
                 cursor="pointer"
               >
-                <Text color="gray.700">
+                <Text color="black">
                   By clicking RSVP I Agree to the{" "}
                   <a
                     href="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service.pdf?alt=media&token=48183469-816f-4143-af75-ee3f38ce3842"
@@ -173,7 +185,9 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
               alignItems="space-between"
               justifyContent="space-between"
             >
-              <Button onClick={onClose}>Close</Button>
+              <Button bg="white" textColor="black" onClick={onClose}>
+                Close
+              </Button>
               <Button onClick={handleRSVP}>RSVP</Button>
             </ModalFooter>
           </>
@@ -187,8 +201,8 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 placeholder="Verification Code"
                 value={verificationCode}
                 onChange={handleVerificationCodeChange}
-                isInvalid={!isCodeValid}
-                errorBorderColor="red.300"
+                isInvalid={!!isError || !isCodeValid}
+                errorBorderColor="crimson"
                 mb={4}
               />
             </ModalBody>
@@ -196,23 +210,8 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
               alignItems="space-between"
               justifyContent="space-between"
             >
-              <Button onClick={onClose}>Close</Button>
-              <Button onClick={handleRSVP}>RSVP</Button>
-            </ModalFooter>
-          </>
-        )}
-
-        {isLoggedin && (
-          <>
-            <ModalBody>
-              <Text>Thank you for RSVPing!</Text>
-            </ModalBody>
-            <ModalFooter
-              alignItems="space-between"
-              justifyContent="space-between"
-            >
-              <Button onClick={onClose}>Close</Button>
-              <Button onClick={handleRSVP}>RSVP</Button>
+              <Button onClick={handleBackToNameScreen}>Back</Button>
+              <Button onClick={handleVerifyCode}>Submit</Button>
             </ModalFooter>
           </>
         )}
