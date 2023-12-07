@@ -1,6 +1,5 @@
 import { Avatar, Flex, Text, Icon } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-//@ts-ignore
 import HedLogo from "../../public/heddot.webp";
 
 export const Footer = () => {

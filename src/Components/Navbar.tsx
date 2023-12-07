@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import LoginButton from "./LoginButton";
-//@ts-ignore
 import HedLogo from "../../public/heddot.webp";
 
 const Navbar = () => {
