@@ -51,7 +51,7 @@ const LandingPage = (props: any) => {
             playsInline
             typeof="video/quicktime"
             src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2F2652e281-abd8-46b7-bd8f-db19fd1f9719.mp4?alt=media&token=a18ae904-4699-420e-b989-081fc8989332"
-            style={{ maxHeight, borderRadius: "3px" }}
+            style={{ maxHeight, borderRadius: "4px" }}
           />
           <Stack gap={{ base: 1, lg: 0 }} ml={{ base: 0, lg: 8 }}>
             <Stack
