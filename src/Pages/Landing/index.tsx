@@ -198,33 +198,6 @@ const LandingPage = (props: any) => {
                   Dec 20th 2023, 7:00PM PST{" "}
                 </Text>
               </Stack>
-              {!isLoggedin ? (
-                <Button
-                  _hover={{ color: "black", bg: "white" }}
-                  alignItems="center"
-                  fontFamily='"space-grotesk", sans-serif'
-                  justifyContent="center"
-                  textColor="blackAlpha.800"
-                  bgColor="whiteAlpha.900"
-                  borderRadius={"sm"}
-                  height="32px"
-                  width="96px"
-                  marginTop={{ base: "12px", lg: "30px" }}
-                  onClick={onOpen}
-                >
-                  RSVP
-                </Button>
-              ) : (
-                <Text
-                  mt={{ base: "12px", lg: "30px" }}
-                  fontFamily='"space-grotesk", sans-serif'
-                  fontSize={{ base: "lg", lg: "2xl" }}
-                  fontWeight={"semibold"}
-                  color="#dbffd6"
-                >
-                  RSVP confirmed for {user.display_name}
-                </Text>
-              )}
             </Stack>
           </Stack>
         </Stack>

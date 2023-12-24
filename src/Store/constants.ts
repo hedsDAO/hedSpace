@@ -10,3 +10,5 @@ export const AUTH_API_URL =
 
 export const splineBgVideo1 =
   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/spline%2Fcloner.mp4?alt=media&token=c737f0ae-a22a-4e56-8879-2b40d1e3ab30";
+
+export const DAY_IN_MILLISECONDS = 86400000;

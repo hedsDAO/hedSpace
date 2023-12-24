@@ -50,10 +50,10 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
     }
 
     // Check if the full name is valid before proceeding
-    if (!isFullNameValid) {
-      alert("Please no special characters.");
-      return;
-    }
+    // if (!isFullNameValid) {
+    //   alert("Please no special characters.");
+    //   return;
+    // }
 
     // Check if the phone number is valid before proceeding
     if (phoneNumber.length !== 12) {

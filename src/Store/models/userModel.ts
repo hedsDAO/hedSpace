@@ -3,12 +3,13 @@ import { getSMSCode, verifySMSCode } from "@/Api/user";
 import type { RootModel } from "@/Store/index";
 import { Event } from "../types";
 
-interface UserState {
+export interface UserState {
   error: string | null;
   isLoading: boolean;
   isLoggedIn: boolean;
   didSendSMS: boolean;
   user?: any;
+  _persistedAt?: number;
 }
 
 export const userModel = createModel<RootModel>()({
