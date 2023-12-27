@@ -11,6 +11,7 @@ import RsvpModal from "../../Components/RsvpModal";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store";
+import { FLYER_PROMO_IMAGE } from "@/Store/constants";
 
 const LandingPage = (props: any) => {
   const naviagte = useNavigate();
@@ -50,7 +51,7 @@ const LandingPage = (props: any) => {
             loop
             playsInline
             typeof="video/quicktime"
-            src="https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2F2652e281-abd8-46b7-bd8f-db19fd1f9719.mp4?alt=media&token=a18ae904-4699-420e-b989-081fc8989332"
+            src={FLYER_PROMO_IMAGE}
             style={{ maxHeight, borderRadius: "4px" }}
           />
           <Stack gap={{ base: 1, lg: 0 }} ml={{ base: 0, lg: 8 }}>
@@ -73,7 +74,7 @@ const LandingPage = (props: any) => {
                   letterSpacing="-0.08em"
                 >
                   {" "}
-                  club{" "}
+                  NYE @ the{" "}
                 </Text>
                 <Text
                   fontSize={{ base: "5xl", lg: "7xl" }}
@@ -82,14 +83,14 @@ const LandingPage = (props: any) => {
                   letterSpacing="-0.08em"
                 >
                   {" "}
-                  LIWAG{" "}
+                  hedSTORE{" "}
                 </Text>
               </Stack>
               <Text
                 textColor=""
                 textAlign={{ base: "center", lg: "left" }}
                 fontFamily='"space-grotesk", sans-serif'
-                fontSize={{ base: "xs", lg: "large" }}
+                fontSize={{ base: "s", lg: "large" }}
                 minW={{ base: "100%", lg: "520px" }}
                 px={{ base: 2, lg: 0 }}
               >
@@ -97,8 +98,7 @@ const LandingPage = (props: any) => {
                 <Text mr={0.5} as="span" fontWeight={"bold"}>
                   ATTN: LOS ANGELES
                 </Text>{" "}
-                <Text fontWeight="light" as="span" color="#D7CCD0">
-                  Live and direct from the new{" "}
+                <Text fontWeight="light" color="#D7CCD0">
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
@@ -113,8 +113,54 @@ const LandingPage = (props: any) => {
                       @heds.app
                     </Text>{" "}
                   </Link>
-                  space on December 20, we proudly announce an audiovisual
-                  show/experience by{" "}
+                  featuring VOID Acoustics & DJ sets from{" "}
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    to={"https://twitter.com/madimakesmusica"}
+                  >
+                    <Text
+                      _hover={{ textDecoration: "underline" }}
+                      color="whiteAlpha.800"
+                      as="span"
+                      fontWeight={"semibold"}
+                    >
+                      @madimakesmusica
+                    </Text>{" "}
+                  </Link>
+                  x{" "}
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    to={"https://twitter.com/DeffieDeff"}
+                  >
+                    <Text
+                      _hover={{ textDecoration: "underline" }}
+                      color="whiteAlpha.800"
+                      as="span"
+                      fontWeight={"semibold"}
+                      mr="8px"
+                    >
+                      @deffiedeff
+                    </Text>
+                  </Link>
+                  x{" "}
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    to={"https://twitter.com/sober_rob"}
+                  >
+                    <Text
+                      _hover={{ textDecoration: "underline" }}
+                      color="whiteAlpha.800"
+                      as="span"
+                      fontWeight={"semibold"}
+                      mr="8px"
+                    >
+                      @soberrob
+                    </Text>
+                  </Link>
+                  x{" "}
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
@@ -125,25 +171,12 @@ const LandingPage = (props: any) => {
                       color="whiteAlpha.800"
                       as="span"
                       fontWeight={"semibold"}
+                      mr="8px"
                     >
-                      @johnliwag
-                    </Text>{" "}
-                  </Link>
-                  x{" "}
-                  <Link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    to={"https://twitter.com/clubacti0n"}
-                  >
-                    <Text
-                      _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
-                      as="span"
-                      fontWeight={"semibold"}
-                    >
-                      @clubaction
+                      @JOHN LIWAG
                     </Text>
                   </Link>
+                  & more.{" "}
                 </Text>
               </Text>
             </Stack>
@@ -195,9 +228,36 @@ const LandingPage = (props: any) => {
                   fontFamily='"space-grotesk", sans-serif'
                 >
                   {" "}
-                  Dec 20th 2023, 7:00PM PST{" "}
+                  Dec 31st 2023, 7:00PM PST{" "}
                 </Text>
               </Stack>
+              {!isLoggedin ? (
+                <Button
+                  _hover={{ color: "black", bg: "white" }}
+                  alignItems="center"
+                  fontFamily='"space-grotesk", sans-serif'
+                  justifyContent="center"
+                  textColor="blackAlpha.800"
+                  bgColor="whiteAlpha.900"
+                  borderRadius={"sm"}
+                  height="32px"
+                  width="96px"
+                  marginTop={{ base: "12px", lg: "30px" }}
+                  onClick={onOpen}
+                >
+                  RSVP
+                </Button>
+              ) : (
+                <Text
+                  mt={{ base: "12px", lg: "30px" }}
+                  fontFamily='"space-grotesk", sans-serif'
+                  fontSize={{ base: "lg", lg: "2xl" }}
+                  fontWeight={"semibold"}
+                  color="#dbffd6"
+                >
+                  RSVP confirmed for {user.display_name}
+                </Text>
+              )}
             </Stack>
           </Stack>
         </Stack>
