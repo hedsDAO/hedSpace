@@ -13,4 +13,7 @@ export const splineBgVideo1 =
 export const FLYER_PROMO_IMAGE =
   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FNYE_PROMO.mp4?alt=media&token=34c52b1a-1593-4454-a87f-11d47257453d";
 
+export const TERMS_AND_CONDITIONS =
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service.pdf?alt=media&token=48183469-816f-4143-af75-ee3f38ce3842";
+
 export const DAY_IN_MILLISECONDS = 86400000;

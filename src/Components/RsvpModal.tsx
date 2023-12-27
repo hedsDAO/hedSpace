@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "@/Store";
 import { Link } from "react-router-dom";
+import { TERMS_AND_CONDITIONS } from "@/Store/constants";
 
 interface RsvpModalProps {
   isOpen: boolean;
@@ -165,9 +166,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 <Text fontSize="xs" color="whiteAlpha.800">
                   By clicking RSVP I agree to the{" "}
                   <Link
-                    to={
-                      "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service.pdf?alt=media&token=48183469-816f-4143-af75-ee3f38ce3842"
-                    }
+                    to={TERMS_AND_CONDITIONS}
                     target="_blank"
                   >
                     <Text as="span" color="blue.300">
