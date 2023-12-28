@@ -33,8 +33,16 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
   const [verificationCode, setVerificationCode] = useState("");
   const [isCodeValid, setIsCodeValid] = useState(true);
   const disptach = useDispatch<Dispatch>();
-  const isLoggedin = useSelector((state: RootState) => state.userModel.isLoggedIn);
-  const didSendSMS = useSelector((state: RootState) => state.userModel.didSendSMS);
+  const user = useSelector((state: RootState) => state.userModel.user);
+  const isLoggedin = useSelector(
+    (state: RootState) => state.userModel.isLoggedIn
+  );
+  const hasDisplayName = useSelector(
+    (state: RootState) => state.userModel.hasDisplayName
+  );
+  const didSendSMS = useSelector(
+    (state: RootState) => state.userModel.didSendSMS
+  );
   const isError = useSelector((state: RootState) => state.userModel.error);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +53,10 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
   };
 
   const handleRSVP = () => {
-    if (fullName.trim().split(/\s+/).length < 2) {
-      alert("Please enter your first and last name.");
-      return;
-    }
+    // if (fullName.trim().split(/\s+/).length < 2) {
+    //   alert("Please enter your first and last name.");
+    //   return;
+    // }
 
     // Check if the full name is valid before proceeding
     // if (!isFullNameValid) {
@@ -73,7 +81,10 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
     if (phoneNumberLength < 7) {
       return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
     }
-    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(
+      3,
+      6
+    )}-${phoneNumber.slice(6, 10)}`;
   };
 
   const preparePhoneNumberForSubmission = (value: string) => {
@@ -88,7 +99,9 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
     setPhoneNumber(formattedPhoneNumber);
   };
 
-  const handleVerificationCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVerificationCodeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setVerificationCode(event.target.value);
 
     // This will check if the code is 6 digits
@@ -116,12 +129,35 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
       to: preparePhoneNumberForSubmission(phoneNumber),
       code: verificationCode,
       name: fullName,
+      close: onClose,
     });
+  };
+
+  const handleAddDisplayName = () => {
+    if (!fullName) {
+      alert("Please enter your first and last name.");
+      return;
+    }
+
+    // Check if the full name is valid before proceeding
+    if (!isFullNameValid) {
+      alert("Please enter your first and last name.");
+      return;
+    }
+
+    disptach.userModel.addDisplayName({userId: user.id, displayName: fullName});
     onClose();
   };
 
+
   return (
-    <Modal size="lg" onClose={onClose} isOpen={isOpen} closeOnOverlayClick={false} isCentered>
+    <Modal
+      size="lg"
+      onClose={onClose}
+      isOpen={isOpen}
+      closeOnOverlayClick={false}
+      isCentered
+    >
       <ModalOverlay bg="whiteAlpha.600" />
       <ModalContent mx={2} rounded="4px" gap={3} py={1} as={Stack} bg="black">
         <ModalHeader textColor="whiteAlpha.800">Sign In or Sign Up</ModalHeader>
@@ -129,19 +165,13 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
         {!isLoggedin && !didSendSMS && (
           <>
             <ModalBody>
-              <Input
-                color="white"
-                _placeholder={{ color: "whiteAlpha.600" }}
-                variant="flushed"
-                placeholder="Full Name"
-                value={fullName}
-                onChange={handleNameChange}
-                isInvalid={!isFullNameValid}
-                errorBorderColor="red.300"
-                mb={4}
-              />
               <InputGroup mt={6} bg="black">
-                <InputLeftAddon fontWeight={"semibold"} fontSize={"xs"} rounded="4px" children="(US) +1" />
+                <InputLeftAddon
+                  fontWeight={"semibold"}
+                  fontSize={"xs"}
+                  rounded="4px"
+                  children="(US) +1"
+                />
                 <Input
                   _placeholder={{ color: "whiteAlpha.700" }}
                   fontSize={"sm"}
@@ -165,10 +195,7 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
               >
                 <Text fontSize="xs" color="whiteAlpha.800">
                   By clicking RSVP I agree to the{" "}
-                  <Link
-                    to={TERMS_AND_CONDITIONS}
-                    target="_blank"
-                  >
+                  <Link to={TERMS_AND_CONDITIONS} target="_blank">
                     <Text as="span" color="blue.300">
                       Terms and Conditions
                     </Text>
@@ -176,8 +203,17 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 </Text>
               </chakra.label>
             </ModalBody>
-            <ModalFooter alignItems="space-between" justifyContent="space-between">
-              <Button size="sm" rounded="4px" bg="whiteAlpha.300" textColor="whiteAlpha.900" onClick={onClose}>
+            <ModalFooter
+              alignItems="space-between"
+              justifyContent="space-between"
+            >
+              <Button
+                size="sm"
+                rounded="4px"
+                bg="whiteAlpha.300"
+                textColor="whiteAlpha.900"
+                onClick={onClose}
+              >
                 Back
               </Button>
               <Button size="sm" rounded="4px" onClick={handleRSVP}>
@@ -201,11 +237,42 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                 mb={4}
               />
             </ModalBody>
-            <ModalFooter alignItems="space-between" justifyContent="space-between">
+            <ModalFooter
+              alignItems="space-between"
+              justifyContent="space-between"
+            >
               <Button size="sm" rounded="4px" onClick={handleBackToNameScreen}>
                 Back
               </Button>
               <Button size="sm" rounded="4px" onClick={handleVerifyCode}>
+                Submit
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+        {isLoggedin && !hasDisplayName && (
+          <>
+            <ModalBody>
+              <Input
+                color="white"
+                _placeholder={{ color: "whiteAlpha.600" }}
+                variant="flushed"
+                placeholder="Full Name"
+                value={fullName}
+                onChange={handleNameChange}
+                isInvalid={!isFullNameValid}
+                errorBorderColor="red.300"
+                mb={4}
+              />
+            </ModalBody>
+            <ModalFooter
+              alignItems="space-between"
+              justifyContent="space-between"
+            >
+              <Button size="sm" rounded="4px" onClick={onClose}>
+                Back
+              </Button>
+              <Button size="sm" rounded="4px" onClick={handleAddDisplayName}>
                 Submit
               </Button>
             </ModalFooter>

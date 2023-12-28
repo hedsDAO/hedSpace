@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
+  Spinner,
   Stack,
   Text,
   useBreakpointValue,
@@ -27,7 +28,7 @@ const LandingPage = (props: any) => {
     <>
       <Box
         position="fixed"
-        maxWidth={{ base: "full", "2xl": "1200px" }}
+        maxWidth={{ base: "full", "2xl": "900px" }}
         minW={{ base: "100%", xl: "full", "2xl": "unset" }}
         minH={{ base: "80%", lg: "unset" }}
         top={{ base: "10%", lg: "20%" }}
@@ -41,7 +42,7 @@ const LandingPage = (props: any) => {
       >
         <Stack
           mt={{ base: 2, lg: 0 }}
-          gap={{ base: 7, lg: 0 }}
+          gap={{ base: 7, lg: 2 }}
           direction={{ base: "column", lg: "row" }}
           alignItems="center"
         >
@@ -57,33 +58,30 @@ const LandingPage = (props: any) => {
           <Stack gap={{ base: 1, lg: 0 }} ml={{ base: 0, lg: 8 }}>
             <Stack
               gap={{ base: 2, lg: 1 }}
-              maxWidth="320px"
+              maxWidth="350px"
               maxHeight={maxHeight}
               alignItems={{ base: "center", lg: "flex-start" }}
             >
-              <Stack
-                flexDir="row"
-                justifyContent="center"
-                alignItems="baseline"
-                gap={0}
-              >
+              <Stack gap={0}>
                 <Text
-                  fontSize={{ base: "4xl", lg: "5xl" }}
-                  opacity={0.75}
-                  fontFamily='"space-grotesk", sans-serif'
-                  letterSpacing="-0.08em"
+                  fontSize={{ base: "xl", lg: "3xl" }}
+                  opacity={0.9}
+                  fontWeight={"bold"}
+                  textAlign={{ base: "center", lg: "left" }}
+                  fontFamily={"sans-serif"}
+                  // fontFamily='"space-mono", sans-serif'
                 >
-                  {" "}
-                  NYE @ the{" "}
+                  NEW YEARS EVE 2024
                 </Text>
                 <Text
-                  fontSize={{ base: "5xl", lg: "7xl" }}
-                  opacity={0.9}
+                  fontSize={{ base: "lg", lg: "2xl" }}
+                  opacity={0.75}
+                  mt={-1}
+                  textAlign={{ base: "center", lg: "left" }}
                   fontFamily='"space-grotesk", sans-serif'
-                  letterSpacing="-0.08em"
+                  fontStyle={"italic"}
                 >
-                  {" "}
-                  hedSTORE{" "}
+                  @ the hedSTORE
                 </Text>
               </Stack>
               <Text
@@ -95,8 +93,17 @@ const LandingPage = (props: any) => {
                 px={{ base: 2, lg: 0 }}
               >
                 {" "}
-                <Text mr={0.5} as="span" fontWeight={"bold"}>
-                  ATTN: LOS ANGELES
+                <Text
+                  mr={0.5}
+                  fontFamily="monospace"
+                  as="span"
+                  color="#dbffd6"
+                  fontWeight={"medium"}
+                  fontSize="md"
+                >
+                  <Text fontWeight={"bold"} as="span" fontSize={"lg"}>
+                    LOS ANGELES
+                  </Text>{" "}
                 </Text>{" "}
                 <Text fontWeight="light" color="#D7CCD0">
                   <Link
@@ -106,14 +113,22 @@ const LandingPage = (props: any) => {
                   >
                     <Text
                       _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
+                      color="white"
                       as="span"
-                      fontWeight={"semibold"}
+                      textUnderlineOffset={"2px"}
+                      fontWeight={"bold"}
                     >
                       @heds.app
                     </Text>{" "}
                   </Link>
-                  featuring VOID Acoustics & DJ sets from{" "}
+                  <Text
+                    fontSize="sm"
+                    color="whiteAlpha.900"
+                    fontWeight={"medium"}
+                    as="span"
+                  >
+                    featuring VOID Acoustics & DJ sets from{" "}
+                  </Text>
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
@@ -121,7 +136,7 @@ const LandingPage = (props: any) => {
                   >
                     <Text
                       _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
+                      color="whiteAlpha.900"
                       as="span"
                       fontWeight={"semibold"}
                     >
@@ -136,7 +151,7 @@ const LandingPage = (props: any) => {
                   >
                     <Text
                       _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
+                      color="whiteAlpha.900"
                       as="span"
                       fontWeight={"semibold"}
                       mr="8px"
@@ -144,7 +159,7 @@ const LandingPage = (props: any) => {
                       @deffiedeff
                     </Text>
                   </Link>
-                  x{" "}
+                  x <br />
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
@@ -152,7 +167,7 @@ const LandingPage = (props: any) => {
                   >
                     <Text
                       _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
+                      color="whiteAlpha.900"
                       as="span"
                       fontWeight={"semibold"}
                       mr="8px"
@@ -168,7 +183,7 @@ const LandingPage = (props: any) => {
                   >
                     <Text
                       _hover={{ textDecoration: "underline" }}
-                      color="whiteAlpha.800"
+                      color="whiteAlpha.900"
                       as="span"
                       fontWeight={"semibold"}
                       mr="8px"
@@ -176,14 +191,21 @@ const LandingPage = (props: any) => {
                       @JOHN LIWAG
                     </Text>
                   </Link>
-                  & more.{" "}
+                  <Text
+                    fontSize="sm"
+                    color="whiteAlpha.900"
+                    fontWeight={"medium"}
+                    as="span"
+                  >
+                    & more.{" "}
+                  </Text>
                 </Text>
               </Text>
             </Stack>
             <Stack
               pb={1}
               pt={{ base: 1.5, lg: 4 }}
-              gap={{ base: 1, lg: 0 }}
+              gap={{ base: 0, lg: 0 }}
               alignItems={{ base: "center", lg: "flex-start" }}
             >
               <Stack
@@ -193,7 +215,8 @@ const LandingPage = (props: any) => {
               >
                 <Text
                   fontSize={{ base: "md", lg: "lg" }}
-                  fontWeight={"semibold"}
+                  fontWeight={"bold"}
+                  color="#dbffd6"
                   fontFamily='"space-grotesk", sans-serif'
                 >
                   {" "}
@@ -201,8 +224,10 @@ const LandingPage = (props: any) => {
                 </Text>
                 <Text
                   fontFamily='"space-grotesk", sans-serif'
-                  textColor="whiteAlpha.800"
+                  textColor="whiteAlpha.900"
+                  fontWeight={"semibold"}
                   fontSize={{ base: "xs", lg: "medium" }}
+                  textTransform="uppercase"
                 >
                   {" "}
                   7515 Melrose Ave, Los Angeles{" "}
@@ -215,7 +240,8 @@ const LandingPage = (props: any) => {
               >
                 <Text
                   fontSize={{ base: "md", lg: "lg" }}
-                  fontWeight={"semibold"}
+                  fontWeight={"bold"}
+                  color="#dbffd6"
                   fontFamily='"space-grotesk", sans-serif'
                 >
                   {" "}
@@ -223,9 +249,11 @@ const LandingPage = (props: any) => {
                 </Text>
                 <Text
                   ml={1}
-                  textColor="whiteAlpha.800"
+                  textColor="whiteAlpha.900"
                   fontSize={{ base: "xs", lg: "medium" }}
                   fontFamily='"space-grotesk", sans-serif'
+                  fontWeight={"semibold"}
+                  textTransform="uppercase"
                 >
                   {" "}
                   Dec 31st 2023, 7:00PM PST{" "}
@@ -237,12 +265,13 @@ const LandingPage = (props: any) => {
                   alignItems="center"
                   fontFamily='"space-grotesk", sans-serif'
                   justifyContent="center"
-                  textColor="blackAlpha.800"
-                  bgColor="whiteAlpha.900"
-                  borderRadius={"sm"}
-                  height="32px"
-                  width="96px"
-                  marginTop={{ base: "12px", lg: "30px" }}
+                  textColor="black"
+                  bgColor="white"
+                  borderRadius={"none"}
+                  height={{ base: "32px", lg: "46px" }}
+                  fontSize={{ base: "lg", lg: "2xl" }}
+                  width="100%"
+                  marginTop={{ base: "4px", lg: "30px" }}
                   onClick={onOpen}
                 >
                   RSVP
@@ -255,7 +284,11 @@ const LandingPage = (props: any) => {
                   fontWeight={"semibold"}
                   color="#dbffd6"
                 >
-                  RSVP confirmed for {user.display_name}
+                  {user?.displayName ? (
+                    <Text as="span">RSVP confirmed for {user.displayName}</Text>
+                  ) : (
+                    <Spinner size="xs" />
+                  )}
                 </Text>
               )}
             </Stack>
