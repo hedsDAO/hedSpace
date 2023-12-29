@@ -28,8 +28,8 @@ const LandingPage = (props: any) => {
     <>
       <Box
         position="fixed"
-        maxWidth={{ base: "full", "2xl": "900px" }}
-        minW={{ base: "100%", xl: "full", "2xl": "unset" }}
+        maxWidth={{ base: "full", "lg": "880px" }}
+        // minW={{ base: "full", xl: "full", "2xl": "unset" }}
         minH={{ base: "80%", lg: "unset" }}
         top={{ base: "10%", lg: "20%" }}
         left={{ base: "0", lg: "20%" }}
@@ -81,7 +81,7 @@ const LandingPage = (props: any) => {
                   fontFamily='"space-grotesk", sans-serif'
                   fontStyle={"italic"}
                 >
-                  @ the hedSTORE
+                  @ hedSTORE
                 </Text>
               </Stack>
               <Text
