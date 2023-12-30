@@ -8,16 +8,19 @@ const Navbar = () => {
   return (
     <Stack
       direction="row"
-      position="fixed"
+      // position="fixed"
       justifyContent="center"
       alignItems="center"
-      top={0}
-      left={0}
+      // top={0}
+      // left={0}
       color="white"
       width="100%"
       //
       py={3}
-      bg="rgba(0, 0, 0, 0.6)"
+      minH='8vh'
+      maxH='8vh'
+      // bg="rgba(0, 0, 0, 0.6)"
+      bg="black"
     >
       <Flex minW="full" justifyContent={"space-between"} alignItems="center" ml={{ base: "0" }} gap={2}>
         <Button type="button" onClick={() => navigate("/")} variant="transparent">
@@ -32,7 +35,7 @@ const Navbar = () => {
           >
             heds
           </Text>
-          <Text cursor="default" fontSize={{ base: "2xl", lg: "4xl" }} fontFamily='"space-grotesk", sans-serif'>
+          <Text cursor="default" fontSize={{ base: "lg", lg: "2xl" }} fontFamily='"space-grotesk", sans-serif'>
             .SPACE
           </Text>
         </Flex>

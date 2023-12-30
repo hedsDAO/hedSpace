@@ -3,39 +3,15 @@ import LandingPage from "@/Pages/Landing";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Event from "@/Pages/Event";
-import { Box, Spacer } from "@chakra-ui/react";
+import { Box, Spacer, Stack } from "@chakra-ui/react";
 import { splineBgVideo1 } from "./Store/constants";
 
 const Layout = () => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      position="relative"
-      minHeight="100vh"
-    >
-      <Box position="absolute" width="100%" height="100%" zIndex="-1">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          typeof="video/mp4"
-          src={splineBgVideo1}
-          style={{
-            position: "fixed",
-            minHeight: "100vh",
-            objectFit: "cover",
-          }}
-        ></video>
-      </Box>
+    <Stack minW='100%' minH="100vh" maxH="100vh" overflowY={"hidden"} gap={0} bg="white">
       <Navbar />
-      <Box flex="1" display="flex" flexDirection="column">
-        <Outlet />
-      </Box>
-      <Spacer />
-      {/* <Footer /> */}
-    </Box>
+      <Outlet />
+    </Stack>
   );
 };
 

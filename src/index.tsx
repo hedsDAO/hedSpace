@@ -7,11 +7,13 @@ import { ChakraBaseProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/Store";
 import "@fontsource/space-grotesk"; // Defaults to weight 400.
+import "@fontsource/inter";
 import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
     space: `"space-grotesk", sans-serif`,
+    inter: `"inter", sans-serif`
   },
 });
 
