@@ -13,7 +13,7 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
   fonts: {
     space: `"space-grotesk", sans-serif`,
-    inter: `"inter", sans-serif`
+    inter: `"inter", sans-serif`,
   },
 });
 

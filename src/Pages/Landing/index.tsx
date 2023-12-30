@@ -56,7 +56,7 @@ const LandingPage = (props: any) => {
               style={{
                 width: "40%",
                 height: "100%",
-                minHeight: "90vh",
+                minHeight: "92vh",
                 objectFit: "cover",
               }}
             />

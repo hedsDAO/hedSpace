@@ -8,7 +8,14 @@ import { splineBgVideo1 } from "./Store/constants";
 
 const Layout = () => {
   return (
-    <Stack minW='100%' minH="100vh" maxH="100vh" overflowY={"hidden"} gap={0} bg="white">
+    <Stack
+      minW="100%"
+      minH="100vh"
+      maxH="100vh"
+      overflowY={"hidden"}
+      gap={0}
+      bg="white"
+    >
       <Navbar />
       <Outlet />
     </Stack>

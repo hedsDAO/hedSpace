@@ -1,5 +1,15 @@
-import { Stack, Box, Flex, Text, Button, HStack } from "@chakra-ui/react";
+import {
+  Stack,
+  Box,
+  Flex,
+  Text,
+  Button,
+  HStack,
+  Spinner,
+} from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Store";
 
 const LandingDetails = ({
   onOpen,
@@ -8,6 +18,10 @@ const LandingDetails = ({
   onOpen: () => void;
   showVideo?: boolean;
 }) => {
+  const isLoggedin = useSelector(
+    (state: RootState) => state.userModel.isLoggedIn
+  );
+  const user = useSelector((state: RootState) => state.userModel.user);
   return (
     <>
       {showVideo ? (
@@ -20,8 +34,6 @@ const LandingDetails = ({
           bg="rgba(255, 255, 255, 0.98)"
         >
           <Stack
-       
-
             display="flex"
             wrap="wrap"
             gap="0"
@@ -33,7 +45,7 @@ const LandingDetails = ({
             <Text
               fontSize={{ base: "4xl", md: "5xl", xl: "6xl" }}
               fontWeight="bolder"
-            //   height="72px"
+              //   height="72px"
               fontFamily="space"
               mb="12px"
             >
@@ -42,7 +54,7 @@ const LandingDetails = ({
             <Text
               fontSize={{ base: "4xl", md: "4xl", lg: "4xl", xl: "6xl" }}
               fontWeight="bold"
-            //   height="72px"
+              //   height="72px"
               mb="24px"
               fontFamily="space"
             >
@@ -104,23 +116,44 @@ const LandingDetails = ({
             <Stack
               align="center"
               mb="24px"
-              border="1px"
+              border={isLoggedin ? "0" : "1px"}
               justifyContent="center"
             >
-              <Button onClick={onOpen}>
-                <Flex align="center" mr="-8px">
-                  <Box width="40px" height="1px" bg="currentColor" mr="-8px" />
-                  <ChevronRightIcon gap="0" />
-                </Flex>
+              {!isLoggedin ? (
+                <Button onClick={onOpen}>
+                  <Flex align="center" mr="-8px">
+                    <Box
+                      width="40px"
+                      height="1px"
+                      bg="currentColor"
+                      mr="-8px"
+                    />
+                    <ChevronRightIcon gap="0" />
+                  </Flex>
+                  <Text
+                    bg="transparent"
+                    fontSize="xl"
+                    fontWeight="normal"
+                    ml="16px"
+                  >
+                    free rsvp
+                  </Text>
+                </Button>
+              ) : (
                 <Text
-                  bg="transparent"
-                  fontSize="xl"
-                  fontWeight="normal"
-                  ml="16px"
+                  mt={{ base: "12px", lg: "30px" }}
+                  fontFamily='"space-grotesk", sans-serif'
+                  fontSize={{ base: "lg", lg: "2xl" }}
+                  fontWeight="bold"
+                  color="green.500"
                 >
-                  free rsvp
+                  {user?.displayName ? (
+                    <Text as="span">RSVP confirmed for {user.displayName}</Text>
+                  ) : (
+                    <Spinner size="xs" />
+                  )}
                 </Text>
-              </Button>
+              )}
             </Stack>
           </Stack>
         </Stack>
@@ -204,21 +237,43 @@ const LandingDetails = ({
                 stroke of midnight.
               </Text>
               <HStack align="center" justifyContent="center">
-                <Button onClick={onOpen} height="32px">
-                  <Flex align="center">
-                    <Box width="40px" height="1px" bg="currentColor" />
-                    <ChevronRightIcon />
-                  </Flex>
+                {!isLoggedin ? (
+                  <Button onClick={onOpen}>
+                    <Flex align="center" mr="-8px">
+                      <Box
+                        width="40px"
+                        height="1px"
+                        bg="currentColor"
+                        mr="-8px"
+                      />
+                      <ChevronRightIcon gap="0" />
+                    </Flex>
+                    <Text
+                      bg="transparent"
+                      fontSize="xl"
+                      fontWeight="normal"
+                      ml="16px"
+                    >
+                      free rsvp
+                    </Text>
+                  </Button>
+                ) : (
                   <Text
-                    bg="transparent"
-                    fontSize="xl"
-                    fontWeight="normal"
-                    ml="16px"
-                   mb="8px"
+                    mt={{ base: "0", lg: "30px" }}
+                    fontFamily='"space-grotesk", sans-serif'
+                    fontSize={{ base: "lg", lg: "2xl" }}
+                    fontWeight="bold"
+                    color="green.500"
                   >
-                    free rsvp
+                    {user?.displayName ? (
+                      <Text as="span">
+                        RSVP confirmed for {user.displayName}
+                      </Text>
+                    ) : (
+                      <Spinner size="xs" />
+                    )}
                   </Text>
-                </Button>
+                )}
               </HStack>
             </Flex>
           </Flex>

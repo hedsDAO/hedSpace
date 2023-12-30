@@ -17,14 +17,29 @@ const Navbar = () => {
       width="100%"
       //
       py={3}
-      minH='8vh'
-      maxH='8vh'
+      minH="8vh"
+      maxH="8vh"
       // bg="rgba(0, 0, 0, 0.6)"
       bg="black"
     >
-      <Flex minW="full" justifyContent={"space-between"} alignItems="center" ml={{ base: "0" }} gap={2}>
-        <Button type="button" onClick={() => navigate("/")} variant="transparent">
-          <Image src={IMAGES.heddot} alt="heds logo" height="auto" boxSize={{ base: "30px", md: "30px", lg: "40px" }} />
+      <Flex
+        minW="full"
+        justifyContent={"space-between"}
+        alignItems="center"
+        ml={{ base: "0" }}
+        gap={2}
+      >
+        <Button
+          type="button"
+          onClick={() => navigate("/")}
+          variant="transparent"
+        >
+          <Image
+            src={IMAGES.heddot}
+            alt="heds logo"
+            height="auto"
+            boxSize={{ base: "30px", md: "30px", lg: "40px" }}
+          />
         </Button>
         <Flex pr={{ base: 5, lg: 4 }} alignItems={"baseline"}>
           <Text
@@ -35,7 +50,11 @@ const Navbar = () => {
           >
             heds
           </Text>
-          <Text cursor="default" fontSize={{ base: "lg", lg: "2xl" }} fontFamily='"space-grotesk", sans-serif'>
+          <Text
+            cursor="default"
+            fontSize={{ base: "lg", lg: "2xl" }}
+            fontFamily='"space-grotesk", sans-serif'
+          >
             .SPACE
           </Text>
         </Flex>
