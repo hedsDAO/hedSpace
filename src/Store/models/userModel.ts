@@ -1,5 +1,10 @@
 import { createModel } from "@rematch/core";
-import { addUserDisplayName, addUserRSVP, getSMSCode, verifySMSCode } from "@/Api/user";
+import {
+  addUserDisplayName,
+  addUserRSVP,
+  getSMSCode,
+  verifySMSCode,
+} from "@/Api/user";
 import type { RootModel } from "@/Store/index";
 import { Event } from "../types";
 
@@ -45,7 +50,7 @@ export const userModel = createModel<RootModel>()({
     isLoading: () => slice((state) => state.isLoading),
     didSendSMS: () => slice((state) => state.didSendSMS),
     isLoggedIn: () => slice((state) => (state.user ? true : false)),
-    hasDisplayName: () => slice((state) => (state.user.displayName)),
+    hasDisplayName: () => slice((state) => state.user.displayName),
     user: () => slice((state) => state.user),
   }),
   effects: (dispatch) => ({
@@ -84,12 +89,10 @@ export const userModel = createModel<RootModel>()({
         if (response.data.displayName) {
           this.setHasDisplayName(true);
           close();
-          if (response.data)
-          this.addRSVP(response.data.id);
+          if (response.data) this.addRSVP(response.data.id);
         } else {
           this.setHasDisplayName(false);
         }
-        
       } catch (error: any) {
         this.setError(error.message || "Failed to verify user");
       } finally {
@@ -99,7 +102,11 @@ export const userModel = createModel<RootModel>()({
     async addRSVP(userId: number) {
       this.setIsLoading(true);
       try {
-        const response = await addUserRSVP({userId, eventId: 2, status: "attending"});
+        const response = await addUserRSVP({
+          userId,
+          eventId: 3,
+          status: "attending",
+        });
         // this.setUser(response.data);
       } catch (error: any) {
         this.setError(error.message || "Failed to add RSVP");
@@ -107,10 +114,16 @@ export const userModel = createModel<RootModel>()({
         this.setIsLoading(false);
       }
     },
-    async addDisplayName({displayName, userId}: {displayName: string, userId: number}) {
+    async addDisplayName({
+      displayName,
+      userId,
+    }: {
+      displayName: string;
+      userId: number;
+    }) {
       this.setIsLoading(true);
       try {
-        await addUserDisplayName({userId, displayName});
+        await addUserDisplayName({ userId, displayName });
         this.setUserDisplayName(displayName);
         this.addRSVP(userId);
       } catch (error: any) {

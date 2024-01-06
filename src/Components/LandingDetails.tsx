@@ -49,35 +49,27 @@ const LandingDetails = ({
               fontFamily="space"
               mb="12px"
             >
-              NEW YEARS
+              GO!
             </Text>
             <Text
-              fontSize={{ base: "4xl", md: "4xl", lg: "4xl", xl: "6xl" }}
-              fontWeight="bold"
-              //   height="72px"
-              mb="24px"
-              fontFamily="space"
-            >
-              EVE 2024
-            </Text>
-            <Text
-              fontSize={{ base: "2xl", xl: "3xl" }}
+              fontSize={{ base: "2xl", xl: "lg" }}
               fontWeight="normal"
               mb="24px"
               fontFamily={"inter"}
             >
-              @ hedSTORE
+              {/* A NEW ERA OF SOBER ROB BEGINS JANUARY 19TH AT THE HEDS LABORATORY ON MELROSE */}
+              a new era of sober rob begins january 19th at the heds laboratory
+              on melrose.
             </Text>
-            <Text
+            {/* <Text
               fontFamily={"inter"}
-              fontSize={{ base: "xl", xl: "lg" }}
+              fontSize={{ base: "xl", xl: "3xl" }}
               fontWeight="normal"
               mb="24px"
-              lineHeight={"22px"}
+            //   lineHeight={"22px"}
             >
-              Sets by @madimakesmusica, @deffiedeff, @johnliwag + special guests
-              all night.
-            </Text>
+              BEGINS JANUARY 19TH AT THE HEDS LABORATORY ON MELROSE.
+            </Text> */}
             <Flex
               fontSize={{ base: "xl", xl: "lg" }}
               fontWeight="normal"
@@ -85,8 +77,8 @@ const LandingDetails = ({
               fontFamily={"inter"}
               mb="24px"
             >
-              <Text>12.31.2023</Text>
-              <Text>7PM - Late</Text>
+              <Text>1.19.2023</Text>
+              <Text>8PM - Late</Text>
               <Text>7515 Melrose Ave</Text>
             </Flex>
             <Text
@@ -97,10 +89,16 @@ const LandingDetails = ({
               fontFamily={"inter"}
               mb="24px"
             >
-              Featuring a beautiful variety of curated mixes, join heds for an
-              unmatched sound experience, amplified by VOID Acoustics.
+              {/* THIS IS AN INTIMATE SPACE BUILT BY ARTISTS WITH THE HIGHEST
+              QUALITY SOUND, HIGHEST QUALITY VISUALS, INTERACTIVE ART
+              INSTALLATIONS, CUSTOM EVENT CLOTHING, AND A BLOSSOMING COMMUNITY
+              OF FANS TO BRING IT ALL TOGETHER.  */}
+              this is an intimate space built by artists with the highest
+              quality sound, highest quality visuals, interactive art
+              installations, custom event clothing, and a blossoming community
+              of fans to bring it all together.
             </Text>
-            <Text
+            {/* <Text
               fontSize={{ base: "xl", xl: "lg" }}
               fontWeight="normal"
               letterSpacing={"tight"}
@@ -112,7 +110,7 @@ const LandingDetails = ({
               heart of hi-fi sound system culture, promising a night that sets
               the tone for the year to come with a live countdown to the stroke
               of midnight.
-            </Text>
+            </Text> */}
             <Stack
               align="center"
               mb="24px"
@@ -158,7 +156,7 @@ const LandingDetails = ({
           </Stack>
         </Stack>
       ) : (
-        <Box bg="rgba(255, 255, 255, 0.98)" overflowY="auto" mb="12px">
+        <Box bg="rgba(255, 255, 255, 0.98)" overflowY="hidden" mb="12px">
           <Flex
             direction="column" // Flex container with column direction
             alignItems="center" // Align items to the start
@@ -173,7 +171,7 @@ const LandingDetails = ({
               alignItems="baseline"
               height="100%"
               justifyContent="flex-start"
-              overflowY="auto"
+              overflowY="hidden"
               gap="1"
             >
               <Text
@@ -181,100 +179,80 @@ const LandingDetails = ({
                 fontWeight="bold"
                 fontFamily="space"
                 lineHeight="36px"
+                mb="4px"
               >
-                NEW YEARS
+                GO!
               </Text>
-              <Text fontSize="4xl" fontWeight="bold" fontFamily="space" gap="0">
-                EVE 2024
-              </Text>
-              <Text fontSize="md" fontWeight="normal" fontFamily="inter">
-                @ hedSTORE
-              </Text>
+              {!isLoggedin ? (
+                <Button onClick={onOpen} mb="4px">
+                  <Flex align="center" mr="-8px">
+                    <Box
+                      width="40px"
+                      height="1px"
+                      bg="currentColor"
+                      mr="-8px"
+                    />
+                    <ChevronRightIcon gap="0" />
+                  </Flex>
+                  <Text
+                    bg="transparent"
+                    fontSize="xl"
+                    fontWeight="normal"
+                    ml="16px"
+                  >
+                    free rsvp
+                  </Text>
+                </Button>
+              ) : (
+                <Text
+                  // mt={{ base: "0", lg: "30px" }}
+                  mb="4px"
+                  fontFamily='"space-grotesk", sans-serif'
+                  fontSize={{ base: "lg", lg: "2xl" }}
+                  fontWeight="bold"
+                  color="green.500"
+                >
+                  {user?.displayName ? (
+                    <Text as="span">RSVP confirmed for {user.displayName}</Text>
+                  ) : (
+                    <Spinner size="xs" />
+                  )}
+                </Text>
+              )}
               <Text
-                fontFamily="inter"
-                fontSize="sm"
+                fontSize="md"
                 fontWeight="normal"
-                // mb="8px"
-                // mt="8px"
-                lineHeight="22px"
-              >
-                Sets by @madimakesmusica, @deffiedeff, @johnliwag + special
-                guests all night.
-              </Text>
-              <Flex
-                fontSize="xs"
-                fontWeight="normal"
-                flexDir="column"
-                fontFamily="inter"
-                // mb="8px"
-              >
-                <Text>12.31.2023</Text>
-                <Text>7PM - Late</Text>
-                <Text>7515 Melrose Ave</Text>
-              </Flex>
-              <Text
-                fontSize="xs"
-                fontWeight="normal"
-                letterSpacing="tight"
-                lineHeight="22px"
-                fontFamily="inter"
-                // mb="8px"
-              >
-                Featuring a beautiful variety of curated mixes, join heds for an
-                unmatched sound experience, amplified by VOID Acoustics.
-              </Text>
-              <Text
-                fontSize="xs"
-                fontWeight="normal"
-                letterSpacing="tight"
-                lineHeight="22px"
                 fontFamily="inter"
                 mb="8px"
               >
-                Hosted at the all new hedSTORE on Melrose, this event captures
-                the heart of hi-fi sound system culture, promising a night that
-                sets the tone for the year to come with a live countdown to the
-                stroke of midnight.
+                a new era of sober rob begins january 19th at the heds
+                laboratory on melrose.
               </Text>
-              <HStack align="center" justifyContent="center">
-                {!isLoggedin ? (
-                  <Button onClick={onOpen}>
-                    <Flex align="center" mr="-8px">
-                      <Box
-                        width="40px"
-                        height="1px"
-                        bg="currentColor"
-                        mr="-8px"
-                      />
-                      <ChevronRightIcon gap="0" />
-                    </Flex>
-                    <Text
-                      bg="transparent"
-                      fontSize="xl"
-                      fontWeight="normal"
-                      ml="16px"
-                    >
-                      free rsvp
-                    </Text>
-                  </Button>
-                ) : (
-                  <Text
-                    mt={{ base: "0", lg: "30px" }}
-                    fontFamily='"space-grotesk", sans-serif'
-                    fontSize={{ base: "lg", lg: "2xl" }}
-                    fontWeight="bold"
-                    color="green.500"
-                  >
-                    {user?.displayName ? (
-                      <Text as="span">
-                        RSVP confirmed for {user.displayName}
-                      </Text>
-                    ) : (
-                      <Spinner size="xs" />
-                    )}
-                  </Text>
-                )}
-              </HStack>
+              <Flex
+                fontSize="md"
+                fontWeight="normal"
+                flexDir="column"
+                fontFamily="inter"
+                mb="8px"
+              >
+                <Text>1.19.2023</Text>
+                <Text>8PM - Late</Text>
+                <Text>7515 Melrose Ave</Text>
+              </Flex>
+              <Text
+                fontSize="md"
+                fontWeight="normal"
+                letterSpacing="tight"
+                lineHeight="22px"
+                fontFamily="inter"
+                mb="4px"
+              >
+                this is an intimate space built by artists with the highest
+                quality sound, highest quality visuals, interactive art
+                installations, custom event clothing, and a blossoming community
+                of fans to bring it all together.
+              </Text>
+              <HStack align="center" justifyContent="center"></HStack>
             </Flex>
           </Flex>
         </Box>

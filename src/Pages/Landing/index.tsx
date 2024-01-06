@@ -40,7 +40,7 @@ const LandingPage = (props: any) => {
 
         <Box
           display={showVideo ? "flex" : "initial"}
-          overflowY={"auto"}
+          overflowY={{ base: "auto", sm: "hidden" }}
           paddingTop={showVideo ? "0" : "10"}
           width={{ base: "100vw", lg: "50vw" }}
           height={{ base: "24rem", lg: "92vh" }}

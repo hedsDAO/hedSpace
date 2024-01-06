@@ -10,10 +10,10 @@ export const USER_API_PREFIX = "https://user-v6adscuyxq-uc.a.run.app";
 export const AUTH_API_URL = "https://auth-v6adscuyxq-uc.a.run.app";
 
 export const splineBgVideo1 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/spline%2Fcloner-cube-NYE.mp4?alt=media&token=773ae577-41f4-431d-a865-5a4f094b98f4";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2Fsober-go-slow.mp4?alt=media&token=297ead32-53d7-4e02-ab25-c75ea3207400";
 
 export const FLYER_PROMO_IMAGE =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FNYE_PROMO.mp4?alt=media&token=34c52b1a-1593-4454-a87f-11d47257453d";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FSober-Rob-Go.mov?alt=media&token=bc606ccc-7aae-4de0-8053-0e30ec068975";
 
 export const TERMS_AND_CONDITIONS =
   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service.pdf?alt=media&token=48183469-816f-4143-af75-ee3f38ce3842";
