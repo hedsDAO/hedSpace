@@ -16,6 +16,6 @@ export const FLYER_PROMO_IMAGE =
   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2FSober-Rob-Go.mov?alt=media&token=bc606ccc-7aae-4de0-8053-0e30ec068975";
 
 export const TERMS_AND_CONDITIONS =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service.pdf?alt=media&token=48183469-816f-4143-af75-ee3f38ce3842";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/terms%2FTerms%20of%20Service%20Updated.pdf?alt=media&token=d720d864-fc8a-4aba-8ba8-fe8be1390099";
 
 export const DAY_IN_MILLISECONDS = 86400000;

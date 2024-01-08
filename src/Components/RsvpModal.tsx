@@ -145,10 +145,12 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
       return;
     }
 
-    disptach.userModel.addDisplayName({userId: user.id, displayName: fullName});
+    disptach.userModel.addDisplayName({
+      userId: user.id,
+      displayName: fullName,
+    });
     onClose();
   };
-
 
   return (
     <Modal
@@ -197,9 +199,10 @@ const rsvpModal = ({ isOpen, onClose, onOpen }: RsvpModalProps) => {
                   By clicking RSVP I agree to the{" "}
                   <Link to={TERMS_AND_CONDITIONS} target="_blank">
                     <Text as="span" color="blue.300">
-                      Terms and Conditions
+                      Terms and Conditions{" "}
                     </Text>
                   </Link>
+                  and to recieve a text message to the phone number entered.
                 </Text>
               </chakra.label>
             </ModalBody>
