@@ -102,7 +102,7 @@ export const userModel = createModel<RootModel>()({
     async addRSVP(userId: number) {
       this.setIsLoading(true);
       try {
-        const response = await addUserRSVP({
+        await addUserRSVP({
           userId,
           eventId: 3,
           status: "attending",
@@ -112,6 +112,14 @@ export const userModel = createModel<RootModel>()({
         this.setError(error.message || "Failed to add RSVP");
       } finally {
         this.setIsLoading(false);
+      }
+    },
+    async sendConfirmationSMS() {
+      this.setIsLoading(true);
+      try {
+        await sendSMSToUser();
+      } catch (error: any) {
+        this.setError(error.message || "Failed to send SMS to user")
       }
     },
     async addDisplayName({
