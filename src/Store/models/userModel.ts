@@ -3,10 +3,20 @@ import {
   addUserDisplayName,
   addUserRSVP,
   getSMSCode,
+  sendSMSToUser,
   verifySMSCode,
 } from "@/Api/user";
 import type { RootModel } from "@/Store/index";
-import { Event } from "../types";
+
+interface EventRsvp {
+  id: number;
+  eventId: number;
+  userId: number;
+  status: string;
+  createdAt: number;
+  updatedAt: number;
+  isNew: boolean;
+}
 
 export interface UserState {
   error: string | null;
@@ -15,6 +25,7 @@ export interface UserState {
   didSendSMS: boolean;
   hasDisplayName: boolean;
   user?: any;
+  rsvp?: EventRsvp;
   _persistedAt?: number;
 }
 
@@ -25,6 +36,7 @@ export const userModel = createModel<RootModel>()({
     isLoggedIn: false,
     didSendSMS: false,
     user: undefined,
+    rsvp: undefined,
   } as UserState,
   reducers: {
     setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
@@ -41,6 +53,9 @@ export const userModel = createModel<RootModel>()({
     setUser: (state, user) => {
       return { ...state, user };
     },
+    setRsvp: (state, rsvp) => {
+      return { ...state, rsvp };
+    },
     setUserDisplayName: (state, displayName: string) => {
       return { ...state, user: { ...state.user, displayName } };
     },
@@ -51,6 +66,7 @@ export const userModel = createModel<RootModel>()({
     didSendSMS: () => slice((state) => state.didSendSMS),
     isLoggedIn: () => slice((state) => (state.user ? true : false)),
     hasDisplayName: () => slice((state) => state.user.displayName),
+    rsvp: () => slice((state) => state.rsvp),
     user: () => slice((state) => state.user),
   }),
   effects: (dispatch) => ({
@@ -102,24 +118,24 @@ export const userModel = createModel<RootModel>()({
     async addRSVP(userId: number) {
       this.setIsLoading(true);
       try {
-        await addUserRSVP({
+        const rsvp = await addUserRSVP({
           userId,
           eventId: 3,
           status: "attending",
         });
-        // this.setUser(response.data);
+        this.setRsvp(rsvp.data);
       } catch (error: any) {
         this.setError(error.message || "Failed to add RSVP");
       } finally {
         this.setIsLoading(false);
       }
     },
-    async sendConfirmationSMS() {
+    async sendConfirmationSMS({ recipients, message }) {
       this.setIsLoading(true);
       try {
-        await sendSMSToUser();
+        await sendSMSToUser({ recipients, message });
       } catch (error: any) {
-        this.setError(error.message || "Failed to send SMS to user")
+        this.setError(error.message || "Failed to send SMS to user");
       }
     },
     async addDisplayName({

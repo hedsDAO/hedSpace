@@ -8,8 +8,10 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
-import { RootState } from "@/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "@/Store";
+import { useEffect } from "react";
+import { SMS_CONFIRMATION_MESSAGE } from "@/Store/constants";
 
 const LandingDetails = ({
   onOpen,
@@ -18,10 +20,21 @@ const LandingDetails = ({
   onOpen: () => void;
   showVideo?: boolean;
 }) => {
+  const disptach = useDispatch<Dispatch>();
   const isLoggedin = useSelector(
     (state: RootState) => state.userModel.isLoggedIn
   );
   const user = useSelector((state: RootState) => state.userModel.user);
+  const rsvp = useSelector((state: RootState) => state.userModel.rsvp);
+  useEffect(() => {
+    if (rsvp?.isNew) {
+      disptach.userModel.sendConfirmationSMS({
+        recipients: [user.phoneNumber],
+        message: SMS_CONFIRMATION_MESSAGE,
+      });
+    }
+  }, [rsvp]);
+
   return (
     <>
       {showVideo ? (
@@ -78,8 +91,8 @@ const LandingDetails = ({
               mb="24px"
             >
               <Text>1.19.2023</Text>
-              <Text>8PM - Late</Text>
-              <Text>7515 Melrose Ave</Text>
+              <Text>8pm - late</Text>
+              <Text>7515 melrose ave</Text>
             </Flex>
             <Text
               fontSize={{ base: "xl", xl: "lg" }}
@@ -236,8 +249,8 @@ const LandingDetails = ({
                 mb="8px"
               >
                 <Text>1.19.2023</Text>
-                <Text>8PM - Late</Text>
-                <Text>7515 Melrose Ave</Text>
+                <Text>8pm - late</Text>
+                <Text>7515 melrose ave</Text>
               </Flex>
               <Text
                 fontSize="md"
