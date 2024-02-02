@@ -30,7 +30,7 @@ const LandingDetails = ({
     if (rsvp?.isNew) {
       disptach.userModel.sendConfirmationSMS({
         recipients: [user.phoneNumber],
-        message: SMS_CONFIRMATION_MESSAGE,
+        message: SMS_CONFIRMATION_MESSAGE, 
       });
     }
   }, [rsvp]);

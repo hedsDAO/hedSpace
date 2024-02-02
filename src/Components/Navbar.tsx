@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 // import LoginButton from "./LoginButton";
 import IMAGES from "@/images";
+import TextBlastModal from "./TextBlastModal";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Navbar = () => {
           </Text>
         </Flex>
       </Flex>
-      {/* <LoginButton /> */}
+      <TextBlastModal eventId={3} />
     </Stack>
   );
 };
