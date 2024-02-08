@@ -18,6 +18,18 @@
     "@emotion/styled": "^11.11.0",
     "@rematch/core": "^2.2.0",
     "@rematch/select": "^3.1.2",
+    "@fontsource-variable/domine": "^5.0.16",
+    "@fontsource-variable/lora": "^5.0.9",
+    "@fontsource-variable/open-sans": "^5.0.18",
+    "@fontsource/inter": "^4.5.15",
+    "@fontsource/karla": "^4.5.11",
+    "@fontsource/poppins": "^4.5.10",
+    "@fontsource/space-grotesk": "^5.0.15",
+    "@fontsource/space-mono": "^4.5.12",
+
+    "@rematch/loading": "^2.1.2",
+    "@rematch/persist": "^2.1.2",
+
     "@snowpack/plugin-typescript": "^1.2.1",
     "@snowpack/plugin-webpack": "^3.0.0",
     "@splinetool/react-spline": "^2.2.6",
