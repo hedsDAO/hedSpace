@@ -12,10 +12,10 @@ export const NavLinks = [
     path: "/",
     external: false,
   },
-  {
-    id: "about",
-    name: "about",
-    path: "/about",
-    external: false,
-  },
+  // {
+  //   id: "past-events",
+  //   name: "past events",
+  //   path: "/past-events",
+  //   external: false,
+  // },
 ];

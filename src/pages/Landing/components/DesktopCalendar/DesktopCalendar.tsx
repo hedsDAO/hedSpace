@@ -2,21 +2,20 @@ import { Grid, Box } from "@chakra-ui/react";
 import { PLACEHOLDER_IMAGE } from "@/store/constants";
 import { useSize } from "@chakra-ui/react-use-size";
 import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { store } from "@/store/store";
+import { DesktopCalendarItemProps } from "@/store/types";
+import DesktopCalendarItem from "../DesktopCalendarItem/DesktopCalendarItem";
 
-const DesktopCalendar = ({ children }: { children: React.ReactNode }) => {
+const DesktopCalendar = () => {
+  const calendar = useSelector(store.select.landingModel.selectCalendar);
   const elementRef = useRef(null);
   const dimensions = useSize(elementRef);
 
-  useEffect(() => {
-    if (dimensions && dimensions.height > 0) {
-      console.log("dimensions", dimensions);
-    }
-  }, []);
-
   return (
-    <Box position="relative" width="95vw">
+    <Box position="relative" width="99vw">
       <Box
-        rounded='3xl'
+        rounded="3xl"
         position="absolute"
         top="0"
         left="0"
@@ -26,12 +25,11 @@ const DesktopCalendar = ({ children }: { children: React.ReactNode }) => {
         bgImage={`url(${PLACEHOLDER_IMAGE})`}
         bgSize="cover"
         style={{ maskImage: "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,100))", maskSize: "cover" }}
-      ></Box>
+      />
       <Grid
         ref={elementRef}
         position="relative"
         zIndex="10"
-        // bg="whiteAlpha.300"
         display={{ base: "none", lg: "grid" }}
         width="100%"
         height="100%"
@@ -40,7 +38,9 @@ const DesktopCalendar = ({ children }: { children: React.ReactNode }) => {
         templateRows="repeat(3, 1fr)"
         templateColumns="repeat(7, 1fr)"
       >
-        {children}
+        {calendar?.map((calendarItem: DesktopCalendarItemProps, index: number) => (
+          <DesktopCalendarItem key={index} calendarItem={calendarItem} />
+        ))}
       </Grid>
     </Box>
   );

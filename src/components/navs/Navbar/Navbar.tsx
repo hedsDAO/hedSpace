@@ -13,11 +13,13 @@ const Navbar = () => {
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
 
   return (
-    <Flex gap={{ base: 4, lg: 6 }} alignItems={"center"} minW="100vw" py={"7.5px"} pl={4}>
+    <Flex gap={{ base: 4, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={4}>
       <Image
         pointerEvents={"auto"}
         cursor={"pointer"}
-        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/")])}
+        onClick={() =>
+          dispatch.globalModel.handleUnload([isUnloading, () => window?.location?.replace("https://heds.world")])
+        }
         objectFit={"contain"}
         boxSize={{ base: "1.75rem", lg: "1.9rem" }}
         src={IMAGES.logo}
@@ -33,7 +35,7 @@ const Navbar = () => {
               transition={{ enter: { delay: (index + 1) / 10 }, exit: { delay: (index + 1) / 10 } }}
             >
               <Text
-                _hover={{ color: "blackAlpha.900" }}
+                _hover={{ color: "whiteAlpha.900" }}
                 transition={"0.25s all ease-in-out"}
                 as={"a"}
                 href={navLink.path}
@@ -41,7 +43,7 @@ const Navbar = () => {
                 fontWeight={"semibold"}
                 fontSize={{ base: "xs", lg: "sm" }}
                 fontFamily={"karla"}
-                color={active ? "blackAlpha.900" : "blackAlpha.600"}
+                color={active ? "whiteAlpha.900" : "whiteAlpha.600"}
               >
                 {navLink.name}
               </Text>
@@ -56,7 +58,7 @@ const Navbar = () => {
               transition={{ enter: { delay: (index + 1) / 10 }, exit: { delay: (index + 1) / 10 } }}
             >
               <Text
-                _hover={{ color: "blackAlpha.900" }}
+                _hover={{ color: "whiteAlpha.900" }}
                 transition={"0.25s all ease-in-out"}
                 cursor={"pointer"}
                 pointerEvents={"auto"}
@@ -64,7 +66,7 @@ const Navbar = () => {
                 fontWeight={"semibold"}
                 fontSize={{ base: "sm", lg: "sm" }}
                 fontFamily={"karla"}
-                color={active ? "blackAlpha.900" : "blackAlpha.600"}
+                color={active ? "whiteAlpha.900" : "whiteAlpha.600"}
               >
                 {navLink.name}
               </Text>

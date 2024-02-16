@@ -7,7 +7,7 @@ export const getCalendarInfo = (events: Event[]): DesktopCalendarItemProps[] => 
   const currentDayOfWeek = now.getDay();
 
   const daysArray: DesktopCalendarItemProps[] = [];
-  for (let i = 0; i < 21; i++) {
+  for (let i = 1; i < 22; i++) {
     const lastSunday = new Date(now);
     lastSunday.setDate(now.getDate() - currentDayOfWeek);
     const dayDate = new Date(lastSunday);
@@ -33,7 +33,7 @@ export const getCalendarInfo = (events: Event[]): DesktopCalendarItemProps[] => 
       const eventDay = eventDate.getDate();
       const eventMonth = eventDate.getMonth() + 1;
       const eventYear = eventDate.getFullYear();
-      if (daysArray[i].day === eventDay && daysArray[i].month + 1 === eventMonth && daysArray[i].year === eventYear) {
+      if (daysArray[i].day === eventDay && daysArray[i].month === eventMonth && daysArray[i].year === eventYear) {
         return event;
       }
     });

@@ -34,3 +34,14 @@ export interface EventCommentElement {
   updatedAt: number | null;
   status?: string;
 }
+
+export interface EventRsvp {
+  id: number;
+  eventId: number;
+  userId: number;
+  status: string;
+  createdAt: number;
+  updatedAt: number;
+  isNew: boolean;
+}
+

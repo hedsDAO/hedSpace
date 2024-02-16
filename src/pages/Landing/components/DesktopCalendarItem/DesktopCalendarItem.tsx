@@ -1,7 +1,11 @@
+import RSVPModal from "@/components/modals/RSVPModal/RSVPModal";
+import { Dispatch } from "@/store/store";
 import { DesktopCalendarItemProps } from "@/store/types";
 import { Box, GridItem, Text, Flex, Stack } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
 const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarItemProps }) => {
+  const dispatch = useDispatch<Dispatch>();
   return (
     <GridItem key={calendarItem.day} w="100%" h="0" paddingBottom="100%" position="relative">
       <Box
@@ -48,6 +52,9 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIt
           >
             {calendarItem?.data?.event?.image && (
               <Box
+                onClick={() => {
+                  dispatch.rsvpModel.setEvent(calendarItem?.data?.event);
+                }}
                 rounded="2xl"
                 _hover={{ opacity: 0.5 }}
                 transition={"all 0.3s ease-in-out"}
@@ -56,10 +63,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIt
                 autoPlay
                 loop
                 muted
-                // height={"500px"}
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/flyers%2Fgo.mov?alt=media&token=afc198bd-dbce-45d2-b188-35f8b4f34b00"
-                }
+                src={calendarItem?.data?.event?.image}
                 objectFit="cover"
               />
             )}

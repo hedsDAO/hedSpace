@@ -27,31 +27,31 @@ const Footer = () => {
         <Flex alignItems={"center"} gap={5}>
           <Image ml={2} src={IMAGES.hedline_w_i} boxSize={{ base: "2rem", lg: "2.5rem" }} />
           <Stack gap={0}>
-            <Text color="blackAlpha.600" fontSize={"2xs"}>
+            <Text color="whiteAlpha.600" fontSize={"2xs"}>
               {constants.COPYRIGHT}
             </Text>
             <Flex gap={1}>
               <Text
-                _hover={{ color: "blackAlpha.800" }}
+                _hover={{ color: "whiteAlpha.800" }}
                 transition={"0.35s all ease-in-out"}
                 cursor={"pointer"}
                 pointerEvents={"auto"}
                 onClick={() => termsRef.current?.click()}
-                color="blackAlpha.500"
+                color="whiteAlpha.500"
                 fontSize={"2xs"}
               >
                 {constants.TERMS}
               </Text>
-              <Text color="blackAlpha.500" fontSize={"2xs"}>
+              <Text color="whiteAlpha.500" fontSize={"2xs"}>
                 {"|"}
               </Text>
               <Text
-                _hover={{ color: "blackAlpha.800" }}
+                _hover={{ color: "whiteAlpha.800" }}
                 transition={"0.35s all ease-in-out"}
                 cursor={"pointer"}
                 pointerEvents={"auto"}
                 onClick={() => privacyRef.current?.click()}
-                color="blackAlpha.500"
+                color="whiteAlpha.500"
                 fontSize={"2xs"}
               >
                 {constants.PRIVACY}
@@ -73,15 +73,15 @@ const Footer = () => {
         </Flex>
         <Flex gap={{ base: 1.5, lg: 3 }}>
           <a href={constants.DISCORD} target="_blank">
-            <Text as="i" className="fab fa-discord" fontSize={"sm"} color="blackAlpha.500" />
+            <Text as="i" className="fab fa-discord" fontSize={"sm"} color="whiteAlpha.500" />
           </a>
           <a href={constants.TWITTER} target="_blank">
-            <Text as="i" className="fab fa-x-twitter" fontSize={"sm"} color="blackAlpha.500" />
+            <Text as="i" className="fab fa-x-twitter" fontSize={"sm"} color="whiteAlpha.500" />
           </a>
           <a href={constants.INSTAGRAM} target="_blank">
-            <Text as="i" className="fab fa-instagram" fontSize={"sm"} color="blackAlpha.500" />
+            <Text as="i" className="fab fa-instagram" fontSize={"sm"} color="whiteAlpha.500" />
           </a>
-          <Text color="blackAlpha.500" fontSize={"2xs"}></Text>
+          <Text color="whiteAlpha.500" fontSize={"2xs"}></Text>
         </Flex>
       </Flex>
     </SlideFade>
