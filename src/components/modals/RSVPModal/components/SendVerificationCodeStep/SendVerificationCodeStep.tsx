@@ -37,7 +37,7 @@ const SendVerificationCodeStep = () => {
         >
           <Box
             as="video"
-            src={event?.image}
+            src={event?.video}
             autoPlay
             loop
             muted

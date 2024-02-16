@@ -50,7 +50,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIt
             overflow={"hidden"}
             justifyContent={"center"}
           >
-            {calendarItem?.data?.event?.image && (
+            {calendarItem?.data?.event?.video && (
               <Box
                 onClick={() => {
                   dispatch.rsvpModel.setEvent(calendarItem?.data?.event);
@@ -63,7 +63,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIt
                 autoPlay
                 loop
                 muted
-                src={calendarItem?.data?.event?.image}
+                src={calendarItem?.data?.event?.video}
                 objectFit="cover"
               />
             )}

@@ -16,6 +16,7 @@ export interface Event {
   startTime: number;
   endTime: number;
   image: string;
+  video: string;
   userId: number;
   createdAt: number;
   updatedAt: null;

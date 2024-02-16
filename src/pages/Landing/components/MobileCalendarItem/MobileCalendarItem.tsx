@@ -38,7 +38,7 @@ const MobileCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIte
           maxW={"90%"}
           objectFit={"contain"}
           aspectRatio={1}
-          src={calendarItem?.data?.event?.image}
+          src={calendarItem?.data?.event?.video}
         />
       </Flex>
       <Stack pt={3} bg="black" gap={1} px={6}>
