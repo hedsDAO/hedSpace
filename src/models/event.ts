@@ -30,12 +30,8 @@ export const eventModel = createModel<RootModel>()({
         const data = res.data;
         if (data) {
           this.setEvent(data);
-          try {
-            const rsvps = await axios.get(GUEST_STATUS_API_PREFIX + `/events/${id}/rsvps`);
-            if (rsvps) this.setRSVPs(rsvps.data);
-          } catch (e) {
-            console.log(e);
-            this.setRSVPs(null);
+          if (data?.eventRsvps) {
+            this.setRSVPs(data?.eventRsvps);
           }
         }
       } catch (e) {

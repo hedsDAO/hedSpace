@@ -26,6 +26,17 @@ const SendVerificationCodeStep = () => {
       setInputValue((prev) => prev + event.key);
     }
   };
+
+  const handleTimeString = (time: number) => {
+    if (time > 12) {
+      return `${time - 12}:00 PM`;
+    } else if (time === 0) {
+      return `12:00 AM`;
+    } else if (time === 12) {
+      return `12:00 PM`;
+    }
+    return `${time}:00 AM`;
+  };
   return (
     <>
       <ModalBody gap={{ base: 4, lg: 5 }} minW="100%" as={Stack}>
@@ -43,15 +54,24 @@ const SendVerificationCodeStep = () => {
             muted
             playsInline
             rounded="2xl"
-            height={{ base: "140px", lg: "200px" }}
+            height={{ base: "140px", lg: "220px" }}
             objectFit={"contain"}
             aspectRatio={1}
           />
           <Stack alignItems={{ base: "center", lg: "start" }} gap={1}>
-            <Text fontWeight={"semibold"} mt={3} color="whiteAlpha.900" fontFamily={"open"} fontSize={"sm"}>
+            <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.900" fontFamily={"open"} fontSize={"md"}>
               {event?.startTime ? new Date(event?.startTime).toDateString() : null}
             </Text>
-            <Text fontFamily={"open"} fontSize={"4xl"} color="white">
+            <Flex alignItems={"baseline"} gap={1}>
+              <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
+                {event?.startTime ? handleTimeString(new Date(event?.startTime).getHours()) : null}
+              </Text>
+              <Text color="whiteAlpha.700">-</Text>
+              <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
+                {event?.endTime ? handleTimeString(new Date(event?.endTime).getHours()) : null}
+              </Text>
+            </Flex>
+            <Text fontFamily={"open"} fontSize={"3xl"} color="white">
               {event?.name}
             </Text>
             <Text

@@ -9,7 +9,7 @@ const persistConfig = {
   storage,
   version: 2,
   blacklist: ["productModel", "landingModel", "rsvpModel"],
-  whitelist: ["cartModel"],
+  whitelist: ["userModel"],
 };
 
 export const store = init<RootModel>({

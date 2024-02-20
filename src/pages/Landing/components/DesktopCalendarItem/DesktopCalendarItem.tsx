@@ -3,11 +3,27 @@ import { Dispatch } from "@/store/store";
 import { DesktopCalendarItemProps } from "@/store/types";
 import { Box, GridItem, Text, Flex, Stack } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarItemProps }) => {
   const dispatch = useDispatch<Dispatch>();
+  const navigate = useNavigate();
+
+  const handleNavigate = (calendarItem: DesktopCalendarItemProps) => {
+    if (calendarItem?.data?.event) {
+      navigate(`/event/${calendarItem?.data?.event.id}`);
+    }
+  };
   return (
-    <GridItem key={calendarItem.day} w="100%" h="0" paddingBottom="100%" position="relative">
+    <GridItem
+      // onClick={() => handleNavigate(calendarItem)}
+      onClick={() => dispatch.rsvpModel.setEvent(calendarItem?.data?.event)}
+      key={calendarItem.day}
+      w="100%"
+      h="0"
+      paddingBottom="100%"
+      position="relative"
+    >
       <Box
         rounded="2xl"
         border="1px"
@@ -52,9 +68,9 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIt
           >
             {calendarItem?.data?.event?.video && (
               <Box
-                onClick={() => {
-                  dispatch.rsvpModel.setEvent(calendarItem?.data?.event);
-                }}
+                // onClick={() => {
+                //   dispatch.rsvpModel.setEvent(calendarItem?.data?.event);
+                // }}
                 rounded="2xl"
                 _hover={{ opacity: 0.5 }}
                 transition={"all 0.3s ease-in-out"}

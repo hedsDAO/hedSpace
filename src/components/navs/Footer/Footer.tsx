@@ -12,10 +12,11 @@ const Footer = () => {
 
   return (
     <SlideFade
-      transition={{ enter: { delay: 1, duration: 0.25 }, exit: { delay: 0.25, duration: 0.25 } }}
+      transition={{ enter: { delay: 0, duration: 0.25 }, exit: { delay: 0.25, duration: 0.25 } }}
       in={true && !isUnloading}
     >
       <Flex
+        bg="black"
         alignItems={"center"}
         justifyContent={"space-between"}
         pb={{ base: 20, lg: 5 }}

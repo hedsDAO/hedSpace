@@ -13,7 +13,7 @@ const DesktopCalendar = () => {
   const dimensions = useSize(elementRef);
 
   return (
-    <Box position="relative" width="99vw">
+    <Box ref={elementRef} position="relative" width="99vw">
       <Box
         rounded="3xl"
         position="absolute"
@@ -22,12 +22,12 @@ const DesktopCalendar = () => {
         width={dimensions && dimensions.width > 0 ? dimensions.width : "100%"}
         height={dimensions && dimensions.height > 0 ? dimensions.height : "100%"}
         zIndex="0"
+        opacity={0.75}
         bgImage={`url(${PLACEHOLDER_IMAGE})`}
         bgSize="cover"
         style={{ maskImage: "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,100))", maskSize: "cover" }}
       />
       <Grid
-        ref={elementRef}
         position="relative"
         zIndex="10"
         display={{ base: "none", lg: "grid" }}

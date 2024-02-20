@@ -12,6 +12,7 @@ const MobileCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIte
   return (
     <SwiperSlide key={calendarItem.day}>
       <Flex
+        py={6}
         onClick={() => dispatch.rsvpModel.setEvent(calendarItem?.data?.event)}
         bg="black"
         mixBlendMode={"difference"}
@@ -19,9 +20,10 @@ const MobileCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIte
       >
         <Text
           fontFamily={"karla"}
+          fontSize={"xs"}
           fontWeight={"bold"}
           left={9}
-          top={3}
+          top={8}
           zIndex={100}
           position={"absolute"}
           color="black"
@@ -41,7 +43,7 @@ const MobileCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIte
           src={calendarItem?.data?.event?.video}
         />
       </Flex>
-      <Stack pt={3} bg="black" gap={1} px={6}>
+      <Stack pt={3} pb={6} bg="black" gap={1} px={6}>
         <Text fontSize={"sm"} color="whiteAlpha.800">
           {calendarItem?.data?.event?.name}
         </Text>

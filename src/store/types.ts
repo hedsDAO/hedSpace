@@ -44,5 +44,22 @@ export interface EventRsvp {
   createdAt: number;
   updatedAt: number;
   isNew: boolean;
+  users: User;
 }
 
+export interface User {
+  id: number;
+  profilePicture: string;
+  banner: string;
+  twitterHandle: null;
+  badges: null;
+  description: null;
+  displayName: string;
+  role: string;
+  wallet: null;
+  joined: number;
+  spotlight: null;
+  collection: null;
+  email: null;
+  phoneNumber: string;
+}

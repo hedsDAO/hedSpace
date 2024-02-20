@@ -13,7 +13,7 @@ const Navbar = () => {
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
 
   return (
-    <Flex gap={{ base: 4, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={4}>
+    <Flex bg="black" gap={{ base: 4, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={4} mb={2}>
       <Image
         pointerEvents={"auto"}
         cursor={"pointer"}

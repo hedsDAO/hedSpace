@@ -80,7 +80,7 @@ export const rsvpModel = createModel<RootModel>()({
     selectIsLoading: () => slice((state: RSVPModel): boolean => state?.isLoading),
     selectVerifiedPhoneNumber: () => slice((state: RSVPModel): string | null => state?.verifiedPhoneNumber),
   }),
-  effects: () => ({
+  effects: (dispatch) => ({
     async loginUser(to: string) {
       this.setError(null);
       this.setIsLoading(true);
@@ -101,16 +101,16 @@ export const rsvpModel = createModel<RootModel>()({
       this.setPhoneNumber(to);
       try {
         const response = await verifySMSCode(to, code);
-        this.setUser(response.data);
+        if (response.data) this.setUser(response.data);
+        if (response.data) dispatch.userModel.setUser(response.data);
         this.setDidSendSMS(false);
         if (response.data.displayName) {
           this.setHasDisplayName(true);
-          // close();
           if (response.data) this.addRSVP([response.data.id, eventId]);
-          this.setIsLoading(false)
+          this.setIsLoading(false);
         } else {
           this.setHasDisplayName(false);
-          this.setIsLoading(false)
+          this.setIsLoading(false);
         }
       } catch (error: any) {
         this.setError(error.message || "Failed to verify user");
@@ -118,7 +118,17 @@ export const rsvpModel = createModel<RootModel>()({
         this.setIsLoading(false);
       }
     },
-    async addDisplayNameToUser({ id, firstName, lastName, eventId }: { id: any; firstName: string; lastName: string, eventId: number }) {
+    async addDisplayNameToUser({
+      id,
+      firstName,
+      lastName,
+      eventId,
+    }: {
+      id: any;
+      firstName: string;
+      lastName: string;
+      eventId: number;
+    }) {
       this.setIsLoading(true);
       try {
         const user = await addUserDisplayName({
@@ -127,7 +137,6 @@ export const rsvpModel = createModel<RootModel>()({
         });
         this.setUser(user.data);
         this.setHasDisplayName(true);
-        this.setIsLoading(false);
         this.addRSVP([id, eventId]);
       } catch {
         this.setError("Failed to add display name");
@@ -148,5 +157,20 @@ export const rsvpModel = createModel<RootModel>()({
         this.setIsLoading(false);
       }
     },
+    async getRsvpStatusByUserIdAndEventId([userId, eventId]: [userId: number, eventId: number]) {
+      this.setIsLoading(true);
+      try {
+        const rsvp = await addUserRSVP({
+          userId,
+          eventId: eventId,
+          status: "attending",
+        });
+        this.setRsvp(rsvp.data);
+      } catch (error: any) {
+        this.setError(error.message || "Failed to get RSVP status");
+      } finally {
+        this.setIsLoading(false);
+      }
+    }
   }),
 });
