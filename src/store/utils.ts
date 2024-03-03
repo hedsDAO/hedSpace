@@ -33,7 +33,7 @@ export const getCalendarInfo = (events: Event[]): DesktopCalendarItemProps[] => 
       const eventDay = eventDate.getDate();
       const eventMonth = eventDate.getMonth() + 1;
       const eventYear = eventDate.getFullYear();
-      if (daysArray[i].day === eventDay && daysArray[i].month === eventMonth && daysArray[i].year === eventYear) {
+      if (daysArray[i].day === eventDay + 1 && daysArray[i].month === eventMonth && daysArray[i].year === eventYear) {
         return event;
       }
     });
