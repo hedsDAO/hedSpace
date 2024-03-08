@@ -36,7 +36,7 @@ export const defaultTheme = extendTheme({
         minHeight: "100vh",
         minWidth: "100vw",
         overflowX: "hidden",
-        // bg: "black",
+        bg: "black",
         overscrollBehavior: "none !important",
       },
       '.chakra-input[type="search"]::-webkit-search-cancel-button': {

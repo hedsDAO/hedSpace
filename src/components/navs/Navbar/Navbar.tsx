@@ -2,9 +2,10 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Dispatch, store } from "@/store/store";
-import { Fade, Flex, Image, Text } from "@chakra-ui/react";
+import { Button, Fade, Flex, Image, Text } from "@chakra-ui/react";
 import * as constants from "./constants";
 import IMAGES from "@/images";
+import LoginModal from "@/components/modals/LoginModal/LoginModal";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -13,7 +14,7 @@ const Navbar = () => {
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
 
   return (
-    <Flex bg="black" gap={{ base: 4, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={4} mb={2}>
+    <Flex bg="black" gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={6} pb={2}>
       <Image
         pointerEvents={"auto"}
         cursor={"pointer"}
@@ -73,7 +74,7 @@ const Navbar = () => {
             </Fade>
           );
       })}
-      <></>
+    <LoginModal />
     </Flex>
   );
 };

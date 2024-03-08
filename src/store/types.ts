@@ -1,4 +1,4 @@
-export interface DesktopCalendarItemProps {
+export interface CalendarItemProps {
   day: number;
   month: number;
   year: number;

@@ -7,15 +7,21 @@ export interface NavLink {
 
 export const NavLinks = [
   {
-    id: "events",
-    name: "events",
+    id: "home",
+    name: "home",
     path: "/",
     external: false,
   },
+  {
+    id: "events",
+    name: "events",
+    path: "/events",
+    external: false,
+  },
   // {
-  //   id: "past-events",
-  //   name: "past events",
-  //   path: "/past-events",
+  //   id: "about",
+  //   name: "about",
+  //   path: "/about",
   //   external: false,
   // },
 ];

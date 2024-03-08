@@ -9,11 +9,10 @@ interface TimeLeftProps {
 }
 
 const CountdownClock = ({ endTime }: { endTime: number }) => {
-  const calculateTimeLeft = (): TimeLeftProps => {
+  const calculateTimeLeft = (): TimeLeftProps | null => {
     const difference = endTime - new Date().getTime();
 
     let timeLeft = {} as TimeLeftProps;
-
     if (difference > 0) {
       timeLeft = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -21,55 +20,59 @@ const CountdownClock = ({ endTime }: { endTime: number }) => {
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
       };
+    } else {
+      return null;
     }
-
     return timeLeft;
   };
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeftProps>(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<TimeLeftProps | null>(calculateTimeLeft());
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer); // Clean up the timer
   });
+
+  if (!timeLeft) return null; // Don't render anything if the event is over
+
   return (
-    <Flex gap={3}>
-      <Flex gap={1.5} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="xl" color="white" fontWeight={"bold"}>
+    <Flex gap={timeLeft.days ? 3 : 1}>
+      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
+        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
           {timeLeft.days || 0}
         </Text>
-        <Text fontSize="xl" color="whiteAlpha.600" fontWeight={"bold"}>
-          DAYS
+        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
+          {timeLeft.days ? "DAYS" : ""}
         </Text>
       </Flex>
-      <Flex gap={1.5} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="xl" color="white" fontWeight={"bold"}>
-          {timeLeft.hours || 0}
+      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
+        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
+          {timeLeft.hours}
         </Text>
-        <Text fontSize="xl" color="whiteAlpha.600" fontWeight={"bold"}>
-          HOURS
+        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
+          HRS
         </Text>
       </Flex>
-      <Flex gap={1.5} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="xl" color="white" fontWeight={"bold"}>
-          {timeLeft.minutes || 0}
+      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
+        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
+          {timeLeft.minutes}
         </Text>
-        <Text fontSize="xl" color="whiteAlpha.600" fontWeight={"bold"}>
+        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
           MINS
         </Text>
       </Flex>
-      <Flex gap={1.5} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="xl" color="white" fontWeight={"bold"}>
-          {timeLeft.seconds || 0}
+      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
+        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
+          {timeLeft.seconds}
         </Text>
-        <Text fontSize="xl" color="whiteAlpha.600" fontWeight={"bold"}>
+        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
           SECS
         </Text>
       </Flex>
-      {/*  <Text fontSize='xl' color="white">{renderCountdown()}</Text> */}
     </Flex>
   );
 };

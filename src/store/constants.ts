@@ -19,3 +19,20 @@ export const PLACEHOLDER_IMAGE_2 =
 export const GUEST_STATUS_API_PREFIX = "https://gueststatus-v6adscuyxq-uc.a.run.app";
 
 export const USER_API_PREFIX = "https://user-v6adscuyxq-uc.a.run.app";
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April ",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+export const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
