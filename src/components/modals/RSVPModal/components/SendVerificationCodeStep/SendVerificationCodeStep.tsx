@@ -84,9 +84,7 @@ const SendVerificationCodeStep = () => {
               color="whiteAlpha.600"
             >
               {`ALEKO presents: STAR FM LIVE in collaboration with HEDS.`}
-              <br />
-              <br />
-              {`Join us for an unforgettable experience, as we aim to capture ALEKO’s STAR FM mix live. Featuring sets from ALEKO, ??? and clubaction, Don't miss out on this night under the stars. `}
+              {/* {`Join us for an unforgettable experience, as we aim to capture ALEKO’s STAR FM mix live. Featuring sets from ALEKO, ??? and clubaction, Don't miss out on this night under the stars. `} */}
               <br />
               <br />
               {`RSVP now and get ready to listen to 7.77 STAR FM Dress code: Black/Silver ((Will be recorded))`}
