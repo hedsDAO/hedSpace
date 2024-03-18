@@ -1,5 +1,5 @@
 import { DesktopCalendarItemProps } from "@/store/types";
-import { Box, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { SwiperSlide } from "swiper/react";
 import RSVPModal from "@/components/modals/RSVPModal/RSVPModal";
 import "swiper/css";
@@ -49,9 +49,35 @@ const MobileCalendarItem = ({ calendarItem }: { calendarItem: DesktopCalendarIte
         <Text fontSize={"sm"} px={2} pb={"1.5px"} color="whiteAlpha.900">
           {calendarItem?.data?.event?.name}
         </Text>
-        <Text py={1} fontSize={"xs"} px={2} color="whiteAlpha.900">
-          {calendarItem?.data?.event?.description}
-        </Text>
+        <Text py={1} fontSize={"xs"} px={2} color="whiteAlpha.700">
+          {calendarItem?.data?.event?.id === 6 ? (
+            <>
+              {" "}
+              {`ALEKO presents: STAR FM LIVE in collaboration with HEDS.`}
+              <br />
+              <br />
+              {`Join us for an unforgettable experience, as we aim to capture ALEKO’s STAR FM mix live. Featuring sets from ALEKO, ??? and clubaction, Don't miss out on this night under the stars. `}
+              <br />
+              <br />
+              {`RSVP now and get ready to listen to 7.77 STAR FM Dress code: Black/Silver ((Will be recorded))`}
+            </>
+          ) : (
+            calendarItem?.data?.event?.description
+          )}
+        </Text>{" "}
+        <br />
+        <Button
+          onClick={() => {
+            dispatch.rsvpModel.setEvent(calendarItem?.data?.event);
+          }}
+          bg="transparent"
+          border="1px solid"
+          borderColor={"whiteAlpha.600"}
+          color="whiteAlpha.600"
+          _hover={{ bg: "transparent", borderColor: "whiteAlpha.800", color: "whiteAlpha.800" }}
+        >
+          RSVP
+        </Button>
         <RSVPModal />
       </Stack>
     </>
