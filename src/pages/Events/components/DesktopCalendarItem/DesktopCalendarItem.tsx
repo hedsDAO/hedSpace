@@ -1,9 +1,9 @@
-import RSVPModal from "@/components/modals/RSVPModal/RSVPModal";
 import { Dispatch, store } from "@/store/store";
 import { CalendarItemProps } from "@/store/types";
 import { Box, GridItem, Text, Flex, Stack, Image, Fade } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isEventOver } from "@/store/utils";
 
 const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps }) => {
   const dispatch = useDispatch<Dispatch>();
@@ -16,6 +16,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
       dispatch.globalModel.handleUnload([isUnloading, () => navigate(`/event/${id}`)]);
     }
   };
+
   return (
     <Fade
       in={!isUnloading}
@@ -71,13 +72,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
                 </Text>
               )}
             </Text>
-            <Flex
-              mixBlendMode={"difference"}
-              alignItems={"center"}
-              position={"relative"}
-              overflow={"hidden"}
-              justifyContent={"center"}
-            >
+            <Flex mixBlendMode={"difference"} alignItems={"center"} position={"relative"} overflow={"hidden"} justifyContent={"center"}>
               {calendarItem?.data?.event?.image && (
                 <Image
                   rounded="2xl"

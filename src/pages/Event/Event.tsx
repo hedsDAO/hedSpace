@@ -1,4 +1,3 @@
-import IMAGES from "@/images";
 import { Dispatch, store } from "@/store/store";
 import { Box, Button, Fade, Flex, GridItem, Image, SimpleGrid, Stack, Text, useBoolean } from "@chakra-ui/react";
 import { useEffect } from "react";
@@ -17,6 +16,8 @@ const Event = () => {
   useEffect(() => {
     if (id && !event) {
       dispatch.eventModel.getEventById(id);
+    } else if (id && event?.id && event?.id !== parseInt(id)) {
+      dispatch.eventModel.getEventById(id);
     }
     return () => {
       dispatch.eventModel.clearState();
@@ -24,17 +25,7 @@ const Event = () => {
   }, [id]);
 
   const returnRandomColor = () => {
-    const colors = [
-      "red.500",
-      "blue.500",
-      "green.600",
-      "teal.600",
-      "orange.400",
-      "gray.400",
-      "purple.500",
-      "pink.500",
-      "yellow.500",
-    ];
+    const colors = ["red.500", "blue.500", "green.600", "teal.600", "orange.400", "gray.400", "purple.500", "pink.500", "yellow.500"];
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
@@ -52,23 +43,15 @@ const Event = () => {
         },
       }}
     >
-      <Stack mt={{ lg: 20 }} mx={{ lg: "auto" }} maxW="5xl" bg="blackAlpha.800" py={5} minH="90vh">
+      <Stack mt={{ lg: 20 }} mx={{ lg: "auto" }} maxW="5xl" py={5} minH="90vh">
         <SimpleGrid px={2} gap={2} columns={{ base: 6, lg: 6 }}>
           <GridItem py={{ base: 3, lg: 0 }} colSpan={{ base: 6, lg: 2 }}>
             <Stack alignItems={"start"} minH="100%" gap={0}>
-              <Image
-                maxH={{ base: "140px", lg: "100%" }}
-                objectFit={"cover"}
-                px={{ lg: 5 }}
-                minW="100%"
-                shadow="md"
-                src={event?.image}
-                bg="black"
-              />
+              <Image maxH={{ base: "140px", lg: "100%" }} objectFit={"cover"} px={{ lg: 5 }} minW="100%" shadow="md" src={event?.image} />
             </Stack>
           </GridItem>
           <GridItem mt={1} as={Stack} gap={4} colSpan={{ base: 6, lg: 4 }}>
-            <Flex gap={6} bg="black" minW="100%">
+            <Flex gap={6} minW="100%">
               <Stack pl={4} gap={0}>
                 <Box shadow="sm" roundedTop="0" bg="red.500" px={4} py={1}>
                   {event?.endTime && (
@@ -79,13 +62,7 @@ const Event = () => {
                 </Box>
                 <Box shadow={"sm"} roundedBottom={"0"} bg="white" px={1} pb={1.5} pt={1}>
                   {event?.endTime && (
-                    <Text
-                      textAlign={"center"}
-                      color="blackAlpha.700"
-                      fontWeight={"bold"}
-                      fontSize={"xl"}
-                      textTransform={"uppercase"}
-                    >
+                    <Text textAlign={"center"} color="blackAlpha.700" fontWeight={"bold"} fontSize={"xl"} textTransform={"uppercase"}>
                       {new Date(event?.endTime).toDateString().split(" ")?.[2]}
                     </Text>
                   )}
@@ -101,14 +78,7 @@ const Event = () => {
                 >
                   {event?.name}
                 </Text>
-                <Text
-                  maxW="70ch"
-                  isTruncated
-                  color="whiteAlpha.600"
-                  fontWeight="medium"
-                  fontFamily={"open"}
-                  fontSize={"xs"}
-                >
+                <Text maxW="70ch" isTruncated color="whiteAlpha.600" fontWeight="medium" fontFamily={"open"} fontSize={"xs"}>
                   {event?.description}
                 </Text>
               </Stack>
@@ -148,21 +118,14 @@ const Event = () => {
             ) : (
               <></>
             )}
-            <Stack mt={4} alignItems={"start"} gap={4} p={3} bg="black" minW="100%">
+            <Stack mt={4} alignItems={"start"} gap={4} p={3} minW="100%">
               <Text fontSize="sm" fontWeight={"bold"} fontFamily={"Helvetica"} color="whiteAlpha.900">
                 {rsvps?.length} RSVPS
               </Text>
               <SimpleGrid gap={2} minW="100%" columns={{ base: 4, lg: 8 }}>
                 {rsvps?.slice(0, isExpanded ? -1 : 21)?.map((rsvp) => {
                   return (
-                    <GridItem
-                      key={rsvp.id}
-                      justifyContent={"center"}
-                      alignItems={"center"}
-                      as={Stack}
-                      aspectRatio={1}
-                      colSpan={1}
-                    >
+                    <GridItem key={rsvp.id} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
                       <Box
                         as={Stack}
                         justifyContent={"center"}
@@ -190,14 +153,7 @@ const Event = () => {
                   aspectRatio={1}
                   colSpan={1}
                 >
-                  <Box
-                    as={Stack}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    aspectRatio={1}
-                    boxSize="100%"
-                    rounded={"sm"}
-                  >
+                  <Box as={Stack} justifyContent={"center"} alignItems={"center"} aspectRatio={1} boxSize="100%" rounded={"sm"}>
                     <Text color="whiteAlpha.500" fontSize={"2xl"} as="i" className="fa-solid fa-ellipsis" />
                   </Box>
                 </GridItem>

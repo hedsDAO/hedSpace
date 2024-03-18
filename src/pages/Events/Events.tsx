@@ -139,6 +139,7 @@ const Events = () => {
       <SimpleGrid display={{ base: "none", lg: "grid" }} maxW="7xl" mx="auto" columns={7}>
         {DAYS?.map((day, index) => (
           <Fade
+            key={index}
             in={!isUnloading}
             transition={{
               enter: {
@@ -151,7 +152,7 @@ const Events = () => {
               },
             }}
           >
-            <GridItem key={day} colSpan={1}>
+            <GridItem colSpan={1}>
               <Text
                 fontWeight={"bold"}
                 fontFamily={"Helvetica"}
@@ -166,7 +167,6 @@ const Events = () => {
         ))}
       </SimpleGrid>
       <Stack
-        bg="#11111150"
         gap={0}
         minH={{ base: "79vh", lg: "90vh", xl: "87vh" }}
         minW="100vw"

@@ -12,18 +12,8 @@ const Landing = () => {
     if (!latestEvent) dispatch.landingModel.getEvents();
   }, []);
   return (
-    <Container bg="black" minW="100vw">
-      <Stack
-        px={4}
-        justifyContent={"center"}
-        alignItems={"start"}
-        maxW="8xl"
-        mx="auto"
-        bg="black"
-        gap={0}
-        mt={{ lg: -10 }}
-        minH={{ base: "87vh", lg: "96.5vh" }}
-      >
+    <Container minW="100vw">
+      <Stack px={4} justifyContent={"center"} alignItems={"start"} maxW="8xl" mx="auto" gap={0} minH={{ base: "87vh", lg: "96.5vh" }}>
         <LandingHedsText />
         <LandingLatestEvent />
       </Stack>

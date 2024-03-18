@@ -2,10 +2,19 @@ import { extendTheme, position } from "@chakra-ui/react";
 export const defaultTheme = extendTheme({
   colors: {
     heds: {
-      nuBlack: "black",
-      white50: "#ffffff",
-      white100: "#f0f0f0",
-      white200: "#e1e1e1",
+      yellow: "#f3cf6e",
+      blue: "#209fd5",
+      green: "#1ec258",
+      red: "#d03e25",
+      100: "#f5f4f5",
+      200: "#cac4ce",
+      300: "#aaa1ad",
+      400: "#8a7d8c",
+      500: "#675a68",
+      600: "#433743",
+      700: "#161214",
+      800: "#0B0A0A",
+      900: "#000000",
     },
   },
   fonts: {
@@ -36,7 +45,7 @@ export const defaultTheme = extendTheme({
         minHeight: "100vh",
         minWidth: "100vw",
         overflowX: "hidden",
-        bg: "black",
+        background: "linear-gradient(190deg, rgba(22,18,20,1) 0%, rgba(0,0,0,1) 100%)",
         overscrollBehavior: "none !important",
       },
       '.chakra-input[type="search"]::-webkit-search-cancel-button': {
@@ -52,6 +61,17 @@ export const defaultTheme = extendTheme({
       "video::-webkit-media-controls": {
         position: "absolute !important",
         top: "-9999px",
+      },
+      ".selector": {
+        color: "transparent !important",
+        "-webkit-user-select": "none",
+        "-moz-user-select": "none",
+        "-ms-user-select": "none",
+        "-o-user-select": "none", // latest Opera versions support -webkit-
+        "user-select": "none",
+        "&:focus": {
+          outline: "none",
+        },
       },
     }),
   },

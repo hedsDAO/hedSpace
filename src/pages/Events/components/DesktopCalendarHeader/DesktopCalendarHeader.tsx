@@ -6,7 +6,7 @@ const DesktopCalendarHeader = () => {
   return (
     <>
       {daysOfWeek?.map((day) => (
-        <GridItem mb={5} colSpan={1} key={day} minW="100%" minH="100%" color="black">
+        <GridItem mb={5} colSpan={1} key={day} minW="100%" minH="100%">
           <Text
             fontWeight={"medium"}
             letterSpacing={"widest"}

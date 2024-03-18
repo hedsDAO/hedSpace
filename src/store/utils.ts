@@ -1,4 +1,5 @@
 import { CalendarItemProps, Event } from "./types";
+import { DateTime } from "luxon";
 
 function isLeapYear(year: number): boolean {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -17,10 +18,7 @@ function daysInMonth(month: number, year: number): number {
 }
 
 function createCalendarItem(dayDate: Date, events: Event[], now: Date): CalendarItemProps {
-  const isToday =
-    dayDate.getFullYear() === now.getFullYear() &&
-    dayDate.getMonth() === now.getMonth() &&
-    dayDate.getDate() === now.getDate();
+  const isToday = dayDate.getFullYear() === now.getFullYear() && dayDate.getMonth() === now.getMonth() && dayDate.getDate() === now.getDate();
   return {
     day: dayDate.getDate(),
     month: dayDate.getMonth(),
@@ -85,4 +83,15 @@ export const getCalendarInfo = (events: Event[]): CalendarItemProps[][] => {
   }
 
   return calendarYear;
+};
+
+export const isEventOver = (event: Event | null) => {
+  if (!event) {
+    return false;
+  }
+  if (event?.endTime) {
+    const eventEndTime = DateTime.fromMillis(event.endTime).toMillis();
+    const now = DateTime.now().toMillis();
+    return eventEndTime < now;
+  }
 };

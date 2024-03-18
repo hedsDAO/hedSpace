@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_API_ENDPOINT, GUEST_STATUS_API_PREFIX, USER_API_PREFIX } from "./constants";
+import { AUTH_API_ENDPOINT, GUEST_STATUS_API_PREFIX, USER_API_PREFIX, MANAGE_EVENTS_API_ENDPOINT } from "./constants";
 
 export const getSMSCode = async (to: string): Promise<string> => {
   return axios.get(`${AUTH_API_ENDPOINT}/sms/send/${to}`);
@@ -19,3 +19,7 @@ export const addUserRSVP = ({ userId, eventId, status }: { userId: number; event
 export const addUserDisplayName = ({ userId, displayName }: { userId: number; displayName: string }) => {
   return axios.put(`${USER_API_PREFIX}/${userId}`, { displayName });
 };
+
+export const getEventByEventId = (eventId: number) => {
+  return axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events/${eventId}`);
+}

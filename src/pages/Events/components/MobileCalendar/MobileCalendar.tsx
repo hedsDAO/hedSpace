@@ -41,21 +41,21 @@ const MobileCalendar = () => {
           },
         }}
       >
-        <Stack mt={5} alignItems="center" gap={4}>
-          <Text
-            alignSelf={"start"}
-            px={5}
-            fontWeight={"semibold"}
-            fontFamily={"Helvetica"}
-            fontSize={"lg"}
-            color="whiteAlpha.900"
-          >
-            Upcoming Events
-          </Text>
-          {events?.map((event) => {
-            const currentEndTimeForEvent = new Date(event.endTime).getTime();
-            if (currentEndTimeForEvent > new Date().getTime())
-              return (
+        {events?.map((event) => {
+          const currentEndTimeForEvent = new Date(event.endTime).getTime();
+          if (currentEndTimeForEvent > new Date().getTime())
+            return (
+              <Stack key={event?.id} mt={5} alignItems="center" gap={4}>
+                <Text
+                  alignSelf={"start"}
+                  px={5}
+                  fontWeight={"semibold"}
+                  fontFamily={"Helvetica"}
+                  fontSize={"lg"}
+                  color="whiteAlpha.900"
+                >
+                  Upcoming Events
+                </Text>
                 <Stack alignItems="center" minW="90vw">
                   <Image
                     maxW="95vw"
@@ -91,10 +91,24 @@ const MobileCalendar = () => {
                     </Text>
                   </Flex>
                 </Stack>
-              );
-          })}
-          <Divider maxW="93%" borderColor={"whiteAlpha.500"} borderWidth={"1"} />
-        </Stack>
+                <Divider minW="93vw" borderColor={"whiteAlpha.500"} borderWidth={"1"} />
+              </Stack>
+            );
+        })}
+      </Fade>
+      <Fade
+        in={!isUnloading}
+        transition={{
+          enter: {
+            duration: 0.35,
+            delay: 0.25,
+          },
+          exit: {
+            duration: 0.35,
+            delay: 0.1,
+          },
+        }}
+      >
         <Flex
           mt={8}
           minW="100vw"
@@ -192,7 +206,7 @@ const MobileCalendar = () => {
               <Flex></Flex>
             </GridItem>
             {calendar?.[currentMonth]?.map((calendarItem: CalendarItemProps, index: number) => (
-              <GridItem colSpan={1}>
+              <GridItem key={calendarItem?.month + index} colSpan={1}>
                 <Text
                   cursor={calendarItem?.data?.event?.id ? "pointer" : "none"}
                   onClick={() => {

@@ -3,5 +3,5 @@
     "editor.tabSize": 2,
     "git.autofetch": true,
     "npm.packageManager": "npm",
-    "prettier.printWidth": 120,
+    "prettier.printWidth": 150,
 }

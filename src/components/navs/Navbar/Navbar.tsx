@@ -14,13 +14,11 @@ const Navbar = () => {
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
 
   return (
-    <Flex bg="black" gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={6} pb={2}>
+    <Flex gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={"10px"} pl={6} pb={2}>
       <Image
         pointerEvents={"auto"}
         cursor={"pointer"}
-        onClick={() =>
-          dispatch.globalModel.handleUnload([isUnloading, () => window?.location?.replace("https://heds.world")])
-        }
+        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => window?.location?.replace("https://heds.world")])}
         objectFit={"contain"}
         boxSize={{ base: "1.75rem", lg: "1.9rem" }}
         src={IMAGES.logo}
@@ -74,7 +72,7 @@ const Navbar = () => {
             </Fade>
           );
       })}
-    <LoginModal />
+      <LoginModal />
     </Flex>
   );
 };

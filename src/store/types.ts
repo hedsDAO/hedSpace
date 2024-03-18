@@ -62,4 +62,5 @@ export interface User {
   collection: null;
   email: null;
   phoneNumber: string;
+  eventRsvps: EventRsvp[];
 }
