@@ -64,11 +64,13 @@ const SendVerificationCodeStep = () => {
             </Text>
             <Flex alignItems={"baseline"} gap={1}>
               <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
-                {event?.startTime ? handleTimeString(new Date(event?.startTime).getHours()) : null}
+                {/* {event?.startTime ? handleTimeString(new Date(event?.startTime + 5400).getHours()) : null} */}
+                {"8:30 PM"}
               </Text>
               <Text color="whiteAlpha.700">-</Text>
               <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
-                {event?.endTime ? handleTimeString(new Date(event?.endTime).getHours()) : null}
+                {/* {event?.endTime ? handleTimeString(new Date(event?.endTime + 3600).getHours()) : null} */}
+                {"Midnight"}
               </Text>
             </Flex>
             <Text fontFamily={"open"} fontSize={"3xl"} color="white">
