@@ -11,14 +11,14 @@ import "swiper/css";
 
 const MobileCalendar = () => {
   const swiperRef = useRef<any>(null);
-  const calendar = useSelector(store.select.landingModel.selectCalendar);
+  const sortedCalendar = useSelector(store.select.landingModel.selectSortedCalendar);
   const [calendarLength, setCalendarLength] = useState(0);
 
   useEffect(() => {
-    if (calendar && calendar.length === 0) {
-      setCalendarLength(calendar?.length);
+    if (sortedCalendar && sortedCalendar.length === 0) {
+      setCalendarLength(sortedCalendar?.length);
     }
-  }, [calendar]);
+  }, [sortedCalendar]);
   return (
     <Box
       display={{ base: "inline", lg: "none" }}
@@ -49,7 +49,7 @@ const MobileCalendar = () => {
         onSwiper={(swiper) => (swiperRef.current = swiper)} // Step 2: Assign the Swiper instance to the ref
         onSlideChange={() => {}}
       >
-        {calendar?.map((calendarItem) => {
+        {sortedCalendar?.map((calendarItem) => {
           if (calendarItem?.data?.event)
             return (
               <SwiperSlide key={calendarItem.day}>

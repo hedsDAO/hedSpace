@@ -28,15 +28,20 @@ const SendVerificationCodeStep = () => {
   };
 
   const handleTimeString = (time: number) => {
-    if (time > 12) {
-      return `${time - 12}:00 PM`;
-    } else if (time === 0) {
-      return `12:00 AM`;
-    } else if (time === 12) {
-      return `12:00 PM`;
+    const date = new Date(time);
+    const dateHours = date.getHours();
+    const dateMinutes = date.getMinutes();
+
+    if (dateHours > 12) {
+      return `${dateHours - 12}:${dateMinutes === 0 ? dateMinutes + "0" : dateMinutes} PM`;
+    } else if (dateHours === 0) {
+      return `Midnight`;
+    } else if (dateHours === 12) {
+      return `Noon`;
     }
-    return `${time}:00 AM`;
+    return `${dateHours}:${dateMinutes} AM`;
   };
+
   return (
     <>
       <ModalBody gap={{ base: 4, lg: 5 }} minW="100%" as={Stack}>
@@ -64,31 +69,43 @@ const SendVerificationCodeStep = () => {
             </Text>
             <Flex alignItems={"baseline"} gap={1}>
               <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
-                {/* {event?.startTime ? handleTimeString(new Date(event?.startTime + 5400).getHours()) : null} */}
-                {"8:30 PM"}
+                {event?.startTime ? handleTimeString(event?.startTime) : null}
+                {/* {"8:30 PM"} */}
               </Text>
               <Text color="whiteAlpha.700">-</Text>
               <Text fontWeight={"semibold"} mt={0} color="whiteAlpha.700" fontFamily={"open"} fontSize={"sm"}>
-                {/* {event?.endTime ? handleTimeString(new Date(event?.endTime + 3600).getHours()) : null} */}
-                {"Midnight"}
+                {event?.endTime ? handleTimeString(event?.endTime) : null}
+                {/* {"Midnight"} */}
               </Text>
             </Flex>
             <Text fontFamily={"open"} fontSize={"3xl"} color="white">
               {event?.name}
             </Text>
-            <Text
-              textAlign={{ base: "center", lg: "start" }}
-              maxW="50%"
-              fontSize={"2xs"}
-              fontFamily={"open"}
-              color="whiteAlpha.600"
-            >
-              {`ALEKO presents: STAR FM LIVE in collaboration with HEDS.`}
-              {/* {`Join us for an unforgettable experience, as we aim to capture ALEKO’s STAR FM mix live. Featuring sets from ALEKO, ??? and clubaction, Don't miss out on this night under the stars. `} */}
-              <br />
-              <br />
-              {`RSVP now and get ready to listen to 7.77 STAR FM Dress code: Black/Silver ((Will be recorded))`}
-            </Text>
+            {event?.id === 6 ? (
+              <Text
+                textAlign={{ base: "center", lg: "start" }}
+                maxW="50%"
+                fontSize={"2xs"}
+                fontFamily={"open"}
+                color="whiteAlpha.600"
+              >
+                {`ALEKO presents: STAR FM LIVE in collaboration with HEDS.`}
+                {/* {`Join us for an unforgettable experience, as we aim to capture ALEKO’s STAR FM mix live. Featuring sets from ALEKO, ??? and clubaction, Don't miss out on this night under the stars. `} */}
+                <br />
+                <br />
+                {`RSVP now and get ready to listen to 7.77 STAR FM Dress code: Black/Silver ((Will be recorded))`}
+              </Text>
+            ) : (
+              <Text
+                textAlign={{ base: "center", lg: "start" }}
+                maxW="65%"
+                fontSize={"xs"}
+                fontFamily={"open"}
+                color="whiteAlpha.600"
+              >
+                {event?.description}
+              </Text>
+            )}
             <Text
               textAlign={{ base: "center", lg: "start" }}
               lineHeight={"18px"}

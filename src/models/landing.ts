@@ -23,6 +23,17 @@ export const landingModel = createModel<RootModel>()({
   selectors: (slice) => ({
     selectEvents: () => slice((state: LandingModelState): Event[] => state?.events),
     selectCalendar: () => slice((state: LandingModelState): DesktopCalendarItemProps[] | null => state?.calendar),
+    selectSortedCalendar: () =>
+      slice((state: LandingModelState): DesktopCalendarItemProps[] | undefined => {
+        //if the id is  5 then it should be first
+        const sortedCalendar = state?.calendar?.sort((a, b) => {
+          if (a?.data?.event?.id === 6) {
+            return -1;
+          }
+          return 0;
+        });
+        return sortedCalendar;
+      }),
   }),
   effects: () => ({
     async getEvents() {
