@@ -16,7 +16,6 @@ const Footer = () => {
       in={true && !isUnloading}
     >
       <Flex
-        bg="black"
         alignItems={"center"}
         justifyContent={"space-between"}
         pb={{ base: 20, lg: 5 }}

@@ -7,6 +7,7 @@ import axios from "axios";
 interface EventModelState {
   event: Event | null;
   rsvps: EventRsvp[] | null;
+  
 }
 
 export const eventModel = createModel<RootModel>()({

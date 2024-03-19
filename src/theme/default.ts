@@ -64,11 +64,11 @@ export const defaultTheme = extendTheme({
       },
       ".selector": {
         color: "transparent !important",
-        "-webkit-user-select": "none",
-        "-moz-user-select": "none",
-        "-ms-user-select": "none",
-        "-o-user-select": "none", // latest Opera versions support -webkit-
-        "user-select": "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+        MsUserSelect: "none",
+        OUserSelect: "none",
+        userSelect: "none",
         "&:focus": {
           outline: "none",
         },

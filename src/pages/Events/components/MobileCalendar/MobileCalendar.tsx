@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MONTHS } from "@/store/constants";
 import { Dispatch, store } from "@/store/store";
-import { Box, Button, Divider, Fade, Flex, Grid, GridItem, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Fade, Flex, Grid, GridItem, Image, Stack, Text, useBoolean } from "@chakra-ui/react";
 import { CalendarItemProps } from "@/store/types";
 import { useNavigate } from "react-router-dom";
 
@@ -18,16 +18,7 @@ const MobileCalendar = () => {
   const calendar = useSelector(store.select.eventsModel.selectCalendar);
 
   return (
-    <Stack
-      display={{ base: "flex", lg: "none" }}
-      w="100%"
-      gap={0}
-      alignItems={"center"}
-      minH="20vh"
-      justifyContent={"center"}
-      ref={elementRef}
-      position="relative"
-    >
+    <Stack display={{ base: "flex", lg: "none" }} w="100%" gap={0} alignItems={"center"} minH="20vh" justifyContent={"center"} ref={elementRef} position="relative">
       <Fade
         in={!isUnloading}
         transition={{
@@ -41,63 +32,44 @@ const MobileCalendar = () => {
           },
         }}
       >
-        {events?.map((event) => {
+        {!mobileSelectedEvent && events?.map((event) => {
           const currentEndTimeForEvent = new Date(event.endTime).getTime();
-          if (currentEndTimeForEvent > new Date().getTime())
+          if (currentEndTimeForEvent > new Date().getTime()) {
             return (
-              <Stack key={event?.id} mt={5} alignItems="center" gap={4}>
-                <Text
-                  alignSelf={"start"}
-                  px={5}
-                  fontWeight={"semibold"}
-                  fontFamily={"Helvetica"}
-                  fontSize={"lg"}
-                  color="whiteAlpha.900"
-                >
-                  Upcoming Events
-                </Text>
+              <Stack key={event?.id} mt={{ base: 10, lg: 5 }} alignItems="center" gap={2}>
                 <Stack alignItems="center" minW="90vw">
                   <Image
                     maxW="95vw"
                     minW="95vw"
                     maxH="80px"
+                    minH="80px"
+                    bg="heds.600"
+                    p={0.5}
+                    rounded="md"
                     objectFit={"cover"}
                     key={event.id}
                     src={event.image}
                     alt={event.name}
+                    onClick={() => navigate("/event/" + event.id)}
                   />
                   <Flex alignSelf={"center"} minW="100%" justifyContent={"space-between"}>
-                    <Text
-                      alignSelf={"end"}
-                      px={2.5}
-                      mt={2}
-                      fontFamily={"Helvetica"}
-                      fontSize={"sm"}
-                      fontWeight={"medium"}
-                      color="whiteAlpha.600"
-                    >
+                    <Text alignSelf={"end"} px={2.5} mt={2} fontFamily={"Helvetica"} fontSize={"xs"} fontWeight={"medium"} color="whiteAlpha.600">
                       {new Date(event.startTime).toLocaleDateString("en-US", { month: "long", day: "numeric" })}
                     </Text>
-                    <Text
-                      alignSelf={"end"}
-                      px={3}
-                      mt={1}
-                      fontFamily={"Helvetica"}
-                      fontSize={"sm"}
-                      fontWeight={"semibold"}
-                      color="whiteAlpha.600"
-                    >
+                    <Text alignSelf={"end"} px={3} mt={1} fontFamily={"Helvetica"} fontSize={"xs"} fontWeight={"medium"} color="whiteAlpha.600">
                       {event.name}
                     </Text>
                   </Flex>
                 </Stack>
-                <Divider minW="93vw" borderColor={"whiteAlpha.500"} borderWidth={"1"} />
+                <Divider minW="93vw" borderColor={"heds.600"} borderWidth={"1"} />
               </Stack>
             );
+          }
         })}
       </Fade>
       <Fade
-        in={!isUnloading}
+        in={!isUnloading && !mobileSelectedEvent}
+        unmountOnExit
         transition={{
           enter: {
             duration: 0.35,
@@ -109,14 +81,7 @@ const MobileCalendar = () => {
           },
         }}
       >
-        <Flex
-          mt={8}
-          minW="100vw"
-          px={{ base: 4, lg: 0 }}
-          mx="auto"
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
+        <Flex mt={8} minW="100vw" px={{ base: 4, lg: 0 }} mx="auto" alignItems={"center"} justifyContent={"space-between"}>
           <Button
             bg="transparent"
             isDisabled={currentMonth === 0}
@@ -124,21 +89,12 @@ const MobileCalendar = () => {
             color="whiteAlpha.700"
             onClick={() => {
               if (currentMonth === 0) return;
-              dispatch.globalModel.handleUnload([
-                isUnloading,
-                () => dispatch.eventsModel.setCurrentMonth(currentMonth - 1),
-              ]);
+              dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setCurrentMonth(currentMonth - 1)]);
             }}
           >
             <Text as="i" className="fas fa-chevron-left" fontSize={{ base: "sm", lg: "lg" }} />
           </Button>
-          <Text
-            color="whiteAlpha.800"
-            fontSize={{ base: "sm", lg: "lg" }}
-            fontWeight="bold"
-            fontFamily="Helvetica"
-            textAlign="center"
-          >
+          <Text color="whiteAlpha.800" fontSize={{ base: "sm", lg: "lg" }} fontWeight="bold" fontFamily="Helvetica" textAlign="center">
             {MONTHS[currentMonth]}
           </Text>
           <Button
@@ -148,10 +104,7 @@ const MobileCalendar = () => {
             color="whiteAlpha.700"
             onClick={() => {
               if (currentMonth === 11) return;
-              dispatch.globalModel.handleUnload([
-                isUnloading,
-                () => dispatch.eventsModel.setCurrentMonth(currentMonth + 1),
-              ]);
+              dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setCurrentMonth(currentMonth + 1)]);
             }}
           >
             <Text as="i" className="fas fa-chevron-right" fontSize={{ base: "sm", lg: "lg" }} />
@@ -193,15 +146,13 @@ const MobileCalendar = () => {
               transition={"0.35s all ease-in-out"}
               mt={4}
               size="sm"
-              onClick={() =>
-                dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + mobileSelectedEvent?.id)])
-              }
+              onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + mobileSelectedEvent?.id)])}
             >
               View Event
             </Button>
           </Stack>
         ) : (
-          <Grid px={5} gap={5} templateRows="repeat(3, 1fr)" templateColumns="repeat(7, 1fr)">
+          <Grid px={5} gap={5} mb={10} templateRows="repeat(3, 1fr)" templateColumns="repeat(7, 1fr)">
             <GridItem as={Stack} colSpan={7}>
               <Flex></Flex>
             </GridItem>
@@ -211,10 +162,7 @@ const MobileCalendar = () => {
                   cursor={calendarItem?.data?.event?.id ? "pointer" : "none"}
                   onClick={() => {
                     if (calendarItem?.data?.event?.id) {
-                      dispatch.globalModel.handleUnload([
-                        isUnloading,
-                        () => dispatch.eventsModel.setMobileSelectedEvent(calendarItem?.data?.event),
-                      ]);
+                      dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setMobileSelectedEvent(calendarItem?.data?.event)]);
                     }
                   }}
                   fontFamily={"Helvetica"}
@@ -223,14 +171,7 @@ const MobileCalendar = () => {
                 >
                   {calendarItem?.day}
                 </Text>
-                <Box
-                  my={1.5}
-                  mx="auto"
-                  h="7px"
-                  w="7px"
-                  rounded="100%"
-                  bg={!!calendarItem?.data?.event ? "whiteAlpha.500" : "transparent"}
-                />
+                <Box my={1.5} mx="auto" h="7px" w="7px" rounded="100%" bg={!!calendarItem?.data?.event ? "whiteAlpha.500" : "transparent"} />
               </GridItem>
             ))}
           </Grid>

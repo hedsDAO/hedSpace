@@ -10,12 +10,11 @@ const UserDrawer = () => {
   const dispatch = useDispatch<Dispatch>();
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
-  console.log(userData?.eventRsvps);
   return (
     <>
       <Drawer isOpen={isUserDrawerOpen} placement="right" onClose={() => dispatch.userModel.setIsUserDrawerOpen(false)} finalFocusRef={btnRef}>
         <DrawerOverlay bg="blackAlpha.800" />
-        <DrawerContent pt={4} bgGradient="linear(to-l, #001D3D, #0B003D)">
+        <DrawerContent pt={4} bgGradient="linear(to-l, heds.800, heds.700)">
           <DrawerCloseButton size="sm" color="whiteAlpha.600" />
           {userData && (
             <DrawerBody gap={1.5} as={Stack}>
@@ -48,14 +47,13 @@ const UserDrawer = () => {
                   </Text>
                 </Flex>
               </Stack>
-              <Divider mx='auto' maxW='85%' borderColor='whiteAlpha.300' my={7} />
+              <Divider mx="auto" maxW="85%" borderColor="whiteAlpha.300" my={7} />
               <Stack mt={0} minW="100%" gap={2}>
                 {userData?.eventRsvps?.map((event) => (
                   <EventRsvpItem key={event.eventId} eventId={event.eventId} />
                 ))}
               </Stack>
               <Button
-              
                 mt={"auto"}
                 mb={4}
                 py={4}

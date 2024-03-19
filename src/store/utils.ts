@@ -28,11 +28,7 @@ function createCalendarItem(dayDate: Date, events: Event[], now: Date): Calendar
       event:
         events.find((event) => {
           const eventDate = new Date(event.startTime);
-          return (
-            eventDate.getFullYear() === dayDate.getFullYear() &&
-            eventDate.getMonth() === dayDate.getMonth() &&
-            eventDate.getDate() === dayDate.getDate() - 1
-          );
+          return eventDate.getFullYear() === dayDate.getFullYear() && eventDate.getMonth() === dayDate.getMonth() && eventDate.getDate() === dayDate.getDate();
         }) || null,
     },
   };
@@ -94,4 +90,19 @@ export const isEventOver = (event: Event | null) => {
     const now = DateTime.now().toMillis();
     return eventEndTime < now;
   }
+};
+
+export const formatEventDescription = (description: string) => {
+  const firstBreakIndex = description.indexOf(". ");
+  let formattedDescription = description;
+  if (firstBreakIndex !== -1) {
+    formattedDescription = formattedDescription.slice(0, firstBreakIndex + 1) + "\n" + formattedDescription.slice(firstBreakIndex + 2);
+  }
+  return formattedDescription;
+};
+
+export const returnMidnightString = (date: string) => {
+  if (date.includes("12:00 AM")) {
+    return date.replace("12:00 AM", "Midnight");
+  } else return date;
 };

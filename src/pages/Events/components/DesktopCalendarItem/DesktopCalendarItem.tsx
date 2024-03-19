@@ -75,6 +75,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
             <Flex mixBlendMode={"difference"} alignItems={"center"} position={"relative"} overflow={"hidden"} justifyContent={"center"}>
               {calendarItem?.data?.event?.image && (
                 <Image
+                  aspectRatio={1}
                   rounded="2xl"
                   _hover={{ opacity: 0.5 }}
                   transition={"all 0.3s ease-in-out"}

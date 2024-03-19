@@ -84,9 +84,6 @@ const VerificationNumberInput = () => {
           onPaste={(e) => {
             handlePaste(e);
           }}
-          onInput={(e) => {
-            handleOnInputChange(e.currentTarget.value);
-          }}
           px={0}
           textAlign={"center"}
           letterSpacing={{ base: "13px", lg: "20px" }}

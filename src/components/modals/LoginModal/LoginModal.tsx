@@ -1,43 +1,29 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Button,
-  Flex,
-  Stack,
-  Text,
-  useBreakpointValue,
-  Input,
-} from "@chakra-ui/react";
-import PhoneNumberInput from "./components/PhoneNumberInput/PhoneNumberInput";
-import VerificationNumberInput from "./components/VerificationNumberInput/VericationNumberInput";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, store } from "@/store/store";
-import { useEffect, useRef } from "react";
+import { Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
+
 import UserDrawer from "../UserDrawer/UserDrawer";
+import DisplayNameInput from "./components/DisplayNameInput/DisplayNameInput";
+import EventRsvpForm from "./components/EventRsvpForm/EventRsvpForm";
+import PhoneNumberInput from "./components/PhoneNumberInput/PhoneNumberInput";
+import VerificationNumberInput from "./components/VerificationNumberInput/VericationNumberInput";
 
 const LoginModal = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const dispatch = useDispatch<Dispatch>();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const isUserModalOpen = useSelector(store.select.userModel.selectIsUserModalOpen);
   const isVerifying = useSelector(store.select.userModel.selectIsVerifying);
   const userData = useSelector(store.select.userModel.selectUser);
+  const isMissingDisplayName = useSelector(store.select.userModel.selectIsMissingDisplayName);
+  const isRsvping = useSelector(store.select.userModel.selectIsRsvping);
+  const event = useSelector(store.select.userModel.selectEvent);
 
   useEffect(() => {
-    if (isMobile) {
-      inputRef.current?.focus();
-    }
-    return () => {
+    if (userData?.id && !isMissingDisplayName && !isRsvping && !event?.id) {
       dispatch.userModel.closeAndReset();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (userData?.id) onClose();
+    }
   }, [userData]);
 
   return (
@@ -75,25 +61,28 @@ const LoginModal = () => {
           color="heds.300"
           bg="transparent"
           _hover={{ bg: "transparent", color: "heds.100" }}
-          onClick={onOpen}
+          onClick={() => dispatch.userModel.setIsUserModalOpen(true)}
         >
           login
         </Button>
       )}
-      <Modal motionPreset={"slideInTop"} isCentered size={{ base: "md", lg: "lg" }} autoFocus={false} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay bgGradient="linear(to-l, heds.600, heds.700)" />
-        <ModalContent
-          bg="transparent"
-          border="2px solid"
-          borderColor={"black"}
-          rounded={"3xl"}
-          bgGradient="linear(to-l, heds.800, heds.900)"
-          mx={{ base: 2, lg: 4 }}
-        >
+      <Modal
+        motionPreset={"slideInTop"}
+        isCentered
+        size={{ base: "md", lg: "lg" }}
+        autoFocus={false}
+        isOpen={isUserModalOpen}
+        onClose={() => dispatch.userModel.closeAndReset()}
+      >
+        <ModalOverlay bgGradient="linear(to-l, heds.700, heds.900)" />
+        <ModalContent bg="transparent" border="2px solid" borderColor={"heds.600"} rounded={"3xl"} bgGradient="linear(to-l, heds.800, heds.900)" mx={{ base: 2, lg: 4 }}>
           <ModalCloseButton fontSize={"xs"} size={"md"} color="heds.600" _hover={{ color: "heds.300" }} />
           <ModalBody gap={0} as={Stack}>
             <Stack gap={0} justifyContent={"center"} px={{ base: 1, lg: 1 }} minW="100%">
-              {!isVerifying ? <PhoneNumberInput /> : <VerificationNumberInput />}
+              {!isVerifying && !isMissingDisplayName && !userData?.id ? <PhoneNumberInput /> : <></>}
+              {isVerifying && !isMissingDisplayName && !userData?.id ? <VerificationNumberInput /> : <></>}
+              {isVerifying && isMissingDisplayName && userData?.id ? <DisplayNameInput /> : <></>}
+              {isRsvping && event && userData?.id && !isMissingDisplayName ? <EventRsvpForm /> : <></>}
             </Stack>
           </ModalBody>
         </ModalContent>
