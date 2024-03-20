@@ -18,55 +18,74 @@ const MobileCalendar = () => {
   const calendar = useSelector(store.select.eventsModel.selectCalendar);
 
   return (
-    <Stack display={{ base: "flex", lg: "none" }} w="100%" gap={0} alignItems={"center"} minH="20vh" justifyContent={"center"} ref={elementRef} position="relative">
-      <Fade
-        in={!isUnloading}
-        transition={{
-          enter: {
-            duration: 0.35,
-            delay: 0.25,
-          },
-          exit: {
-            duration: 0.35,
-            delay: 0.1,
-          },
-        }}
-      >
-        {!mobileSelectedEvent && events?.map((event) => {
+    <Stack
+      display={{ base: "flex", lg: "none" }}
+      w="100%"
+      gap={0}
+      alignItems={"center"}
+      mt={{ base: 3, lg: 0 }}
+      minH="20vh"
+      justifyContent={"center"}
+      ref={elementRef}
+      position="relative"
+    >
+      {!mobileSelectedEvent &&
+        events?.map((event) => {
           const currentEndTimeForEvent = new Date(event.endTime).getTime();
           if (currentEndTimeForEvent > new Date().getTime()) {
             return (
-              <Stack key={event?.id} mt={{ base: 10, lg: 5 }} alignItems="center" gap={2}>
-                <Stack alignItems="center" minW="90vw">
-                  <Image
-                    maxW="95vw"
-                    minW="95vw"
-                    maxH="80px"
-                    minH="80px"
-                    bg="heds.600"
-                    p={0.5}
-                    rounded="md"
-                    objectFit={"cover"}
-                    key={event.id}
-                    src={event.image}
-                    alt={event.name}
-                    onClick={() => navigate("/event/" + event.id)}
-                  />
-                  <Flex alignSelf={"center"} minW="100%" justifyContent={"space-between"}>
-                    <Text alignSelf={"end"} px={2.5} mt={2} fontFamily={"Helvetica"} fontSize={"xs"} fontWeight={"medium"} color="whiteAlpha.600">
-                      {new Date(event.startTime).toLocaleDateString("en-US", { month: "long", day: "numeric" })}
-                    </Text>
-                    <Text alignSelf={"end"} px={3} mt={1} fontFamily={"Helvetica"} fontSize={"xs"} fontWeight={"medium"} color="whiteAlpha.600">
-                      {event.name}
-                    </Text>
+              <Fade
+                key={event?.id}
+                in={!isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.35,
+                    delay: 0.25,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
+              >
+                <Stack
+                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.id)])}
+                  boxShadow={"sm"}
+                  p={1.5}
+                  rounded={"lg"}
+                  bg="heds.800"
+                  my={{ base: 0.5, lg: 5 }}
+                  alignItems="center"
+                >
+                  <Flex minW="90vw">
+                    <Image
+                      boxShadow={"md"}
+                      aspectRatio={1}
+                      maxH="50px"
+                      minH="50px"
+                      bg="heds.600"
+                      rounded="md"
+                      objectFit={"cover"}
+                      key={event.id}
+                      src={event.image}
+                      alt={event.name}
+                      onClick={() => navigate("/event/" + event.id)}
+                    />
+                    <Stack alignSelf={"center"} gap={0} justifyContent={"start"}>
+                      <Text textTransform={"uppercase"} px={2.5} fontFamily={"inter"} fontSize={"2xs"} fontWeight={"bold"} color="heds.300">
+                        {new Date(event.startTime).toLocaleDateString("en-US", { month: "long", day: "numeric" })}
+                      </Text>
+                      <Text textTransform={"uppercase"} px={2.5} mt={-0.5} fontFamily={"inter"} fontSize={"2xs"} fontWeight={"light"} color="heds.400">
+                        {event.name}
+                      </Text>
+                    </Stack>
                   </Flex>
                 </Stack>
-                <Divider minW="93vw" borderColor={"heds.600"} borderWidth={"1"} />
-              </Stack>
+              </Fade>
             );
           }
         })}
-      </Fade>
+
       <Fade
         in={!isUnloading && !mobileSelectedEvent}
         unmountOnExit
@@ -81,7 +100,7 @@ const MobileCalendar = () => {
           },
         }}
       >
-        <Flex mt={8} minW="100vw" px={{ base: 4, lg: 0 }} mx="auto" alignItems={"center"} justifyContent={"space-between"}>
+        <Flex mt={4} minW="100vw" px={{ base: 4, lg: 0 }} mx="auto" alignItems={"center"} justifyContent={"space-between"}>
           <Button
             bg="transparent"
             isDisabled={currentMonth === 0}
@@ -111,22 +130,24 @@ const MobileCalendar = () => {
           </Button>
         </Flex>
       </Fade>
-      <Fade
-        style={{ width: "100%", zIndex: 1000 }}
-        in={!isUnloading}
-        transition={{
-          enter: {
-            duration: 0.5,
-            delay: 0.35,
-          },
-          exit: {
-            duration: 0.2,
-            delay: 0.2,
-          },
-        }}
-      >
-        {mobileSelectedEvent ? (
-          <Stack mt={3} px={8} gap={5} alignItems={"center"}>
+
+      {mobileSelectedEvent ? (
+        <Fade
+          style={{ minWidth: "100%", zIndex: 1000 }}
+          in={!isUnloading}
+          unmountOnExit
+          transition={{
+            enter: {
+              duration: 0.5,
+              delay: 0.35,
+            },
+            exit: {
+              duration: 0.2,
+              delay: 0.2,
+            },
+          }}
+        >
+          <Stack minW="100%" mt={3} px={8} gap={5} alignItems={"center"}>
             <Image src={mobileSelectedEvent?.image} />
             <Text mb={-4} ml={3} fontFamily={"Helvetica"} fontSize="md" color="whiteAlpha.800" alignSelf={"start"}>
               {mobileSelectedEvent?.name}
@@ -151,11 +172,24 @@ const MobileCalendar = () => {
               View Event
             </Button>
           </Stack>
-        ) : (
-          <Grid px={5} gap={5} mb={10} templateRows="repeat(3, 1fr)" templateColumns="repeat(7, 1fr)">
-            <GridItem as={Stack} colSpan={7}>
-              <Flex></Flex>
-            </GridItem>
+        </Fade>
+      ) : (
+        <Fade
+          style={{ minWidth: "100%", zIndex: 1000 }}
+          in={!isUnloading}
+          unmountOnExit
+          transition={{
+            enter: {
+              duration: 0.5,
+              delay: 0.35,
+            },
+            exit: {
+              duration: 0.2,
+              delay: 0.2,
+            },
+          }}
+        >
+          <Grid mt={10} px={5} gap={5} mb={10} templateRows="repeat(3, 1fr)" templateColumns="repeat(7, 1fr)">
             {calendar?.[currentMonth]?.map((calendarItem: CalendarItemProps, index: number) => (
               <GridItem key={calendarItem?.month + index} colSpan={1}>
                 <Text
@@ -175,8 +209,8 @@ const MobileCalendar = () => {
               </GridItem>
             ))}
           </Grid>
-        )}
-      </Fade>
+        </Fade>
+      )}
     </Stack>
   );
 };

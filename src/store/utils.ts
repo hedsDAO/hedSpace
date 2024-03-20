@@ -42,7 +42,7 @@ export const getCalendarInfo = (events: Event[]): CalendarItemProps[][] => {
   const calendarYear: CalendarItemProps[][] = [];
 
   for (let month = 0; month < 12; month++) {
-    const firstDayOfMonth = new Date(currentYear, month, 1);
+    const firstDayOfMonth = new Date(currentYear, month, 2);
     const startDayOfWeek = firstDayOfMonth.getDay();
     const prevMonthDisplayDays = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
     const daysInThisMonth = daysInMonth(month, currentYear);

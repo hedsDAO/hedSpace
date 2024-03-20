@@ -60,9 +60,9 @@ const Event = () => {
             },
           }}
         >
-          <Stack mt={{ lg: 20 }} mx={{ lg: "auto" }} maxW="5xl" py={5} minH="90vh">
+          <Stack mt={{ lg: 20 }} mx={{ lg: "auto" }} maxW="5xl" py={{ lg: 5 }} minH="90vh">
             <SimpleGrid px={2} gap={2} columns={{ base: 6, lg: 6 }}>
-              <GridItem py={{ base: 3, lg: 0 }} colSpan={{ base: 6, lg: 2 }}>
+              <GridItem py={{ base: 16, lg: 0 }} colSpan={{ base: 6, lg: 2 }}>
                 <Stack alignItems={"start"} minH="100%" gap={0}>
                   <Image maxH={{ base: "140px", lg: "100%" }} objectFit={"cover"} px={{ lg: 5 }} minW="100%" shadow="md" src={event?.image} />
                 </Stack>
@@ -98,7 +98,7 @@ const Event = () => {
                   <Flex
                     direction={{ base: "column", lg: "row" }}
                     justifyContent={"space-between"}
-                    alignItems={{ base: "center", lg: "center" }}
+                    alignItems={{ base: "start", lg: "center" }}
                     gap={4}
                     py={3.5}
                     pl={3}
@@ -106,7 +106,6 @@ const Event = () => {
                     minW="100%"
                   >
                     <CountdownClock endTime={event?.endTime} />
-
                     {isAttending ? (
                       <Text
                         textAlign={{ base: "center", lg: "start" }}
@@ -122,7 +121,7 @@ const Event = () => {
                       </Text>
                     ) : (
                       <Button
-                        mt={{ base: 2, lg: 0 }}
+                        mt={{ base: 1, lg: 0 }}
                         onClick={() => {
                           dispatch.userModel.setEvent(event);
                           dispatch.userModel.setIsRsvping(true);

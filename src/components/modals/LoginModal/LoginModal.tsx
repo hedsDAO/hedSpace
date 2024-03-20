@@ -24,6 +24,12 @@ const LoginModal = () => {
     if (userData?.id && !isMissingDisplayName && !isRsvping && !event?.id) {
       dispatch.userModel.closeAndReset();
     }
+    if (isRsvping) {
+      const doesUserHaveAnExistingRsvp = userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === event?.id);
+      if (doesUserHaveAnExistingRsvp?.length) {
+        dispatch.userModel.closeAndReset();
+      }
+    }
   }, [userData]);
 
   return (
@@ -31,14 +37,14 @@ const LoginModal = () => {
       {userData ? (
         <Flex alignItems={"center"} gap={2} mr={{ base: 4, lg: 3 }}>
           <Button
-            pl={{ base: 3, lg: 4 }}
-            pr={{ base: 3, lg: 3.5 }}
+            pl={{ base: 3.5, lg: 4 }}
+            pr={{ base: 3.5, lg: 3.5 }}
             py={{ lg: 3 }}
             size="xs"
             fontSize="xs"
             bg="transparent"
             rounded="100"
-            border="1px solid"
+            border={{ base: "0.75px solid", lg: "1px solid" }}
             _hover={{ bg: "transparent", color: "whiteAlpha.800", borderColor: "whiteAlpha.900" }}
             color="whiteAlpha.700"
             fontWeight={"normal"}
@@ -46,7 +52,7 @@ const LoginModal = () => {
             fontFamily={"Helvetica"}
             onClick={() => dispatch.userModel.setIsUserDrawerOpen(true)}
           >
-            <Text mr={{ base: "-1.5px", lg: 0 }} as="i" textAlign={"center"} fontSize={{ base: "xs", lg: "base" }} className="fas fa-user" />
+            <Text mr={{ base: "-1.5px", lg: 0 }} as="i" textAlign={"center"} fontSize={{ base: "2xs", lg: "base" }} className="fas fa-user" />
           </Button>
           <UserDrawer />
         </Flex>
@@ -57,7 +63,7 @@ const LoginModal = () => {
           letterSpacing={"widest"}
           fontWeight={"medium"}
           fontFamily={"Helvetica"}
-          fontSize="13px"
+          fontSize={{ base: "12px", lg: "13px" }}
           color="heds.300"
           bg="transparent"
           _hover={{ bg: "transparent", color: "heds.100" }}

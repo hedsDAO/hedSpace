@@ -57,14 +57,11 @@ const Events = () => {
                 _hover={{ bg: "transparent", color: "white" }}
                 color="whiteAlpha.700"
                 onClick={() => {
-                  dispatch.globalModel.handleUnload([
-                    isUnloading,
-                    () => dispatch.eventsModel.setMobileSelectedEvent(null),
-                  ]);
+                  dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setMobileSelectedEvent(null)]);
                 }}
               >
-                <Text as="i" className="fas fa-chevron-left" fontSize={{ base: "sm", lg: "lg" }} />
-                <Text color="whiteAlpha.800" fontWeight={"semibold"} fontFamily={"Helvetica"} fontSize="sm" ml={4}>
+                <Text as="i" className="fas fa-chevron-left" fontSize={{ base: "2xs", lg: "xs" }} />
+                <Text color="whiteAlpha.800" fontWeight={"medium"} fontFamily={"Helvetica"} fontSize="xs" ml={4}>
                   back
                 </Text>
               </Button>
@@ -85,14 +82,7 @@ const Events = () => {
               },
             }}
           >
-            <Flex
-              my={{ base: 6, lg: 10 }}
-              maxW="7xl"
-              px={{ base: 4, lg: 0 }}
-              mx="auto"
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
+            <Flex my={{ base: 6, lg: 10 }} maxW="7xl" px={{ base: 4, lg: 0 }} mx="auto" alignItems={"center"} justifyContent={"space-between"}>
               <Button
                 bg="transparent"
                 isDisabled={currentMonth === 0}
@@ -100,21 +90,12 @@ const Events = () => {
                 color="whiteAlpha.700"
                 onClick={() => {
                   if (currentMonth === 0) return;
-                  dispatch.globalModel.handleUnload([
-                    isUnloading,
-                    () => dispatch.eventsModel.setCurrentMonth(currentMonth - 1),
-                  ]);
+                  dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setCurrentMonth(currentMonth - 1)]);
                 }}
               >
                 <Text as="i" className="fas fa-chevron-left" fontSize={{ base: "sm", lg: "lg" }} />
               </Button>
-              <Text
-                color="whiteAlpha.800"
-                fontSize={{ base: "sm", lg: "lg" }}
-                fontWeight="bold"
-                fontFamily="Helvetica"
-                textAlign="center"
-              >
+              <Text color="whiteAlpha.800" fontSize={{ base: "sm", lg: "lg" }} fontWeight="bold" fontFamily="Helvetica" textAlign="center">
                 {MONTHS[currentMonth]}
               </Text>
               <Button
@@ -124,10 +105,7 @@ const Events = () => {
                 color="whiteAlpha.700"
                 onClick={() => {
                   if (currentMonth === 11) return;
-                  dispatch.globalModel.handleUnload([
-                    isUnloading,
-                    () => dispatch.eventsModel.setCurrentMonth(currentMonth + 1),
-                  ]);
+                  dispatch.globalModel.handleUnload([isUnloading, () => dispatch.eventsModel.setCurrentMonth(currentMonth + 1)]);
                 }}
               >
                 <Text as="i" className="fas fa-chevron-right" fontSize={{ base: "sm", lg: "lg" }} />
@@ -153,26 +131,14 @@ const Events = () => {
             }}
           >
             <GridItem colSpan={1}>
-              <Text
-                fontWeight={"bold"}
-                fontFamily={"Helvetica"}
-                textAlign={"center"}
-                color="whiteAlpha.700"
-                fontSize={"xs"}
-              >
+              <Text fontWeight={"bold"} fontFamily={"Helvetica"} textAlign={"center"} color="whiteAlpha.700" fontSize={"xs"}>
                 {day}
               </Text>
             </GridItem>
           </Fade>
         ))}
       </SimpleGrid>
-      <Stack
-        gap={0}
-        minH={{ base: "79vh", lg: "90vh", xl: "87vh" }}
-        minW="100vw"
-        maxW="100vw"
-        alignItems={"center"}
-      >
+      <Stack gap={0} minH={{ base: "79vh", lg: "90vh", xl: "87vh" }} minW="100vw" maxW="100vw" alignItems={"center"}>
         <Box
           position="absolute"
           top={0}

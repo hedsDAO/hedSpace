@@ -3,6 +3,7 @@ export interface NavLink {
   name: string;
   path: string;
   external: boolean;
+  icon: string;
 }
 
 export const NavLinks = [
@@ -11,17 +12,13 @@ export const NavLinks = [
     name: "home",
     path: "/",
     external: false,
+    icon: "fa-sharp fa-home"
   },
   {
     id: "events",
     name: "events",
     path: "/events",
     external: false,
+    icon: "fa-sharp fa-calendar"
   },
-  // {
-  //   id: "about",
-  //   name: "about",
-  //   path: "/about",
-  //   external: false,
-  // },
 ];

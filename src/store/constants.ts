@@ -8,7 +8,7 @@ export const HELVETICA_STYLE = `
     unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 `;
 
-export const VERIFICATION_CODE_ERROR = 'There was an error verifying your code.'
+export const VERIFICATION_CODE_ERROR = "There was an error verifying your code.";
 
 export const MANAGE_EVENTS_API_ENDPOINT = "https://manageevents-v6adscuyxq-uc.a.run.app";
 export const AUTH_API_ENDPOINT = "https://auth-v6adscuyxq-uc.a.run.app";
@@ -22,19 +22,6 @@ export const GUEST_STATUS_API_PREFIX = "https://gueststatus-v6adscuyxq-uc.a.run.
 
 export const USER_API_PREFIX = "https://user-v6adscuyxq-uc.a.run.app";
 
-export const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April ",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-export const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+export const MONTHS = ["January", "February", "March", "April ", "May", "June", "July", "August", "September", "October", "November", "December"];
+export const DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

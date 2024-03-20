@@ -1,5 +1,5 @@
 import { Dispatch, store } from "@/store/store";
-import { Button, Flex, Grid, GridItem, SimpleGrid, SlideFade, Text, useBoolean } from "@chakra-ui/react";
+import { Button, Fade, Flex, Grid, GridItem, SimpleGrid, SlideFade, Text, useBoolean } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { MONTHS } from "@/store/constants";
 
@@ -10,7 +10,7 @@ const CalendarMonthsNav = () => {
   return (
     <SimpleGrid alignItems={"center"} mt={4} px={4} columns={12} spacing={2}>
       {MONTHS.map((month, index) => (
-        <SlideFade
+        <Fade
           transition={{
             enter: {
               duration: 0.5,
@@ -42,9 +42,9 @@ const CalendarMonthsNav = () => {
               {month}
             </Button>
           </GridItem>
-        </SlideFade>
+        </Fade>
       ))}
-      <SlideFade
+      <Fade
         transition={{ enter: { delay: 0.5, duration: 0.35 }, exit: { delay: 0.1, duration: 0.1 } }}
         unmountOnExit
         in={!isExpanded}
@@ -60,7 +60,7 @@ const CalendarMonthsNav = () => {
             className="fas fa-chevron-right"
           />
         </GridItem>
-      </SlideFade>
+      </Fade>
     </SimpleGrid>
   );
 };
