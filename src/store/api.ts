@@ -16,10 +16,14 @@ export const addUserRSVP = ({ userId, eventId, status }: { userId: number; event
   });
 };
 
+export const removeUserRsvp = ({ rsvpId }: { rsvpId: number }) => {
+  return axios.delete(`${GUEST_STATUS_API_PREFIX}/rsvps/${rsvpId}`);
+};
+
 export const addUserDisplayName = ({ userId, displayName }: { userId: number; displayName: string }) => {
   return axios.put(`${USER_API_PREFIX}/${userId}`, { displayName });
 };
 
 export const getEventByEventId = (eventId: number) => {
   return axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events/${eventId}`);
-}
+};

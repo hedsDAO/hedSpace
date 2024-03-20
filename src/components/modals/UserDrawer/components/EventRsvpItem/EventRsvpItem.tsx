@@ -6,6 +6,7 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isEventOver } from "@/store/utils";
 
 const EventRsvpItem = ({ eventId }: { eventId: number }) => {
   const dispatch = useDispatch<Dispatch>();
@@ -40,18 +41,25 @@ const EventRsvpItem = ({ eventId }: { eventId: number }) => {
           onClick={() => handleNavigate()}
           rounded="lg"
           border="1px solid"
-          bg="whiteAlpha.100"
-          borderColor="whiteAlpha.100"
+          bg={isEventOver(eventData) ? "heds.800" : "heds.900"}
+          borderColor={isEventOver(eventData) ? "heds.700" : "heds.green"}
           minW="100%"
-          gap={0}
+          gap={1}
           _hover={{
-            bg: "whiteAlpha.200",
-            borderColor: "#FFC300",
+            bg: isEventOver(eventData) ? "heds.700" : "whiteAlpha.200",
+
+            borderColor: isEventOver(eventData) ? "heds.600" : "heds.green",
           }}
           transition={"0.3s all ease-in-out"}
         >
-          <Box py={1.5} px={2.5} mb={0.5} as={Flex} justifyContent={"end"} alignItems={"center"} minW="100%">
-            <Text textTransform={"uppercase"} fontWeight={"bold"} fontSize={"2xs"} color="whiteAlpha.700">
+          <Box py={"8px"} px={2.5} my={0.5} as={Flex} justifyContent={"end"} alignItems={"center"} minW="100%">
+            <Text
+              as={isEventOver(eventData) ? "s" : "p"}
+              textTransform={"uppercase"}
+              fontWeight={"bold"}
+              fontSize={"xs"}
+              color={isEventOver(eventData) ? "whiteAlpha.300" : "heds.green"}
+            >
               {DateTime.fromMillis(eventData?.startTime).toFormat("LLL dd, yyyy")}
             </Text>
           </Box>
@@ -59,13 +67,13 @@ const EventRsvpItem = ({ eventId }: { eventId: number }) => {
             <Image objectFit={"cover"} minW="100%" maxH="25px" src={eventData?.image} alt={eventData?.name} />
           </Box>
           <Text
-            py={1.5}
-            mt={0.5}
+            py={2}
+            my={0.5}
             textTransform={"uppercase"}
             px={2.5}
-            fontFamily={"Helvetica"}
+            fontFamily={"open"}
             fontWeight={"bold"}
-            color="whiteAlpha.600"
+            color={isEventOver(eventData) ? "whiteAlpha.300" : "heds.green"}
             fontSize="2xs"
           >
             {eventData?.name}

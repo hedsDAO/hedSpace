@@ -48,10 +48,13 @@ const UserDrawer = () => {
                 </Flex>
               </Stack>
               <Divider mx="auto" maxW="85%" borderColor="whiteAlpha.300" my={7} />
-              <Stack mt={0} minW="100%" gap={2}>
-                {userData?.eventRsvps?.map((event) => (
-                  <EventRsvpItem key={event.eventId} eventId={event.eventId} />
-                ))}
+              <Stack pb={10} mt={-2.5} minW="100%" gap={2.5}>
+                <Text textAlign={'start'} mb={1} color='heds.200' fontSize='md' fontWeight={'bold'} fontFamily={'open'}>RSVPs</Text>
+                {userData?.eventRsvps
+                  .sort((eventA, eventB) => eventB.createdAt - eventA.createdAt)
+                  .map((event) => (
+                    <EventRsvpItem key={event.eventId} eventId={event.eventId} />
+                  ))}
               </Stack>
               <Button
                 mt={"auto"}

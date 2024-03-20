@@ -7,23 +7,27 @@ import axios from "axios";
 interface EventModelState {
   event: Event | null;
   rsvps: EventRsvp[] | null;
-  
+  isLoading: boolean;
 }
 
 export const eventModel = createModel<RootModel>()({
   state: {
     event: null,
+    rsvps: null,
+    isLoading: false,
   } as EventModelState,
   reducers: {
     setEvent: (state: EventModelState, event: Event) => ({ ...state, event }),
     setRSVPs: (state: EventModelState, rsvps: EventRsvp[]) => ({ ...state, rsvps }),
-    clearState: () => ({ event: null, rsvps: null }),
+    setIsLoading: (state: EventModelState, isLoading: boolean) => ({ ...state, isLoading }),
+    clearState: () => ({ event: null, rsvps: null, isLoading: false}),
   },
   selectors: (slice) => ({
     selectEvent: () => slice((state: EventModelState): Event | null => state?.event),
     selectRSVPs: () => slice((state: EventModelState): EventRsvp[] | null => state?.rsvps),
+    selectIsLoading: () => slice((state: EventModelState): boolean => state?.isLoading),
   }),
-  effects: () => ({
+  effects: (dispatch) => ({
     async getEventById(id: string) {
       if (!id) return;
       try {
@@ -40,5 +44,14 @@ export const eventModel = createModel<RootModel>()({
         this.setEvent(null);
       }
     },
+    async removeRsvp ([rsvpId, eventId, userId] : [number, number, number]) {
+      try {
+        await axios.delete(GUEST_STATUS_API_PREFIX + `/rsvps/${rsvpId}`);
+        await this.getEventById(eventId.toString());
+        await dispatch.userModel.updateUserDataById(userId);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }),
 });

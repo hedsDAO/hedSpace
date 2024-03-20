@@ -7,15 +7,18 @@ const AddDisplayNameButton = () => {
   const firstName = useSelector(store.select.userModel.selectFirstName);
   const lastName = useSelector(store.select.userModel.selectLastName);
   const userData = useSelector(store.select.userModel.selectUser);
+  const isLoading = useSelector(store.select.userModel.selectIsLoading);
   return (
     <Stack>
       <Button
+        isLoading={isLoading}
         onClick={() => {
           if (userData?.id) {
+            dispatch.userModel.setIsLoading(true);
             dispatch.userModel.addDisplayName([userData?.id, firstName, lastName]);
           }
         }}
-        isDisabled={firstName.length < 1 || lastName.length < 2}
+        isDisabled={firstName.length < 1 || lastName.length < 2 || isLoading}
         _disabled={{ bg: "heds.700", opacity: 0.4, borderColor: "whiteAlpha.300" }}
         size={"md"}
         rounded="3xl"
@@ -33,7 +36,7 @@ const AddDisplayNameButton = () => {
       </Button>{" "}
       <Flex maxW={{ base: "100%", lg: "80%" }} mx="auto" mt={3}>
         <Text fontWeight={"medium"} fontFamily={"inter"} opacity={0.6} textAlign={"center"} fontSize={{ base: "2xs", lg: "xs" }} color="heds.500">
-          <Text color="heds.300" as="span">
+          <Text fontWeight={"semibold"} color="heds.400" as="span">
             You wont be able to change your name after this.
           </Text>{" "}
           Double check your spelling before submitting.

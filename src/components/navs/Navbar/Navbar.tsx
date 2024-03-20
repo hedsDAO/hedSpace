@@ -15,7 +15,7 @@ const Navbar = () => {
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
 
   return (
-    <Flex gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={{ base: 2, lg: "14px" }} pl={6} pb={2}>
+    <Flex gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={{ base: 4, lg: "14px" }} pl={7} pb={2}>
       <Image
         pointerEvents={"auto"}
         cursor={"pointer"}
@@ -37,10 +37,9 @@ const Navbar = () => {
               <Text
                 color={active ? "heds.200" : "heds.600"}
                 as="i"
-                fontSize={'14px'}
+                fontSize={"14px"}
                 className={navLink.icon}
                 onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate(navLink.path)])}
-                
               />
             ) : (
               <Text

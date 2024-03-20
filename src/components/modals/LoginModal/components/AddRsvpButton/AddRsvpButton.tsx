@@ -6,26 +6,28 @@ const AddRsvpButton = () => {
   const dispatch = useDispatch<Dispatch>();
   const event = useSelector(store.select.userModel.selectEvent);
   const userData = useSelector(store.select.userModel.selectUser);
+  const isLoading = useSelector(store.select.userModel.selectIsLoading);
   return (
     <Stack>
       <Button
+        isLoading={isLoading}
         onClick={() => {
           if (userData?.id && event?.id) {
             dispatch.userModel.addRSVP([userData?.id, event?.id]);
           }
         }}
-        isDisabled={!userData?.id || !userData?.displayName?.length || !event?.id}
+        isDisabled={!userData?.id || !userData?.displayName?.length || !event?.id || isLoading}
         _disabled={{ bg: "heds.700", opacity: 0.4, borderColor: "whiteAlpha.300" }}
         size={"md"}
         rounded="3xl"
         bg="heds.800"
-        color="heds.400"
-        _hover={!userData?.id || !userData?.displayName?.length || !event?.id ? {} : { bg: "heds.600", borderColor: "whiteAlpha.300", color: "heds.300" }}
+        color="heds.green"
+        _hover={!userData?.id || !userData?.displayName?.length || !event?.id ? {} : { bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
         border="1.5px solid"
-        fontWeight={"semibold"}
-        fontFamily={"inter"}
+        fontWeight={"bold"}
+        fontFamily={"Helvetica"}
         fontSize={"sm"}
-        borderColor="whiteAlpha.400"
+        borderColor="heds.green"
         minW="100%"
       >
         RSVP

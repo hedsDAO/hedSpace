@@ -1,4 +1,4 @@
-import { USER_API_PREFIX } from './../store/constants';
+import { USER_API_PREFIX } from "./../store/constants";
 import { Event, User } from "./../store/types";
 
 import type { RootModel } from "@/store";
@@ -47,7 +47,7 @@ export const userModel = createModel<RootModel>()({
   } as UserStateModel,
   reducers: {
     setUser: (state: UserStateModel, user: User) => ({ ...state, user }),
-    setLoading: (state: UserStateModel, isLoading: boolean) => ({ ...state, isLoading }),
+    setIsLoading: (state: UserStateModel, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state: UserStateModel, error: string | null) => ({ ...state, error }),
     setPhoneNumber: (state: UserStateModel, phoneNumber: string[]) => ({ ...state, phoneNumber }),
     setIsVerifying: (state: UserStateModel, isVerifying: boolean) => ({ ...state, isVerifying }),
@@ -118,14 +118,18 @@ export const userModel = createModel<RootModel>()({
   }),
   effects: (dispatch) => ({
     async sendVerificationCode(to: string) {
+      this.setIsLoading(true);
       try {
         const res = await getSMSCode(to);
-        console.log(res, "res");
+
+        this.setIsLoading(false);
       } catch (error) {
         console.log(error, "error");
+        this.setIsLoading(false);
       }
     },
     async verifyCode([to, code]: [string, string]) {
+      this.setIsLoading(true);
       this.setIsVerifying(true);
       try {
         console.log(to, code);
@@ -136,6 +140,7 @@ export const userModel = createModel<RootModel>()({
             this.setUser(userData);
           } else {
             this.setUser(userData);
+            this.setIsUserDrawerOpen(false);
             this.setIsMissingDisplayName(true);
           }
         } else if (typeof res.data === "string" && res.data === VERIFICATION_CODE_ERROR) {
@@ -145,25 +150,16 @@ export const userModel = createModel<RootModel>()({
             this.setError(null);
           }, 3000);
         }
+        this.setIsLoading(false);
       } catch (error) {
         console.log(error);
+        this.setIsLoading(false);
         this.setInputValue("");
         this.setIsVerifying(false);
       }
     },
-    async addDisplayName([id, firstName, lastName]: [number, string, string]) {
-      try {
-        const user = await addUserDisplayName({
-          userId: id,
-          displayName: `${firstName} ${lastName}`,
-        });
-        this.setUser(user.data);
-        this.isMissingDisplayName(false);
-      } catch {
-        this.setError("Failed to add display name");
-      }
-    },
     async addRSVP([userId, eventId]: [userId: number, eventId: number]) {
+      this.setIsLoading(true);
       try {
         const rsvp = await addUserRSVP({
           userId,
@@ -171,22 +167,43 @@ export const userModel = createModel<RootModel>()({
           status: "attending",
         });
         if (rsvp.data) {
-          dispatch.eventModel.getEventById(eventId.toString());
+          await dispatch.eventModel.getEventById(eventId.toString());
           await this.updateUserDataById(userId);
+          this.setIsLoading(false);
           this.closeAndReset();
         }
       } catch (error: any) {
         this.setError(error.message || "Failed to add RSVP");
-      } finally {
+      }
+    },
+    async addDisplayName([id, firstName, lastName]: [number, string, string]) {
+      this.setIsLoading(true);
+      try {
+        const user = await addUserDisplayName({
+          userId: id,
+          displayName: `${firstName} ${lastName}`,
+        });
+        this.setUser(user.data);
+        this.isMissingDisplayName(false);
+        this.closeAndReset();
+      } catch {
+        await this.updateUserDataById(id);
+        this.closeAndReset();
+        this.setError("Failed to add display name");
+        this.setIsLoading(false);
       }
     },
     async updateUserDataById(id: number) {
+      this.setIsLoading(true);
       try {
-        const user = await axios.get(USER_API_PREFIX + `/id/${id}`)
-        this.setUser(user);
+        const user = await axios.get(USER_API_PREFIX + `/id/${id}`);
+        this.setIsUserDrawerOpen(false);
+        this.setUser(user.data);
       } catch (error: any) {
+        this.closeAndReset();
         this.setError(error.message || "Failed to update user data");
+        this.setIsLoading(false);
       }
-    }
+    },
   }),
 });

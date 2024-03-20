@@ -1,11 +1,15 @@
 import { Dispatch, store } from "@/store/store";
 import { Box, Button, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CountdownClock from "./components/CountdownClock/CountdownClock";
+import { isEventOver } from "@/store/utils";
+import { EventRsvp } from "@/store/types";
 
 const Event = () => {
+  const attendingButtonRef = useRef<HTMLButtonElement>(null);
+  const [userRsvp, setUserRsvp] = useState<EventRsvp | null>(null);
   const [isAttending, setIsAttending] = useBoolean();
   const [isExpanded, setIsExpanded] = useBoolean();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
@@ -13,17 +17,25 @@ const Event = () => {
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
   const userData = useSelector(store?.select.userModel.selectUser);
+  const isLoading = useSelector(store?.select.eventModel.selectIsLoading);
   const { id } = useParams();
 
   useEffect(() => {
     if (userData?.eventRsvps && id) {
-      userData?.eventRsvps?.map((rsvp) => {
-        if (rsvp.eventId === parseInt(id)) {
-          setIsAttending.on();
+      userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id)).length > 0 ? setIsAttending.on() : setIsAttending.off();
+      if (userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id)).length > 0) {
+        const userDataRsvp = userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id))[0];
+        setUserRsvp(userDataRsvp);
+        setIsAttending.on();
+        if (attendingButtonRef?.current) {
+          attendingButtonRef.current.textContent = "ATTENDING";
         }
-      });
+      } else {
+        setIsAttending.off();
+        setUserRsvp(null);
+      }
     }
-  }, [userData]);
+  }, [userData, event, attendingButtonRef]);
 
   useEffect(() => {
     if (id && !event) {
@@ -45,8 +57,8 @@ const Event = () => {
   };
 
   return (
-    <>
-      {event ? (
+    <Stack>
+      {event && rsvps ? (
         <Fade
           in={!isUnloading}
           transition={{
@@ -69,8 +81,8 @@ const Event = () => {
               </GridItem>
               <GridItem mt={1} as={Stack} gap={4} colSpan={{ base: 6, lg: 4 }}>
                 <Flex gap={6} minW="100%">
-                  <Stack pl={4} gap={0}>
-                    <Box shadow="sm" roundedTop="0" bg="red.500" px={4} py={1}>
+                  <Stack pl={3} gap={0}>
+                    <Box shadow="sm" roundedTop="0" bg="red.500" px={5} py={1}>
                       {event?.startTime && (
                         <Text color="white" fontWeight={"bold"} fontSize={"xs"} textTransform={"uppercase"}>
                           {new Date(event?.startTime).toDateString().split(" ")?.[1]}
@@ -99,30 +111,55 @@ const Event = () => {
                     direction={{ base: "column", lg: "row" }}
                     justifyContent={"space-between"}
                     alignItems={{ base: "start", lg: "center" }}
-                    gap={4}
+                    gap={{base: 6, lg:4}}
                     py={3.5}
+                    
                     pl={3}
                     pr={3.5}
                     minW="100%"
                   >
                     <CountdownClock endTime={event?.endTime} />
-                    {isAttending ? (
-                      <Text
+                    {isAttending && userRsvp ? (
+                      <Button
+                        key={userData?.eventRsvps?.length}
+                        isLoading={isLoading}
+                        ref={attendingButtonRef}
+                        onMouseEnter={() => {
+                          if (attendingButtonRef.current) {
+                            attendingButtonRef.current.textContent = "REMOVE RSVP";
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          if (attendingButtonRef.current) {
+                            attendingButtonRef.current.textContent = "ATTENDING";
+                          }
+                        }}
+                        size="sm"
+                        onClick={async () => {
+                          if (userData) {
+                            await dispatch.eventModel.removeRsvp([userRsvp.id, event?.id, userData?.id]);
+                            if (attendingButtonRef?.current) attendingButtonRef.current.textContent = "";
+                          }
+                        }}
                         textAlign={{ base: "center", lg: "start" }}
                         minW={{ base: "100%", lg: "auto" }}
                         fontWeight={"bold"}
                         fontSize="xs"
-                        color="heds.900"
-                        bg="heds.green"
-                        px={2}
+                        bg="transparent"
+                        _hover={{ bg: "transparent", color: "heds.red", borderColor: "heds.red" }}
+                        border="1px solid"
+                        borderColor={"heds.green"}
+                        color="heds.green"
+                        transition={"0.15s all ease-in-out"}
+                        px={3}
                         py={1}
-                      >
-                        ATTENDING
-                      </Text>
+                        children={"ATTENDING"}
+                      />
                     ) : (
                       <Button
                         mt={{ base: 1, lg: 0 }}
                         onClick={() => {
+                          if (attendingButtonRef?.current) attendingButtonRef.current.textContent = "ATTENDING";
                           dispatch.userModel.setEvent(event);
                           dispatch.userModel.setIsRsvping(true);
                           dispatch.userModel.setIsUserModalOpen(true);
@@ -190,7 +227,7 @@ const Event = () => {
           <Spinner color="white" />
         </Stack>
       )}
-    </>
+    </Stack>
   );
 };
 

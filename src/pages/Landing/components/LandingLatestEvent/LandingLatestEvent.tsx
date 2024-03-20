@@ -10,6 +10,7 @@ const LandingLatestEvent = () => {
 
   return (
     <SlideFade
+      style={{ zIndex: 1000 }}
       transition={{
         enter: {
           delay: 2,
@@ -19,27 +20,25 @@ const LandingLatestEvent = () => {
       in={!isUnloading}
     >
       {latestEvent?.id ? (
-        <Stack gap={0}>
+        <Stack alignItems={{ base: "center", lg: "center" }} gap={0}>
           <Text
-            mt={14}
+            maxW={{ base: "90%", lg: "70%" }}
+            textAlign={{ base: "center", lg: "center" }}
+            mt={8}
             mb={8}
             color="white"
             fontWeight={"medium"}
-            lineHeight={{ base: "30px", lg: "60px" }}
+            lineHeight={{ base: "30px", lg: "45px" }}
             fontSize={{ base: "xl", lg: "3xl" }}
           >
-            {latestEvent?.startTime ? (
-              <>{`our next event, ${latestEvent.name} is on ${new Date(
-                latestEvent?.startTime
-              ).toLocaleDateString()} at the hedSTORE`}</>
-            ) : null}
+            {latestEvent?.startTime ? <>{`our next event, ${latestEvent.name} is on ${new Date(latestEvent?.startTime).toLocaleDateString()} at the hedSTORE`}</> : null}
           </Text>
           <Text
             onClick={() => navigate("/event/" + latestEvent?.id)}
             _hover={{ cursor: "pointer", borderColor: "white", color: "white !important" }}
             _focus={{ borderColor: "white", color: "white !important" }}
             transition={"0.3s all ease-in-out"}
-            py={{ base: 3, lg: 1 }}
+            py={{ base: 2.5, lg: 1 }}
             px={8}
             w={"fit-content"}
             border={"1px solid"}
@@ -48,7 +47,7 @@ const LandingLatestEvent = () => {
             color="whiteAlpha.700"
             fontWeight={"medium"}
             lineHeight={{ base: "30px", lg: "50px" }}
-            fontSize={{ base: "md", lg: "lg" }}
+            fontSize={{ base: "sm", lg: "lg" }}
           >
             FREE ENTRY WITH{" "}
             <Text textUnderlineOffset={"6px"} textDecoration={"underline"} as="span">
@@ -58,14 +57,7 @@ const LandingLatestEvent = () => {
         </Stack>
       ) : (
         <Stack gap={0}>
-          <Text
-            mt={14}
-            mb={8}
-            color="white"
-            fontWeight={"medium"}
-            lineHeight={{ base: "30px", lg: "60px" }}
-            fontSize={{ base: "xl", lg: "3xl" }}
-          >
+          <Text mt={14} mb={8} color="white" fontWeight={"medium"} lineHeight={{ base: "30px", lg: "60px" }} fontSize={{ base: "xl", lg: "3xl" }}>
             view our upcoming events
           </Text>
           <Text

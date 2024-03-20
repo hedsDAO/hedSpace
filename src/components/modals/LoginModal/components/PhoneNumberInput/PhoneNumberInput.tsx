@@ -1,11 +1,12 @@
 import { Dispatch, store } from "@/store/store";
-import { Flex, Input, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Flex, Input, Spinner, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SendCodeButton from "../SendCodeButton/SendCodeButton";
 import PhoneNumberInputText from "../PhoneNumberInputText/PhoneNumberInputText";
 
 const PhoneNumberInput = () => {
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const dispatch = useDispatch<Dispatch>();
   const inputValue = useSelector(store?.select.userModel.selectInputValue);
   const isVerifying = useSelector(store?.select.userModel.selectIsVerifying);
@@ -48,15 +49,17 @@ const PhoneNumberInput = () => {
   };
 
   const handleOnInputChange = (input: string) => {
-    const filteredText = input.replace(/[^0-9]/g, "");
-    if (filteredText) {
-      if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
-        dispatch.userModel.setInputValue(filteredText);
-      }
-      if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length > maxPhoneNumberLength) {
-        if (filteredText[0] === "1" && filteredText?.length === maxPhoneNumberLength + 1) {
-          const filteredString = filteredText.slice(1);
-          dispatch.userModel.setInputValue(filteredString);
+    if (isMobile) {
+      const filteredText = input.replace(/[^0-9]/g, "");
+      if (filteredText) {
+        if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
+          dispatch.userModel.setInputValue(filteredText);
+        }
+        if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length > maxPhoneNumberLength) {
+          if (filteredText[0] === "1" && filteredText?.length === maxPhoneNumberLength + 1) {
+            const filteredString = filteredText.slice(1);
+            dispatch.userModel.setInputValue(filteredString);
+          }
         }
       }
     }

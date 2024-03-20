@@ -106,3 +106,4 @@ export const returnMidnightString = (date: string) => {
     return date.replace("12:00 AM", "Midnight");
   } else return date;
 };
+
