@@ -1,9 +1,11 @@
+import { USER_API_PREFIX } from './../store/constants';
 import { Event, User } from "./../store/types";
 
 import type { RootModel } from "@/store";
 import { addUserDisplayName, addUserRSVP, getSMSCode, verifySMSCode } from "@/store/api";
 import { VERIFICATION_CODE_ERROR } from "@/store/constants";
 import { createModel } from "@rematch/core";
+import axios from "axios";
 
 interface UserStateModel {
   user: User | null;
@@ -170,12 +172,21 @@ export const userModel = createModel<RootModel>()({
         });
         if (rsvp.data) {
           dispatch.eventModel.getEventById(eventId.toString());
-         this.closeAndReset();
+          await this.updateUserDataById(userId);
+          this.closeAndReset();
         }
       } catch (error: any) {
         this.setError(error.message || "Failed to add RSVP");
       } finally {
       }
     },
+    async updateUserDataById(id: number) {
+      try {
+        const user = await axios.get(USER_API_PREFIX + `/id/${id}`)
+        this.setUser(user);
+      } catch (error: any) {
+        this.setError(error.message || "Failed to update user data");
+      }
+    }
   }),
 });

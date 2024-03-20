@@ -10,7 +10,9 @@ const AddRsvpButton = () => {
     <Stack>
       <Button
         onClick={() => {
-          if (userData?.id && event?.id) dispatch.userModel.addRSVP([userData?.id, event?.id]);
+          if (userData?.id && event?.id) {
+            dispatch.userModel.addRSVP([userData?.id, event?.id]);
+          }
         }}
         isDisabled={!userData?.id || !userData?.displayName?.length || !event?.id}
         _disabled={{ bg: "heds.700", opacity: 0.4, borderColor: "whiteAlpha.300" }}
