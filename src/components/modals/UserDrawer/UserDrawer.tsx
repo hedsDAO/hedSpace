@@ -49,7 +49,9 @@ const UserDrawer = () => {
               </Stack>
               <Divider mx="auto" maxW="85%" borderColor="whiteAlpha.300" my={7} />
               <Stack pb={10} mt={-2.5} minW="100%" gap={2.5}>
-                <Text textAlign={'start'} mb={1} color='heds.200' fontSize='md' fontWeight={'bold'} fontFamily={'open'}>RSVPs</Text>
+                <Text textAlign={"start"} mb={1} color="heds.200" fontSize="md" fontWeight={"bold"} fontFamily={"open"}>
+                  RSVPs
+                </Text>
                 {userData?.eventRsvps
                   .sort((eventA, eventB) => eventB.createdAt - eventA.createdAt)
                   .map((event) => (
@@ -61,13 +63,13 @@ const UserDrawer = () => {
                 mb={4}
                 py={4}
                 size="xs"
-                borderRadius={"lg"}
+                borderRadius={"2xl"}
                 transition={"0.3s all ease-in-out"}
-                bg="whiteAlpha.100"
+                bg="transparent"
                 color="whiteAlpha.600"
                 border="1px solid"
                 borderColor="whiteAlpha.600"
-                _hover={{ bg: "transparent", borderColor: "whiteAlpha.600", color: "white" }}
+                _hover={{ bg: "transparent", borderColor: "whiteAlpha.900", color: "white" }}
                 onClick={() => dispatch.userModel.logout()}
               >
                 Logout

@@ -7,12 +7,13 @@ import { formatEventDescription, returnMidnightString } from "@/store/utils";
 import { DateTime } from "luxon";
 
 const EventRsvpForm = () => {
+  const [isRsvping, setIsRsvping] = useBoolean();
   const event = useSelector(store?.select?.userModel?.selectEvent);
 
   return (
     <Stack justifyContent={"space-between"} minH={{ base: "38vh", lg: "40vh" }} py={4} gap={4} px={3} mb={5}>
-      <EventRsvpFormText />
-      {event ? (
+      {!isRsvping ? <EventRsvpFormText /> : <></>}
+      {event && !isRsvping ? (
         <Stack mb={6} gap={3} alignItems={"start"}>
           <Flex direction={{ base: "column", lg: "row" }} bg="heds.700" p={1} rounded="lg" gap={1}>
             <Image
@@ -53,7 +54,7 @@ const EventRsvpForm = () => {
       ) : (
         <></>
       )}
-      <AddRsvpButton />
+      <AddRsvpButton setIsRsvping={setIsRsvping} isRsvping={isRsvping} />
     </Stack>
   );
 };

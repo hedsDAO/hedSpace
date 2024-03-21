@@ -7,7 +7,6 @@ import "@fontsource/karla";
 import "@fontsource-variable/domine";
 import { HELVETICA_STYLE } from "@/store/constants";
 
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "@/App";
@@ -16,6 +15,7 @@ import { Provider as RematchProvider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "@/store/store";
 import { Global } from "@emotion/react";
+import ScrollWrapper from "@/components/wrappers/ScrollWrapper/ScrollWrapper";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -26,6 +26,7 @@ root.render(
       <BrowserRouter>
         <RematchProvider store={store}>
           <ChakraWrapper>
+            <ScrollWrapper />
             <App />
           </ChakraWrapper>
         </RematchProvider>

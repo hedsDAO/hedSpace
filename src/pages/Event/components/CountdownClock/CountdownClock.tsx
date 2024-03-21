@@ -40,7 +40,7 @@ const CountdownClock = ({ endTime }: { endTime: number }) => {
   if (!timeLeft) return null; // Don't render anything if the event is over
 
   return (
-    <Flex gap={timeLeft.days ? 3 : 1}>
+    <Flex  gap={timeLeft.days ? 3 : 1}>
       <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
         <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
           {timeLeft.days || 0}
