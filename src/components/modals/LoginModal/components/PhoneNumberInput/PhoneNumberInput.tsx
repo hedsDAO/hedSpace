@@ -34,6 +34,7 @@ const PhoneNumberInput = () => {
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    console.log("e", e.clipboardData.getData("text"));
     const text = e.clipboardData.getData("text");
     const filteredText = text.replace(/[^0-9]/g, "");
     if (filteredText) {
@@ -50,6 +51,7 @@ const PhoneNumberInput = () => {
   };
 
   const handleOnInputChange = (input: string) => {
+    console.log("input", input);
     const filteredText = input.replace(/[^0-9]/g, "");
     if (filteredText) {
       if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
@@ -86,10 +88,26 @@ const PhoneNumberInput = () => {
                 +1
               </Text>
               <Input
+              
+                
                 className="selector"
                 autoComplete="tel"
                 type="tel"
                 inputMode="tel"
+                onChange={(e) => {
+                  const filteredText = e.target.value.replace(/[^0-9]/g, "");
+                  if (filteredText) {
+                    if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
+                      dispatch.userModel.setInputValue(filteredText);
+                    }
+                    if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length > maxPhoneNumberLength) {
+                      if (filteredText[0] === "1" && filteredText?.length === maxPhoneNumberLength + 1) {
+                        const filteredString = filteredText.slice(1);
+                        dispatch.userModel.setInputValue(filteredString);
+                      }
+                    }
+                  }
+                }}
                 onPaste={(e) => {
                   _.debounce(() => handlePaste(e), 150);
                 }}

@@ -51,6 +51,18 @@ export const defaultTheme = extendTheme({
       '.chakra-input[type="search"]::-webkit-search-cancel-button': {
         display: "none",
       },
+      "input:-webkit-autofill": {
+        transition: "all 5000s ease-in-out 0s",
+      },
+      "input:-webkit-autofill:hover": {
+        transition: "all 5000s ease-in-out 0s",
+      },
+      "input:-webkit-autofill:focus": {
+        transition: "all 5000s ease-in-out 0s",
+      },
+      "input:-webkit-autofill:active": {
+        transition: "all 5000s ease-in-out 0s",
+      },
       ".highlight": {
         ".ais-Highlight-highlighted": {
           backgroundColor: "heds.bg3",

@@ -27,13 +27,13 @@ const SendCodeButton = () => {
         size={"md"}
         rounded="3xl"
         bg="heds.800"
-        color="heds.400"
-        _hover={inputValue.length !== maxPhoneNumberLength ? {} : { bg: "heds.600", borderColor: "whiteAlpha.300", color: "heds.300" }}
+        color="heds.green"
+        _hover={inputValue.length !== maxPhoneNumberLength ? {} : { bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
         border="1.5px solid"
+        borderColor="heds.green"
         fontWeight={"semibold"}
         fontFamily={"inter"}
         fontSize={"sm"}
-        borderColor="whiteAlpha.400"
         minW="100%"
       >
         Send Code

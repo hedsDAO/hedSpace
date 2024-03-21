@@ -205,7 +205,7 @@ const Event = () => {
                   <SimpleGrid gap={2} minW="100%" columns={{ base: 4, lg: 8 }}>
                     {rsvps?.slice(0, isExpanded ? -1 : 7)?.map((rsvp) => {
                       return (
-                        <GridItem key={rsvp.id} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
+                        <GridItem pointerEvents={"none"} key={rsvp.id} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
                           <Box
                             as={Stack}
                             justifyContent={"center"}
@@ -228,6 +228,7 @@ const Event = () => {
                     <GridItem onClick={() => setIsExpanded.toggle()} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
                       <Box as={Stack} justifyContent={"center"} alignItems={"center"} aspectRatio={1} boxSize="100%" rounded={"sm"}>
                         <Text color="whiteAlpha.500" fontSize={"2xl"} as="i" className="fa-solid fa-ellipsis" />
+                        <Text fontSize='xs' color='whiteAlpha.500'>{isExpanded ? 'view less' : 'view all'}</Text>
                       </Box>
                     </GridItem>
                   </SimpleGrid>

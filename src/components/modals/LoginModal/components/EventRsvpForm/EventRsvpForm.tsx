@@ -37,17 +37,19 @@ const EventRsvpForm = () => {
           <Stack bg="heds.700" p={1} rounded="lg" minW="100%">
             <Stack bg="heds.800" rounded="lg" p={1} py={2.5} gap={1} alignItems={"center"}>
               <Text color="heds.400" fontWeight={"semibold"} fontSize={"xs"} fontFamily={"open"}>
-                <Text fontWeight={"medium"} color="heds.500" as="span">
-                  STARTS:
-                </Text>{" "}
-                {returnMidnightString(DateTime.fromMillis(event?.startTime).toFormat("f"))}
+                {returnMidnightString(DateTime.fromMillis(event?.startTime).toFormat("DD"))}
               </Text>
-              <Text color="heds.400" fontSize={"xs"} fontWeight={"semibold"} fontFamily={"open"}>
-                <Text fontWeight={"medium"} color="heds.500" as="span">
-                  ENDS:
-                </Text>{" "}
-                {returnMidnightString(DateTime.fromMillis(event?.endTime).toFormat("f"))}
-              </Text>
+              <Flex gap={1}>
+                <Text color="heds.300" fontWeight={"semibold"} fontSize={"xs"} fontFamily={"open"}>
+                  {returnMidnightString(DateTime.fromMillis(event?.startTime).toFormat("t"))}
+                </Text>
+                <Text color="heds.300" fontWeight={"semibold"} fontSize={"xs"} fontFamily={"open"}>
+                  -
+                </Text>
+                <Text color="heds.300" fontSize={"xs"} fontWeight={"semibold"} fontFamily={"open"}>
+                  {returnMidnightString(DateTime.fromMillis(event?.endTime).toFormat("t"))}
+                </Text>
+              </Flex>
             </Stack>
           </Stack>
         </Stack>

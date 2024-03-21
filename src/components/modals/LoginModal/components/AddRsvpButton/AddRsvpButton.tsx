@@ -73,10 +73,11 @@ const AddRsvpButton = ({
           color="heds.green"
           _hover={!userData?.id || !userData?.displayName?.length || !event?.id ? {} : { bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
           border="1.5px solid"
+          borderColor="heds.green"
           fontWeight={"bold"}
           fontFamily={"Helvetica"}
           fontSize={"sm"}
-          borderColor="heds.green"
+
           minW="100%"
         >
           RSVP

@@ -53,9 +53,9 @@ const UserDrawer = () => {
                   RSVPs
                 </Text>
                 {userData?.eventRsvps
-                  .sort((eventA, eventB) => eventB.createdAt - eventA.createdAt)
-                  .map((event) => (
-                    <EventRsvpItem key={event.eventId} eventId={event.eventId} />
+                  ?.sort((eventA, eventB) => eventB?.createdAt - eventA?.createdAt)
+                  ?.map((event) => (
+                    <EventRsvpItem key={event?.eventId} eventId={event.eventId} />
                   ))}
               </Stack>
               <Button

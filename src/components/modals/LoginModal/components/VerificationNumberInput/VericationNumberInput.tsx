@@ -126,15 +126,15 @@ const VerificationNumberInput = () => {
           }}
           isDisabled={inputValue.length < maxVerificationCodeLength || !isVerifying}
           size={"md"}
-          rounded="xl"
-          bg="whiteAlpha.200"
-          _hover={{ bg: "transparent", borderColor: "whiteAlpha.300" }}
-          border="1px solid"
+          rounded="3xl"
+          bg="heds.800"
+          color="heds.green"
+          border="1.5px solid"
+          borderColor="heds.green"
           fontWeight={"semibold"}
-          fontFamily={"Helvetica"}
-          color="whiteAlpha.700"
+          fontFamily={"inter"}
+          _hover={{ bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
           fontSize={"sm"}
-          borderColor="whiteAlpha.400"
           minW="100%"
         >
           Verify Code
