@@ -114,7 +114,7 @@ const Events = () => {
           </Fade>
         )}
       </Fade>
-      <SimpleGrid display={{ base: "none", lg: "grid" }} maxW="7xl" mx="auto" columns={7}>
+      <SimpleGrid display={{ base: "none", lg: "grid" }} maxW="8xl" mx="auto" columns={7}>
         {DAYS?.map((day, index) => (
           <Fade
             key={index}

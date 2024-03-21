@@ -33,7 +33,7 @@ const DesktopCalendar = () => {
         display={{ base: "none", lg: "flex" }}
         gap={5}
         my={10}
-        maxW="7xl"
+        maxW="8xl"
         
         justifyContent={"center"}
         ref={elementRef}

@@ -78,6 +78,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
                   aspectRatio={1}
                   rounded="2xl"
                   _hover={{ opacity: 0.5 }}
+                  opacity={isEventOver(calendarItem?.data?.event) ? "20%" : "100%"}
                   transition={"all 0.3s ease-in-out"}
                   src={calendarItem?.data?.event?.image}
                   objectFit="cover"
