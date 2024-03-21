@@ -22,13 +22,13 @@ const SendCodeButton = () => {
           dispatch.userModel.setIsVerifying(true);
           dispatch.userModel.sendVerificationCode("+1" + inputValue);
         }}
-        isDisabled={inputValue.length !== maxPhoneNumberLength || isLoading}
+        isDisabled={inputValue?.length !== maxPhoneNumberLength || isLoading}
         _disabled={{ bg: "heds.700", opacity: 0.4, borderColor: "whiteAlpha.300" }}
         size={"md"}
         rounded="3xl"
         bg="heds.800"
         color="heds.green"
-        _hover={inputValue.length !== maxPhoneNumberLength ? {} : { bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
+        _hover={inputValue?.length !== maxPhoneNumberLength ? {} : { bg: "heds.green", borderColor: "heds.green", color: "heds.100" }}
         border="1.5px solid"
         borderColor="heds.green"
         fontWeight={"semibold"}
