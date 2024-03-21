@@ -14,21 +14,21 @@ const PhoneNumberInput = () => {
   const maxPhoneNumberLength = useSelector(store?.select?.userModel.selectMaxPhoneNumberLength);
 
   const handleShownInputValue = () => {
-    const remainder = Math.abs(inputValue.length - maxPhoneNumberLength);
+    const remainder = Math.abs(inputValue?.length - maxPhoneNumberLength);
     if (remainder === 0) return inputValue;
     else {
       return inputValue + "_".repeat(remainder);
     }
   };
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Enter" && inputValue.length === maxPhoneNumberLength) {
+    if (event.key === "Enter" && inputValue?.length === maxPhoneNumberLength) {
       dispatch.userModel.setInputValue("");
       dispatch.userModel.setPhoneNumber(inputValue.split(""));
       dispatch.userModel.setIsVerifying(true);
       dispatch.userModel.sendVerificationCode("+1" + inputValue);
-    } else if (event.key === "Backspace" && inputValue.length > 0) {
+    } else if (event.key === "Backspace" && inputValue?.length > 0) {
       dispatch.userModel.setInputValue(inputValue.slice(0, -1));
-    } else if (event.key !== "Backspace" && /^[0-9]$/.test(event.key) && inputValue.length < maxPhoneNumberLength) {
+    } else if (event.key !== "Backspace" && /^[0-9]$/.test(event.key) && inputValue?.length < maxPhoneNumberLength) {
       dispatch.userModel.setInputValue(inputValue + event.key);
     }
   };
