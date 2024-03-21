@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, store } from "@/store/store";
-import { Box, Container, Fade, Skeleton, Stack, useBoolean } from "@chakra-ui/react";
+import { Box, Container, Fade, Skeleton, Spinner, Stack, useBoolean } from "@chakra-ui/react";
 import LandingHedsText from "./components/LandingHedsText/LandingHedsText";
 import LandingLatestEvent from "./components/LandingLatestEvent/LandingLatestEvent";
 

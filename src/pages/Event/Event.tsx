@@ -177,18 +177,17 @@ const Event = () => {
                           dispatch.userModel.setIsRsvping(true);
                           dispatch.userModel.setIsUserModalOpen(true);
                         }}
-                        px={5}
-                        border="1px"
-                        bg="transparent"
-                        _hover={{ bg: "transparent", borderColor: "white", color: "white" }}
-                        rounded="none"
-                        borderColor="whiteAlpha.600"
-                        color="whiteAlpha.600"
-                        transition={"0.3s all ease-in-out"}
+                        px={8}
+                        _hover={{ opacity: 0.75 }}
+                        rounded="3xl"
+                        opacity={1}
+                        bgGradient={"linear(to-r, heds.500, heds.green)"}
+                        color="heds.100"
+                        transition={"0.3s all ease-in"}
                         size="sm"
                         minW={{ base: "100%", lg: "auto" }}
                       >
-                        <Text fontWeight={"bold"} fontSize={"xs"}>
+                        <Text fontWeight={"bold"} fontSize={"sm"}>
                           RSVP
                         </Text>
                       </Button>

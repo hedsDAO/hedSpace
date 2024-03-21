@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SendCodeButton from "../SendCodeButton/SendCodeButton";
 import PhoneNumberInputText from "../PhoneNumberInputText/PhoneNumberInputText";
+import _ from "lodash";
 
 const PhoneNumberInput = () => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -49,17 +50,15 @@ const PhoneNumberInput = () => {
   };
 
   const handleOnInputChange = (input: string) => {
-    if (isMobile) {
-      const filteredText = input.replace(/[^0-9]/g, "");
-      if (filteredText) {
-        if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
-          dispatch.userModel.setInputValue(filteredText);
-        }
-        if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length > maxPhoneNumberLength) {
-          if (filteredText[0] === "1" && filteredText?.length === maxPhoneNumberLength + 1) {
-            const filteredString = filteredText.slice(1);
-            dispatch.userModel.setInputValue(filteredString);
-          }
+    const filteredText = input.replace(/[^0-9]/g, "");
+    if (filteredText) {
+      if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length === maxPhoneNumberLength) {
+        dispatch.userModel.setInputValue(filteredText);
+      }
+      if (/^-?\d*\.?\d*$/.test(filteredText) && filteredText?.length > maxPhoneNumberLength) {
+        if (filteredText[0] === "1" && filteredText?.length === maxPhoneNumberLength + 1) {
+          const filteredString = filteredText.slice(1);
+          dispatch.userModel.setInputValue(filteredString);
         }
       }
     }
@@ -92,10 +91,10 @@ const PhoneNumberInput = () => {
                 type="tel"
                 inputMode="tel"
                 onPaste={(e) => {
-                  handlePaste(e);
+                  _.debounce(() => handlePaste(e), 150);
                 }}
                 onInput={(e) => {
-                  handleOnInputChange(e.currentTarget.value);
+                  _.debounce(() => handleOnInputChange(e.currentTarget.value), 100);
                 }}
                 width={{ base: "90%", lg: "80%" }}
                 px={0}

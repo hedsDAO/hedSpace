@@ -78,7 +78,7 @@ const LoginModal = () => {
         size={{ base: "md", lg: "lg" }}
         autoFocus={false}
         isOpen={isUserModalOpen}
-        onClose={() => dispatch.userModel.closeAndReset()}
+        onClose={isVerifying ? () => {} : () => dispatch.userModel.closeAndReset()}
       >
         <ModalOverlay bgGradient="linear(to-l, heds.700, heds.900)" />
         <ModalContent bg="transparent" border="2px solid" borderColor={"heds.600"} rounded={"3xl"} bgGradient="linear(to-l, heds.800, heds.900)" mx={{ base: 2, lg: 4 }}>
