@@ -21,7 +21,7 @@ const LayoutWrapper = () => {
     <Container {...styles.$containerStyles}>
       <Navbar />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 };

@@ -38,7 +38,7 @@ export const landingModel = createModel<RootModel>()({
         const current = response.data[i].startTime - now;
         if (response?.data?.[i]?.startTime - now > 0 && current < difference) {
           difference = current;
-          latestEvent = response.data[i];
+          latestEvent = response.data[i + 1];
         }
       }
       this.setLatestEvent(latestEvent);

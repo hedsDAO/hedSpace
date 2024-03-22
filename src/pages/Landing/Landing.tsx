@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, store } from "@/store/store";
 import { Box, Container, Fade, Flex, Skeleton, SlideFade, Spinner, Stack, Text, useBoolean } from "@chakra-ui/react";
-import LandingHedsText from "./components/LandingHedsText/LandingHedsText";
-import LandingLatestEvent from "./components/LandingLatestEvent/LandingLatestEvent";
 import { DateTime } from "luxon";
 import { useNavigate } from "react-router-dom";
 
@@ -55,7 +53,8 @@ const Landing = () => {
               position={"absolute"}
               aspectRatio={1}
               objectFit={"cover"}
-              minW="100%"
+              minW={"100%"}
+              transition={"0.25s all ease-in-out"}
               maxH={{ base: "400px", lg: "720px" }}
               onPlay={() => setHasVideoLoaded.on()}
               as="video"
@@ -67,7 +66,18 @@ const Landing = () => {
               loop
             />
           </SlideFade>
-          <Stack minH={{ base: "400px", lg: "720px" }} justifyContent={"space-between"} py={{ base: 5, lg: 8 }} px={{ base: 5, lg: 10 }}>
+          <Stack
+            onMouseEnter={() => {
+              if (videoRef.current) videoRef.current.style.opacity = "0.35";
+            }}
+            onMouseLeave={() => {
+              if (videoRef.current) videoRef.current.style.opacity = "0.25";
+            }}
+            minH={{ base: "400px", lg: "720px" }}
+            justifyContent={"space-between"}
+            py={{ base: 5, lg: 8 }}
+            px={{ base: 5, lg: 10 }}
+          >
             <Stack>
               {" "}
               <Text
@@ -75,22 +85,22 @@ const Landing = () => {
                 position={"relative"}
                 zIndex={200}
                 color="heds.100"
-                lineHeight={{ base: "40px", lg: "180px" }}
+                lineHeight={{ base: "40px", lg: "175px" }}
                 fontFamily="Helvetica"
-                fontWeight={{ base: 500, lg: 500 }}
-                fontSize={{ base: "40px", lg: "190px" }}
+                letterSpacing={'wide'}
+                fontWeight={{ base: 600, lg: 500 }}
+                fontSize={{ base: "40px", lg: "185px" }}
               >
                 UP <br /> NEXT
               </Text>
               <Text
                 pl={{ lg: 3 }}
-                mixBlendMode={"difference"}
                 position={"relative"}
                 zIndex={200}
                 color="heds.200"
                 lineHeight={{ base: "30px", lg: "60px" }}
                 fontFamily="hanken"
-                fontWeight={{ base: 100, lg: 100 }}
+                fontWeight={{ base: 300, lg: 200 }}
                 fontSize={{ base: "20px", lg: "40px" }}
               >
                 AT THE HEDSTORE
@@ -103,27 +113,41 @@ const Landing = () => {
                 textAlign={"end"}
                 zIndex={200}
                 textTransform={"uppercase"}
-                color="heds.300"
-                lineHeight={{ base: "20px", lg: "50px" }}
+                color="heds.200"
+                lineHeight={{ base: "10px", lg: "50px" }}
                 fontFamily="hanken"
                 fontWeight={{ base: 300, lg: 300 }}
-                fontSize={{ base: "30px", lg: "50px" }}
+                fontSize={{ base: "25px", lg: "50px" }}
               >
                 {latestEvent?.startTime ? DateTime.fromMillis(latestEvent?.startTime).toFormat("D").replaceAll("/", ".") : ""}
               </Text>
               <Text
-                mixBlendMode={"difference"}
                 position={"relative"}
                 textAlign={"end"}
                 zIndex={200}
                 textTransform={"uppercase"}
-                color="heds.100"
+                color="heds.200"
                 lineHeight={{ base: "50px", lg: "100px" }}
                 fontFamily="hanken"
                 fontWeight={{ base: 600, lg: 600 }}
                 fontSize={{ base: "30px", lg: "100px" }}
               >
                 {latestEvent?.name}
+              </Text>
+              <Text
+                cursor={"pointer"}
+                onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])}
+                position={"relative"}
+                textAlign={"end"}
+                zIndex={200}
+                textTransform={"uppercase"}
+                color="heds.100"
+                lineHeight={{ base: "50px", lg: "30px" }}
+                fontFamily="hanken"
+                fontWeight={{ base: 300, lg: 300 }}
+                fontSize={{ base: "20px", lg: "30px" }}
+              >
+                RSVP <Text ml={1} mb={"-0.5px"} as="i" className="fal fa-arrow-right" />
               </Text>
             </Stack>
           </Stack>
