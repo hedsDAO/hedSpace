@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, store } from "@/store/store";
-import { Box, Container, Fade, Flex, Skeleton, SlideFade, Spinner, Stack, Text, useBoolean } from "@chakra-ui/react";
+import { Box, Container, Fade, Flex, Skeleton, Slide, SlideFade, Spinner, Stack, Text, useBoolean } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const Landing = () => {
             },
           }}
         >
-          <SlideFade
+          <Fade
             style={{ zIndex: 1000 }}
             in={hasVideoLoaded && !isUnloading}
             transition={{
@@ -65,7 +65,7 @@ const Landing = () => {
               playsInline
               loop
             />
-          </SlideFade>
+          </Fade>
           <Stack
             onMouseEnter={() => {
               if (videoRef.current) videoRef.current.style.opacity = "0.35";
@@ -79,76 +79,158 @@ const Landing = () => {
             px={{ base: 5, lg: 10 }}
           >
             <Stack>
-              {" "}
-              <Text
-                mixBlendMode={"difference"}
-                position={"relative"}
-                zIndex={200}
-                color="heds.100"
-                lineHeight={{ base: "40px", lg: "175px" }}
-                fontFamily="Helvetica"
-                letterSpacing={'wide'}
-                fontWeight={{ base: 600, lg: 500 }}
-                fontSize={{ base: "40px", lg: "185px" }}
+              <Fade
+                style={{ zIndex: 1000 }}
+                in={hasVideoLoaded && !isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.5,
+                    delay: 0.65,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
               >
-                UP <br /> NEXT
-              </Text>
-              <Text
-                pl={{ lg: 3 }}
-                position={"relative"}
-                zIndex={200}
-                color="heds.200"
-                lineHeight={{ base: "30px", lg: "60px" }}
-                fontFamily="hanken"
-                fontWeight={{ base: 300, lg: 200 }}
-                fontSize={{ base: "20px", lg: "40px" }}
+                <Text
+                  mixBlendMode={"difference"}
+                  position={"relative"}
+                  zIndex={200}
+                  color="transparent"
+                  style={{
+                    WebkitTextStrokeWidth: "1.5px",
+                    WebkitTextStrokeColor: "white",
+                  }}
+                  lineHeight={{ base: "35px", lg: "200px" }}
+                  fontFamily="Helvetica"
+                  letterSpacing={"tight"}
+                  fontSize={{ base: "35px", lg: "200px" }}
+                >
+                  7515 MELROSE
+                </Text>
+              </Fade>
+              <Fade
+                style={{ zIndex: 1000 }}
+                in={hasVideoLoaded && !isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.5,
+                    delay: 0.75,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
               >
-                AT THE HEDSTORE
-              </Text>
+                <Text
+                  mixBlendMode={"difference"}
+                  position={"relative"}
+                  zIndex={200}
+                  color="transparent"
+                  style={{
+                    WebkitTextStrokeWidth: "1.5px",
+                    WebkitTextStrokeColor: "white",
+                  }}
+                  lineHeight={{ base: "35px", lg: "200px" }}
+                  fontFamily="Helvetica"
+                  letterSpacing={"tight"}
+                  fontSize={{ base: "35px", lg: "200px" }}
+                >
+                  LOS ANGELES
+                </Text>
+              </Fade>
             </Stack>
             <Stack>
-              <Text
-                mixBlendMode={"difference"}
-                position={"relative"}
-                textAlign={"end"}
-                zIndex={200}
-                textTransform={"uppercase"}
-                color="heds.200"
-                lineHeight={{ base: "10px", lg: "50px" }}
-                fontFamily="hanken"
-                fontWeight={{ base: 300, lg: 300 }}
-                fontSize={{ base: "25px", lg: "50px" }}
+              <Fade
+                style={{ zIndex: 1000 }}
+                in={hasVideoLoaded && !isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.5,
+                    delay: 0.85,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
               >
-                {latestEvent?.startTime ? DateTime.fromMillis(latestEvent?.startTime).toFormat("D").replaceAll("/", ".") : ""}
-              </Text>
-              <Text
-                position={"relative"}
-                textAlign={"end"}
-                zIndex={200}
-                textTransform={"uppercase"}
-                color="heds.200"
-                lineHeight={{ base: "50px", lg: "100px" }}
-                fontFamily="hanken"
-                fontWeight={{ base: 600, lg: 600 }}
-                fontSize={{ base: "30px", lg: "100px" }}
+                <Text
+                  mixBlendMode={"difference"}
+                  position={"relative"}
+                  textAlign={"end"}
+                  zIndex={200}
+                  textTransform={"uppercase"}
+                  color="heds.200"
+                  lineHeight={{ base: "10px", lg: "50px" }}
+                  fontFamily="hanken"
+                  fontWeight={{ base: 300, lg: 300 }}
+                  fontSize={{ base: "25px", lg: "50px" }}
+                >
+                  {latestEvent?.startTime ? DateTime.fromMillis(latestEvent?.startTime).toFormat("D").replaceAll("/", ".") : ""}
+                </Text>
+              </Fade>
+              <Fade
+                style={{ zIndex: 1000 }}
+                in={hasVideoLoaded && !isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.5,
+                    delay: 1.15,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
               >
-                {latestEvent?.name}
-              </Text>
-              <Text
-                cursor={"pointer"}
-                onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])}
-                position={"relative"}
-                textAlign={"end"}
-                zIndex={200}
-                textTransform={"uppercase"}
-                color="heds.100"
-                lineHeight={{ base: "50px", lg: "30px" }}
-                fontFamily="hanken"
-                fontWeight={{ base: 300, lg: 300 }}
-                fontSize={{ base: "20px", lg: "30px" }}
+                <Text
+                  position={"relative"}
+                  textAlign={"end"}
+                  zIndex={200}
+                  textTransform={"uppercase"}
+                  color="heds.200"
+                  lineHeight={{ base: "50px", lg: "100px" }}
+                  fontFamily="hanken"
+                  fontWeight={{ base: 600, lg: 600 }}
+                  fontSize={{ base: "30px", lg: "100px" }}
+                >
+                  {latestEvent?.name}
+                </Text>
+              </Fade>
+
+              <Fade
+                style={{ zIndex: 1000 }}
+                in={hasVideoLoaded && !isUnloading}
+                transition={{
+                  enter: {
+                    duration: 0.5,
+                    delay: 1.35,
+                  },
+                  exit: {
+                    duration: 0.35,
+                    delay: 0.1,
+                  },
+                }}
               >
-                RSVP <Text ml={1} mb={"-0.5px"} as="i" className="fal fa-arrow-right" />
-              </Text>
+                <Text
+                  cursor={"pointer"}
+                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])}
+                  position={"relative"}
+                  textAlign={"end"}
+                  zIndex={200}
+                  textTransform={"uppercase"}
+                  color="heds.100"
+                  lineHeight={{ base: "50px", lg: "30px" }}
+                  fontFamily="hanken"
+                  fontWeight={{ base: 300, lg: 300 }}
+                  fontSize={{ base: "20px", lg: "30px" }}
+                >
+                  RSVP <Text ml={1} mb={"-0.5px"} as="i" className="fal fa-arrow-right" />
+                </Text>
+              </Fade>
             </Stack>
           </Stack>
         </Fade>
