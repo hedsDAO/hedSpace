@@ -25,6 +25,7 @@ export const defaultTheme = extendTheme({
     open: "'Open Sans Variable', sans-serif",
     lora: "'Lora Variable', serif",
     domine: "'Domine Variable', sans-serif",
+    hanken: "'Hanken Grotesk Variable', sans-serif",
   },
   styles: {
     global: (props: any) => ({
