@@ -43,7 +43,7 @@ const CountdownClock = ({ endTime }: { endTime: number }) => {
     <Flex  gap={timeLeft.days ? 3 : 1}>
       <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
         <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
-          {timeLeft.days || 0}
+          {timeLeft.days > 0 ? timeLeft?.days : ""}
         </Text>
         <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
           {timeLeft.days ? "DAYS" : ""}
