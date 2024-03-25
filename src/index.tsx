@@ -5,7 +5,9 @@ import "@fontsource/inter";
 import "@fontsource/poppins";
 import "@fontsource/karla";
 import "@fontsource-variable/domine";
+import '@fontsource-variable/hanken-grotesk';
 import { HELVETICA_STYLE } from "@/store/constants";
+
 
 import React from "react";
 import ReactDOM from "react-dom/client";

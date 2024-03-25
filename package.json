@@ -17,6 +17,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/domine": "^5.0.16",
+    "@fontsource-variable/hanken-grotesk": "^5.0.20",
     "@fontsource-variable/lora": "^5.0.9",
     "@fontsource-variable/open-sans": "^5.0.18",
     "@fontsource/inter": "^4.5.15",

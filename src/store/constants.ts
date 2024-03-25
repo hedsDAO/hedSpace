@@ -1,11 +1,4 @@
 export const HELVETICA_STYLE = `
-  @font-face {
-    font-family: 'Helvetica';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url(/public/fonts/helvetica.ttf) format('ttf');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 `;
 
 export const VERIFICATION_CODE_ERROR = "There was an error verifying your code.";
