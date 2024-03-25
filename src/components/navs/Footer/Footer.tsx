@@ -18,7 +18,7 @@ const Footer = () => {
       <Flex
         alignItems={"center"}
         justifyContent={"space-between"}
-        pb={{ base: 20, lg: 5 }}
+        pb={{ base: 5, lg: 5 }}
         pt={{ base: 10, lg: 4 }}
         minH="8vh"
         maxW="100vw"

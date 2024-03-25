@@ -8,7 +8,7 @@ const persistConfig = {
   key: "root",
   storage,
   version: 2,
-  blacklist: ["productModel", "landingModel", "rsvpModel"],
+  blacklist: ["productModel", "landingModel", "rsvpModel", 'eventModel'],
   whitelist: ["userModel"],
 };
 

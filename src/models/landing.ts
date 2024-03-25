@@ -6,8 +6,8 @@ import { createModel } from "@rematch/core";
 import axios from "axios";
 
 interface LandingModelState {
-  events: any;
-  latestEvent: any;
+  events: Event[] | null;
+  latestEvent: Event | null;
   calendar: CalendarItemProps[] | null;
 }
 
@@ -15,6 +15,7 @@ export const landingModel = createModel<RootModel>()({
   state: {
     events: null,
     calendar: null,
+    latestEvent: null,
   } as LandingModelState,
   reducers: {
     setEvents: (state: LandingModelState, events: any) => ({ ...state, events }),
@@ -23,7 +24,7 @@ export const landingModel = createModel<RootModel>()({
     clearState: () => ({ events: null, calendar: null, latestEvent: null }),
   },
   selectors: (slice) => ({
-    selectEvents: () => slice((state: LandingModelState): Event[] => state?.events),
+    selectEvents: () => slice((state: LandingModelState): Event[] | null => state?.events),
     selectLatestEvent: () => slice((state: LandingModelState): Event | null => state?.latestEvent),
     selectCalendar: () => slice((state: LandingModelState): CalendarItemProps[] | null => state?.calendar),
   }),
