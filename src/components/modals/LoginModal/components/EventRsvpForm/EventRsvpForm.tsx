@@ -17,15 +17,16 @@ const EventRsvpForm = () => {
         <Stack mb={6} gap={3} alignItems={"start"}>
           <Flex direction={{ base: "column", lg: "row" }} bg="heds.700" p={1} rounded="lg" gap={1}>
             <Image
-              maxH={{ base: "15vh", lg: "100%" }}
-              maxW={{ base: "100%", lg: "30%" }}
+              maxH={{ base: "100%", lg: "100%" }}
+              maxW={{ base: "100%", lg: "29%" }}
+              minW={{ base: "100%", lg: "29%" }}
               objectFit={"cover"}
               aspectRatio={1}
               src={event?.image}
               alt={event?.name}
               borderRadius={"lg"}
             />
-            <Stack maxW={{ base: "100%", lg: "70%" }} bg="heds.800" px={3.5} py={2.5} rounded="lg">
+            <Stack minW={{ base: "100%", lg: "70%" }} maxW={{ base: "100%", lg: "70%" }} bg="heds.800" px={3.5} py={2.5} rounded="lg">
               <Text mt={-1} fontFamily={"Helvetica"} fontWeight={"bold"} fontSize={{ base: "md", lg: "lg" }} color="heds.400">
                 {event.name}
               </Text>

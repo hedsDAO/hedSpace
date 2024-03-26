@@ -15,9 +15,9 @@ const LandingFeaturedEventVideo = () => {
   const [hasVideoLoaded, setHasVideoLoaded] = useBoolean();
   return (
     <Fade
-      in={hasVideoLoaded && !isUnloading}
       onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])}
-      style={{ zIndex: 1000 }}
+      in={hasVideoLoaded && !isUnloading}
+      style={{ zIndex: 2000 }}
       transition={constants.FADE_TRANSITIONS}
     >
       <Box {...styles.$boxStyles} as={constants.AS_VIDEO} ref={videoRef} autoPlay onPlay={setHasVideoLoaded.on} src={latestEvent?.video} muted playsInline loop />

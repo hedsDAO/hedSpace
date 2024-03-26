@@ -1,41 +1,23 @@
 import { Dispatch, store } from "@/store/store";
-import { Box, Button, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean } from "@chakra-ui/react";
+import { Box, Button, Container, Divider, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CountdownClock from "./components/CountdownClock/CountdownClock";
 import { isEventOver } from "@/store/utils";
-import { EventRsvp } from "@/store/types";
+import { DateTime } from "luxon";
 
 const Event = () => {
-  const attendingButtonRef = useRef<HTMLButtonElement>(null);
-  const [userRsvp, setUserRsvp] = useState<EventRsvp | null>(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<Dispatch>();
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const [isAttending, setIsAttending] = useBoolean();
   const [isExpanded, setIsExpanded] = useBoolean();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
-  const dispatch = useDispatch<Dispatch>();
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
-  const userData = useSelector(store?.select.userModel.selectUser);
-  const isLoading = useSelector(store?.select.eventModel.selectIsLoading);
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (userData?.eventRsvps && id) {
-      userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id)).length > 0 ? setIsAttending.on() : setIsAttending.off();
-      if (userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id)).length > 0) {
-        const userDataRsvp = userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === parseInt(id))[0];
-        setUserRsvp(userDataRsvp);
-        setIsAttending.on();
-        if (attendingButtonRef?.current) {
-          attendingButtonRef.current.textContent = "ATTENDING";
-        }
-      } else {
-        setIsAttending.off();
-        setUserRsvp(null);
-      }
-    }
-  }, [userData, event, attendingButtonRef]);
+  const userData = useSelector(store.select.userModel.selectUser);
 
   useEffect(() => {
     if (id && !event) {
@@ -43,206 +25,220 @@ const Event = () => {
     } else if (id && event?.id && event?.id !== parseInt(id)) {
       dispatch.eventModel.getEventById(id);
     }
-    return () => {
-      dispatch.eventModel.clearState();
-    };
-  }, [id]);
-
-  const returnRandomColor = () => {
-    const colors = ["red.500", "blue.500", "green.600", "teal.600", "orange.400", "gray.400", "purple.500", "pink.500", "yellow.500"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+    if (userData?.id && userData?.eventRsvps && id) {
+      const isAttending = userData?.eventRsvps?.find((rsvp) => `${rsvp.eventId}` === id);
+      if (isAttending) setIsAttending.on();
+      else setIsAttending.off();
+    } else setIsAttending.off();
+  }, [id, userData]);
 
   return (
-    <Stack minH="90vh">
-      {event && rsvps ? (
-        <Fade
-          in={!isUnloading}
-          transition={{
-            enter: {
-              duration: 0.35,
-              delay: 0.25,
-            },
-            exit: {
-              duration: 0.35,
-              delay: 0.1,
-            },
-          }}
+    <Container px={0} minW="100vw" minH="100vh">
+      <Box
+        autoPlay
+        src={event?.video}
+        muted
+        playsInline
+        zIndex={1000}
+        loop
+        as="video"
+        position={"absolute"}
+        opacity="0.2"
+        aspectRatio={1}
+        objectFit="cover"
+        minH="100vh"
+        maxH="100vh"
+        minW="100vw"
+        transition="0.25s all ease-in-out"
+      />
+      <Image shadow="sm" right={"23%"} top={"20%"} src={event?.image} objectFit="cover" minH="60vh" maxH="60vh" position="absolute" zIndex={1000} />
+      {event && (
+        <Stack
+          pt={{ base: 8, lg: 12 }}
+          px={{ base: 10, lg: 20 }}
+          minH="100vh"
+          alignItems={"center"}
+          position={"relative"}
+          zIndex={1001}
+          bg={"heds.700"}
+          maxW={{ base: "100%", lg: "25%" }}
         >
-          <Stack mt={{ lg: 20 }} mx={{ lg: "auto" }} maxW="5xl" py={{ lg: 5 }} minH="90vh">
-            <SimpleGrid px={2} gap={2} columns={{ base: 6, lg: 6 }}>
-              <GridItem py={{ base: 12, lg: 0 }} colSpan={{ base: 6, lg: 2 }}>
-                <Stack alignItems={"start"} minH="100%" gap={0}>
-                  <Image maxH={{ base: "140px", lg: "100%" }} objectFit={"cover"} px={{ lg: 5 }} minW="100%" shadow="md" src={event?.image} />
-                </Stack>
-              </GridItem>
-              <GridItem mt={1} as={Stack} gap={4} colSpan={{ base: 6, lg: 4 }}>
-                <Stack pl={3} alignItems={{ base: "center", lg: "start" }} direction={{ base: "column", lg: "column" }} gap={6} minW="100%">
-                  <Stack gap={0}>
-                    <Box shadow="sm" roundedTop="0" bg="red.500" px={5} py={1}>
-                      {event?.startTime && (
-                        <Text color="white" fontWeight={"bold"} fontSize={"xs"} textTransform={"uppercase"}>
-                          {new Date(event?.startTime).toDateString().split(" ")?.[1]}
-                        </Text>
-                      )}
-                    </Box>
-                    <Box shadow={"sm"} roundedBottom={"0"} bg="white" px={1} pb={1.5} pt={1}>
-                      {event?.startTime && (
-                        <Text textAlign={"center"} color="blackAlpha.700" fontWeight={"bold"} fontSize={"xl"} textTransform={"uppercase"}>
-                          {new Date(event?.startTime).toDateString().split(" ")?.[2]}
-                        </Text>
-                      )}
-                    </Box>
-                  </Stack>
-                  <Stack gap={2} justifyContent={"start"}>
-                    <Text
-                      textTransform={"uppercase"}
-                      mb={{ base: 2, lg: 2 }}
-                      lineHeight={{ base: "35px", lg: "30px" }}
-                      fontWeight={"semibold"}
-                      textAlign={{ base: "center", lg: "start" }}
-                      fontFamily={"inter"}
-                      fontSize={{ base: "2xl", lg: "3xl" }}
-                      color="heds.200"
-                    >
-                      {event?.name}
-                    </Text>
-                    <Text
-                      maxW={{ base: "80vw", lg: "70ch" }}
-                      color="heds.500"
-                      textAlign={{ base: "center", lg: "start" }}
-                      fontWeight="medium"
-                      fontFamily={"open"}
-                      fontSize={"xs"}
-                    >
-                      {event?.description}
-                    </Text>
-                  </Stack>
-                </Stack>
-                {event?.endTime && event?.endTime > new Date().getTime() ? (
-                  <Flex
-                    direction={{ base: "column", lg: "row" }}
-                    justifyContent={"space-between"}
-                    alignItems={{ base: "center", lg: "center" }}
-                    gap={{ base: 6, lg: 4 }}
-                    py={3.5}
-                    pl={3}
-                    pr={3.5}
-                    minW="100%"
+          <Stack maxW={{ base: "100%", lg: "100%" }} minW={{ base: "100%", lg: "100%" }}>
+            <Flex
+              pt={{ lg: 8 }}
+              pb={5}
+              cursor={"pointer"}
+              onClick={() =>
+                dispatch.globalModel.handleUnload([
+                  isUnloading,
+                  () => {
+                    dispatch.eventModel.clearState();
+                    navigate("/events");
+                  },
+                ])
+              }
+              color="heds.200"
+              _hover={{ color: "heds.100" }}
+              transition={"0.3s all ease-in-out"}
+              gap={4}
+              alignItems={"center"}
+            >
+              <Text as="i" className="fa-solid fa-sharp fa-chevron-left" fontSize={{ base: "2xs", lg: "xs" }} />
+              <Text fontFamily={"hanken"} fontSize={{ base: "2xs", lg: "xs" }}>
+                BACK TO EVENTS
+              </Text>
+            </Flex>
+            <Flex direction={{ base: "column", lg: "column" }} gap={{ base: 5, lg: 10 }}>
+              {isMobile ? <Image src={event?.image} objectFit={"cover"} minH={{ base: "40vh", lg: "60vh" }} maxH={{ base: "40vh", lg: "60vh" }} /> : <></>}
+              <Stack>
+                <Flex alignItems={"center"}>
+                  <Text
+                    isTruncated={false}
+                    whiteSpace={"nowrap"}
+                    textTransform={"uppercase"}
+                    fontWeight={700}
+                    color="heds.100"
+                    fontFamily={"hanken"}
+                    fontSize={{ base: "25px", lg: "30px" }}
                   >
-                    <CountdownClock endTime={event?.endTime} />
-                    {isAttending && userRsvp ? (
-                      <Button
-                        key={userData?.eventRsvps?.length}
-                        isLoading={isLoading}
-                        ref={attendingButtonRef}
-                        onMouseEnter={() => {
-                          if (attendingButtonRef.current) {
-                            attendingButtonRef.current.textContent = "REMOVE RSVP";
-                          }
-                        }}
-                        onMouseLeave={() => {
-                          if (attendingButtonRef.current) {
-                            attendingButtonRef.current.textContent = "ATTENDING";
-                          }
-                        }}
-                        size="sm"
-                        onClick={async () => {
-                          if (userData) {
-                            await dispatch.eventModel.removeRsvp([userRsvp.id, event?.id, userData?.id]);
-                            if (attendingButtonRef?.current) attendingButtonRef.current.textContent = "";
-                          }
-                        }}
-                        borderRadius={"2xl"}
-                        textAlign={{ base: "center", lg: "start" }}
-                        minW={{ base: "100%", lg: "auto" }}
-                        fontWeight={"bold"}
-                        fontSize="xs"
-                        bg="transparent"
-                        _hover={{ bg: "transparent", color: "heds.red", borderColor: "heds.red" }}
-                        border="1px solid"
-                        borderColor={"heds.green"}
-                        color="heds.green"
-                        transition={"0.15s all ease-in-out"}
-                        px={6}
-                        py={1}
-                        children={"ATTENDING"}
-                      />
-                    ) : (
-                      <Button
-                        mt={{ base: 1, lg: 0 }}
-                        onClick={() => {
-                          if (attendingButtonRef?.current) attendingButtonRef.current.textContent = "ATTENDING";
-                          dispatch.userModel.setEvent(event);
-                          dispatch.userModel.setIsRsvping(true);
-                          dispatch.userModel.setIsUserModalOpen(true);
-                        }}
-                        px={8}
-                        _hover={{ opacity: 0.75 }}
-                        rounded="3xl"
-                        opacity={1}
-                        bgGradient={"linear(to-r, heds.500, heds.green)"}
-                        color="heds.100"
-                        transition={"0.3s all ease-in"}
-                        size="sm"
-                        minW={{ base: "100%", lg: "auto" }}
-                      >
-                        <Text fontWeight={"bold"} fontSize={"sm"}>
-                          RSVP
-                        </Text>
-                      </Button>
-                    )}
-                  </Flex>
-                ) : (
-                  <></>
-                )}
-              </GridItem>
-              <GridItem px={3} colSpan={6}>
-                <Stack mt={4} alignItems={"start"} gap={4} p={3} minW="100%">
-                  <Text fontSize="sm" fontWeight={"bold"} fontFamily={"Helvetica"} color="whiteAlpha.900">
-                    {rsvps?.length} RSVPS
+                    {event?.name}
                   </Text>
-                  <SimpleGrid gap={2} minW="100%" columns={{ base: 4, lg: 8 }}>
-                    {rsvps?.slice(0, isExpanded ? -1 : 7)?.map((rsvp) => {
-                      return (
-                        <GridItem pointerEvents={"none"} key={rsvp.id} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
-                          <Box
-                            as={Stack}
-                            justifyContent={"center"}
-                            alignItems={"center"}
-                            aspectRatio={1}
-                            boxSize="100%"
-                            rounded={"none"}
-                            border="1px"
-                            borderColor={returnRandomColor()}
-                            color={"white"}
-                          >
-                            <Text fontWeight={"bold"} textTransform={"uppercase"} textAlign={"center"} fontSize="2xs">
-                              {rsvp.users.displayName.split(" ")?.[0]?.[0]}
-                              {rsvp.users.displayName.split(" ")?.[1]?.[0]}
-                            </Text>
-                          </Box>
-                        </GridItem>
-                      );
-                    })}
-                    <GridItem onClick={() => setIsExpanded.toggle()} justifyContent={"center"} alignItems={"center"} as={Stack} aspectRatio={1} colSpan={1}>
-                      <Box as={Stack} justifyContent={"center"} alignItems={"center"} aspectRatio={1} boxSize="100%" rounded={"sm"}>
-                        <Text color="whiteAlpha.500" fontSize={"2xl"} as="i" className="fa-solid fa-ellipsis" />
-                        <Text fontSize='xs' color='whiteAlpha.500'>{isExpanded ? 'view less' : 'view all'}</Text>
-                      </Box>
-                    </GridItem>
-                  </SimpleGrid>
+                  <Text ml={3} color="heds.100" fontSize={{ base: "xl", lg: "20px" }} className="fa-sharp fa-solid fa-asterisk" as="i" />
+                </Flex>
+                <Text mt={-1} fontSize={{ base: "2xs", lg: "2xs" }} fontWeight={300} color="heds.200">
+                  {event?.description}
+                </Text>
+                <Stack mt={4} gap={0}>
+                  {isEventOver(event) ? (
+                    <Flex mb={4} alignItems={"center"} justifyContent={"center"} py={1} minW="100%" bg={"heds.red"}>
+                      <Text textAlign={"start"} fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} px={2}>
+                        THIS EVENT HAS ENDED
+                      </Text>
+                    </Flex>
+                  ) : (
+                    <CountdownClock endTime={event?.endTime} />
+                  )}
+                  <Flex alignItems={"center"} justifyContent={"space-between"} py={1} minW="100%">
+                    <Text fontFamily={"hanken"} fontWeight={500} fontSize={{ base: "2xs", lg: "xs" }} color="heds.300">
+                      DATE
+                    </Text>
+                    <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                      {DateTime.fromMillis(event?.startTime).toFormat("D")}
+                    </Text>
+                  </Flex>
+                  <Flex alignItems={"center"} justifyContent={"space-between"} py={1} minW="100%">
+                    <Text fontFamily={"hanken"} fontWeight={500} fontSize={{ base: "2xs", lg: "xs" }} color="heds.300">
+                      TIME
+                    </Text>
+                    <Flex gap={1}>
+                      <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                        {DateTime.fromMillis(event?.startTime).toFormat("t")}
+                      </Text>
+                      <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                        -
+                      </Text>
+                      <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                        {DateTime.fromMillis(event?.endTime).toFormat("t")}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                  <Flex alignItems={"center"} justifyContent={"space-between"} py={1} minW="100%">
+                    <Text fontFamily={"hanken"} fontWeight={500} fontSize={{ base: "2xs", lg: "xs" }} color="heds.300">
+                      LOCATION
+                    </Text>
+                    <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                      7515 MELROSE AVE, LA
+                    </Text>
+                  </Flex>
+                  {!isEventOver(event) && !isAttending ? (
+                    <Button
+                      onClick={() => {
+                        dispatch.userModel.setEvent(event);
+                        dispatch.userModel.setIsRsvping(true);
+                        dispatch.userModel.setIsUserModalOpen(true);
+                      }}
+                      _hover={{ bg: "heds.green", color: "black" }}
+                      size="sm"
+                      bg="transparent"
+                      border="1px solid"
+                      color="heds.green"
+                      borderColor="heds.green"
+                      rounded="none"
+                      mt={6}
+                    >
+                      RSVP
+                    </Button>
+                  ) : !isEventOver(event) && isAttending ? (
+                    <Flex gap={3} mt={6} alignItems={"center"} minW="100%">
+                      <Text
+                        minW="100%"
+                        fontWeight={"medium"}
+                        py={1.5}
+                        fontSize={"xs"}
+                        textAlign={"center"}
+                        size="sm"
+                        bg="heds.green"
+                        border="1px solid"
+                        color="black"
+                        borderColor="heds.green"
+                        rounded="none"
+                      >
+                        ATTENDING
+                      </Text>
+                    </Flex>
+                  ) : (
+                    <></>
+                  )}
                 </Stack>
-              </GridItem>
-            </SimpleGrid>
+              </Stack>
+            </Flex>
+            <Stack my={10}>
+              <Flex cursor={"pointer"} minW="100%" justifyContent={"space-between"} onClick={() => setIsExpanded.toggle()} alignItems={"center"} gap={3}>
+                <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "12px", lg: "20px" }} color="heds.200">
+                  {event?.eventRsvps?.length}   ATTENDING
+                </Text>
+                <Flex alignItems={"center"} gap={2}>
+                  <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "xs", lg: "sm" }} color="heds.200">
+                    {isExpanded ? "view less" : "view all"}
+                  </Text>
+                  <Text
+                    transform={isExpanded ? "rotate(180deg)" : "rotate(0deg)"}
+                    transition={"0.3s all ease-in-out"}
+                    color="heds.100"
+                    as="i"
+                    className="fa-solid fa-sharp fa-chevron-down"
+                    fontSize={{ base: "10px", lg: "13px" }}
+                  />
+                </Flex>
+              </Flex>
+              <Box overflowY={"auto"} maxH="300px">
+                <SimpleGrid mt={3} gap={1} columns={{ base: 7, lg: 5 }}>
+                  {rsvps?.slice(0, isExpanded ? -1 : 15)?.map((rsvp) => {
+                    return (
+                      <GridItem>
+                        <Flex alignItems={"center"} justifyContent={"center"} aspectRatio={1} bg="heds.800" rounded="2px">
+                          <Text
+                            fontWeight={800}
+                            fontFamily={"hanken"}
+                            color="heds.200"
+                            fontSize={{ base: "xs", lg: "xs" }}
+                            textAlign={"center"}
+                            textTransform={"uppercase"}
+                          >
+                            {rsvp.users?.displayName?.[0]}
+                            {rsvp.users?.displayName?.split(" ")?.[1][0] || ""}
+                          </Text>
+                        </Flex>
+                      </GridItem>
+                    );
+                  })}
+                </SimpleGrid>
+              </Box>
+            </Stack>
           </Stack>
-        </Fade>
-      ) : (
-        <Stack alignItems={"center"} justifyContent={"center"} minW="100vw" minH="90vh">
-          <Spinner color="white" />
         </Stack>
       )}
-    </Stack>
+    </Container>
   );
 };
 

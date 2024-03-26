@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, GridItem, SimpleGrid, Text } from "@chakra-ui/react";
 
 interface TimeLeftProps {
   days: number;
@@ -40,40 +40,48 @@ const CountdownClock = ({ endTime }: { endTime: number }) => {
   if (!timeLeft) return null; // Don't render anything if the event is over
 
   return (
-    <Flex  gap={timeLeft.days ? 3 : 1}>
-      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
-          {timeLeft.days > 0 ? timeLeft?.days : ""}
-        </Text>
-        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
-          {timeLeft.days ? "DAYS" : ""}
-        </Text>
-      </Flex>
-      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
-          {timeLeft.hours}
-        </Text>
-        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
-          HRS
-        </Text>
-      </Flex>
-      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
-          {timeLeft.minutes}
-        </Text>
-        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
-          MINS
-        </Text>
-      </Flex>
-      <Flex gap={timeLeft.days ? 1.5 : 0} alignItems={"baseline"}>
-        <Text textAlign={"end"} fontSize="sm" color="white" fontWeight={"bold"}>
-          {timeLeft.seconds}
-        </Text>
-        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={"light"}>
-          SECS
-        </Text>
-      </Flex>
-    </Flex>
+    <SimpleGrid my={5} py={0} bg="heds.200" gap={0} columns={4}>
+      <GridItem py={1} borderRight={"2px solid"} colSpan={1}>
+        <Flex justifyContent={"center"} gap={1}>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            {timeLeft.days > 0 ? timeLeft.days : 0}
+          </Text>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            DAYS
+          </Text>
+        </Flex>
+      </GridItem>
+      <GridItem py={1} borderRight={"2px solid"} colSpan={1}>
+        <Flex justifyContent={"center"} gap={1}>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            {timeLeft.hours > 0 ? timeLeft.hours : 0}
+          </Text>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            HOURS
+          </Text>
+        </Flex>
+      </GridItem>
+      <GridItem py={1} borderRight={"2px solid"} colSpan={1}>
+        <Flex justifyContent={"center"} gap={1}>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            {timeLeft.minutes > 0 ? timeLeft.minutes : 0}
+          </Text>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            MINS
+          </Text>
+        </Flex>
+      </GridItem>
+      <GridItem py={1} colSpan={1}>
+        <Flex justifyContent={"center"} gap={1}>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            {timeLeft.seconds > 0 ? timeLeft.seconds : 0}
+          </Text>
+          <Text fontWeight={600} fontFamily={"hanken"} color="heds.900" fontSize="xs">
+            SECS
+          </Text>
+        </Flex>
+      </GridItem>
+    </SimpleGrid>
   );
 };
 
