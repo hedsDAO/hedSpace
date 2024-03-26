@@ -30,9 +30,6 @@ const Event = () => {
       if (isAttending) setIsAttending.on();
       else setIsAttending.off();
     } else setIsAttending.off();
-    return () => {
-      dispatch.eventModel.clearState();
-    };
   }, [id, userData]);
 
   return (
@@ -71,7 +68,15 @@ const Event = () => {
               pt={{ lg: 8 }}
               pb={5}
               cursor={"pointer"}
-              onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/events")])}
+              onClick={() =>
+                dispatch.globalModel.handleUnload([
+                  isUnloading,
+                  () => {
+                    dispatch.eventModel.clearState();
+                    navigate("/events");
+                  },
+                ])
+              }
               color="heds.200"
               _hover={{ color: "heds.100" }}
               transition={"0.3s all ease-in-out"}
