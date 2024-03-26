@@ -21,4 +21,11 @@ export const NavLinks = [
     external: false,
     icon: "fa-sharp fa-calendar"
   },
+  {
+    id: "admin",
+    name: "admin",
+    path: "/admin",
+    external: false,
+    icon: "fa-sharp fa-wrench"
+  },
 ];

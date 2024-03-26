@@ -13,7 +13,8 @@ const Navbar = () => {
   const dispatch = useDispatch<Dispatch>();
   const navigate = useNavigate();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
-
+  const userData = useSelector(store.select.userModel.selectUser);
+  
   return (
     <Flex gap={{ base: 5, lg: 6 }} alignItems={"center"} minW="100vw" py={{ base: 4, lg: "14px" }} pl={7} pb={4}>
       {/* <Image
@@ -26,6 +27,7 @@ const Navbar = () => {
       /> */}
       {constants.NavLinks?.map((navLink: constants.NavLink, index: number) => {
         const active = pathname === navLink.path;
+        if (navLink.id === "admin" && userData?.role !== 'admin') return null;
         return (
           <Fade
             key={navLink.id}
@@ -33,15 +35,6 @@ const Navbar = () => {
             in={true && !isUnloading}
             transition={{ enter: { delay: (index + 1) / 10 }, exit: { delay: (index + 1) / 10 } }}
           >
-            {/* {isMobile ? (
-              <Text
-                color={active ? "heds.200" : "heds.600"}
-                as="i"
-                fontSize={"14px"}
-                className={navLink.icon}
-                onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate(navLink.path)])}
-              />
-            ) : ( */}
               <Text
                 _hover={{ color: "whiteAlpha.900" }}
                 transition={"0.25s all ease-in-out"}

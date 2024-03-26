@@ -5,6 +5,7 @@ import { rsvpModel } from "@/models/rsvp";
 import { eventModel } from "@/models/event";
 import { eventsModel } from "@/models/events";
 import { userModel } from "@/models/user";
+import { adminModel } from "@/models/admin";
 
 export interface RootModel extends Models<RootModel> {
   globalModel: typeof globalModel;
@@ -13,6 +14,7 @@ export interface RootModel extends Models<RootModel> {
   eventModel: typeof eventModel;
   userModel: typeof userModel;
   eventsModel: typeof eventsModel;
+  adminModel: typeof adminModel;
 }
 export const models: RootModel = {
   globalModel,
@@ -21,4 +23,5 @@ export const models: RootModel = {
   eventModel,
   userModel,
   eventsModel,
+  adminModel,
 };
