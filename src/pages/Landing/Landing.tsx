@@ -1,16 +1,19 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Dispatch, store } from "@/store/store";
 import { Container, Stack } from "@chakra-ui/react";
-import LandingFeaturedEventVideo from "@/pages/Landing/components/LandingFeaturedEventVideo/LandingFeaturedEventVideo";
-import LandingFeaturedHeadingText from "@/pages/Landing/components/LandingFeaturedHeadingText/LandingFeaturedHeadingText";
 import LandingFeaturedEventDetails from "@/pages/Landing/components/LandingFeaturedEventDetails/LandingFeaturedEventDetails";
 import LandingFeaturedEventRsvpButton from "@/pages/Landing/components/LandingFeaturedEventRsvpButton/LandingFeaturedEventRsvpButton";
-import LandingPastEventsHeader from "@/pages/Landing/components/LandingPastEventsHeader/LandingPastEventsHeader";
+import LandingFeaturedEventVideo from "@/pages/Landing/components/LandingFeaturedEventVideo/LandingFeaturedEventVideo";
+import LandingFeaturedHeadingText from "@/pages/Landing/components/LandingFeaturedHeadingText/LandingFeaturedHeadingText";
 import LandingPastEvents from "@/pages/Landing/components/LandingPastEvents/LandingPastEvents";
+import LandingPastEventsHeader from "@/pages/Landing/components/LandingPastEventsHeader/LandingPastEventsHeader";
 import * as styles from "@/pages/Landing/styles";
 
 const Landing = () => {
+  const navigate = useNavigate();
+  const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
   const latestEvent = useSelector(store.select.landingModel.selectLatestEvent);
   const dispatch = useDispatch<Dispatch>();
   useEffect(() => {
@@ -20,7 +23,7 @@ const Landing = () => {
   return (
     <Container {...styles.$containerStyles}>
       <LandingFeaturedEventVideo />
-      <Stack {...styles.$stackStyles}>
+      <Stack onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])} {...styles.$stackStyles}>
         <LandingFeaturedHeadingText />
         <LandingFeaturedEventDetails />
         <LandingFeaturedEventRsvpButton />
