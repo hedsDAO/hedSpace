@@ -195,7 +195,7 @@ const Event = () => {
             <Stack my={10}>
               <Flex cursor={"pointer"} minW="100%" justifyContent={"space-between"} onClick={() => setIsExpanded.toggle()} alignItems={"center"} gap={3}>
                 <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "12px", lg: "20px" }} color="heds.200">
-                  {event?.eventRsvps?.length}   ATTENDING
+                  {event?.eventRsvps?.length} {isEventOver(event) ? 'ATTENDING' : 'ATTENDED'}
                 </Text>
                 <Flex alignItems={"center"} gap={2}>
                   <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "xs", lg: "sm" }} color="heds.200">
