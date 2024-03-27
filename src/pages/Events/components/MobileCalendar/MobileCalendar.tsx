@@ -32,7 +32,7 @@ const MobileCalendar = () => {
       {!mobileSelectedEvent &&
         events?.map((event) => {
           const currentEndTimeForEvent = new Date(event.endTime).getTime();
-          if (currentEndTimeForEvent > new Date().getTime()) {
+          if (currentEndTimeForEvent > new Date().getTime() && event?.name?.toLowerCase() !== 'test') {
             return (
               <Fade
                 key={event?.id}
