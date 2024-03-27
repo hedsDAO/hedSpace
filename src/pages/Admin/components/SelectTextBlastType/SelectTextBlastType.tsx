@@ -7,7 +7,7 @@ const SelectTextBlastType = () => {
   const dispatch = useDispatch<Dispatch>();
 
   return (
-    <Flex gap={4}>
+    <Flex direction={{ base: "column", lg: "row" }} gap={4}>
       <Button
         onClick={() => dispatch.adminModel.setAdminStep(AdminStep.TEXT_BLAST_FOR_EVENT)}
         fontFamily={"hanken"}

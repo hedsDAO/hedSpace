@@ -6,7 +6,7 @@ const SelectEvent = () => {
   const dispatch = useDispatch<Dispatch>();
   const events = useSelector(store.select.adminModel.selectEvents);
   return (
-    <SimpleGrid columns={{ base: 2, lg: 6 }} gap={4}>
+    <SimpleGrid mb={10} columns={{ base: 2, lg: 6 }} gap={4}>
       <GridItem my={{ base: 10, lg: 5 }} colSpan={{ base: 2, lg: 6 }}>
         <Text fontFamily={"hanken"} fontWeight={600} color="white" fontSize="2xl" textAlign="center">
           Select Event

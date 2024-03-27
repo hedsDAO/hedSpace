@@ -1,5 +1,5 @@
 import type { RootModel } from "@/store";
-import { MANAGE_EVENTS_API_ENDPOINT } from "@/store/constants";
+import { MANAGE_EVENTS_API_ENDPOINT, TWILIO_API_PREFIX } from "@/store/constants";
 import { Event } from "@/store/types";
 import { createModel } from "@rematch/core";
 import axios from "axios";
@@ -40,6 +40,22 @@ export const adminModel = createModel<RootModel>()({
     async getAllEvents() {
       const response = await axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events`);
       if (response.data) this.setEvents(response.data);
+    },
+    // async sendTextToAll() {
+    //   const response = await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`);
+    //   console.log(response.data);
+    // },
+    async sendTextToAllForEvent([eventId, message]: [number, string]) {
+      try {
+        const response = await axios.post(`${TWILIO_API_PREFIX}/sendTextBlastForEvent`, {
+          eventId: eventId,
+          message: message,
+        });
+        if (response) console.log(response.data);
+        this.clearState();
+      } catch (error) {
+        console.error(error);
+      }
     },
   }),
 });
