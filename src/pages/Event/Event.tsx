@@ -18,6 +18,7 @@ const Event = () => {
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
   const userData = useSelector(store.select.userModel.selectUser);
+  const ifPhorin = event?.id === 9;
 
   useEffect(() => {
     if (id && !event) {
@@ -55,13 +56,13 @@ const Event = () => {
       {event && (
         <Stack
           pt={{ base: 8, lg: 12 }}
-          px={{ base: 10, lg: 20 }}
+          px={{ base: 10, lg: 16 }}
           minH="100vh"
           alignItems={"center"}
           position={"relative"}
           zIndex={1001}
           bg={"heds.700"}
-          maxW={{ base: "100%", lg: "25%" }}
+          maxW={{ base: "100%", lg: "27%" }}
         >
           <Stack maxW={{ base: "100%", lg: "100%" }} minW={{ base: "100%", lg: "100%" }}>
             <Flex
@@ -192,49 +193,52 @@ const Event = () => {
                 </Stack>
               </Stack>
             </Flex>
-            <Stack my={10}>
-              <Flex cursor={"pointer"} minW="100%" justifyContent={"space-between"} onClick={() => setIsExpanded.toggle()} alignItems={"center"} gap={3}>
-                <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "12px", lg: "20px" }} color="heds.200">
-                  {event?.eventRsvps?.length} {!isEventOver(event) ? 'ATTENDING' : 'ATTENDED'}
-                </Text>
-                <Flex alignItems={"center"} gap={2}>
-                  <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "xs", lg: "sm" }} color="heds.200">
-                    {isExpanded ? "view less" : "view all"}
+            {!ifPhorin && (
+              <Stack my={10}>
+                <Flex cursor={"pointer"} minW="100%" justifyContent={"space-between"} onClick={() => setIsExpanded.toggle()} alignItems={"center"} gap={3}>
+                  <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "12px", lg: "20px" }} color="heds.200">
+                    {event?.eventRsvps?.length} {!isEventOver(event) ? "ATTENDING" : "ATTENDED"}
                   </Text>
-                  <Text
-                    transform={isExpanded ? "rotate(180deg)" : "rotate(0deg)"}
-                    transition={"0.3s all ease-in-out"}
-                    color="heds.100"
-                    as="i"
-                    className="fa-solid fa-sharp fa-chevron-down"
-                    fontSize={{ base: "10px", lg: "13px" }}
-                  />
+                  <Flex alignItems={"center"} gap={2}>
+                    <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "xs", lg: "sm" }} color="heds.200">
+                      {isExpanded ? "view less" : "view all"}
+                    </Text>
+                    <Text
+                      transform={isExpanded ? "rotate(180deg)" : "rotate(0deg)"}
+                      transition={"0.3s all ease-in-out"}
+                      color="heds.100"
+                      as="i"
+                      className="fa-solid fa-sharp fa-chevron-down"
+                      fontSize={{ base: "10px", lg: "13px" }}
+                    />
+                  </Flex>
                 </Flex>
-              </Flex>
-              <Box overflowY={"auto"} maxH="300px">
-                <SimpleGrid mt={3} gap={1} columns={{ base: 7, lg: 5 }}>
-                  {rsvps?.slice(0, isExpanded ? -1 : 15)?.map((rsvp) => {
-                    return (
-                      <GridItem>
-                        <Flex alignItems={"center"} justifyContent={"center"} aspectRatio={1} bg="heds.800" rounded="2px">
-                          <Text
-                            fontWeight={800}
-                            fontFamily={"hanken"}
-                            color="heds.200"
-                            fontSize={{ base: "xs", lg: "xs" }}
-                            textAlign={"center"}
-                            textTransform={"uppercase"}
-                          >
-                            {rsvp.users?.displayName?.[0]}
-                            {rsvp.users?.displayName?.split(" ")?.[1][0] || ""}
-                          </Text>
-                        </Flex>
-                      </GridItem>
-                    );
-                  })}
-                </SimpleGrid>
-              </Box>
-            </Stack>
+
+                <Box overflowY={"auto"} maxH="300px">
+                  <SimpleGrid mt={3} gap={1} columns={{ base: 7, lg: 5 }}>
+                    {rsvps?.slice(0, isExpanded ? -1 : 15)?.map((rsvp) => {
+                      return (
+                        <GridItem>
+                          <Flex alignItems={"center"} justifyContent={"center"} aspectRatio={1} bg="heds.800" rounded="2px">
+                            <Text
+                              fontWeight={800}
+                              fontFamily={"hanken"}
+                              color="heds.200"
+                              fontSize={{ base: "xs", lg: "xs" }}
+                              textAlign={"center"}
+                              textTransform={"uppercase"}
+                            >
+                              {rsvp.users?.displayName?.[0]}
+                              {rsvp.users?.displayName?.split(" ")?.[1][0] || ""}
+                            </Text>
+                          </Flex>
+                        </GridItem>
+                      );
+                    })}
+                  </SimpleGrid>
+                </Box>
+              </Stack>
+            )}
           </Stack>
         </Stack>
       )}
