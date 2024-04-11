@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isEventOver } from "@/store/utils";
 
-const EventRsvpItem = ({ eventId }: { eventId: number }) => {
+const EventRsvpItem = ({ eventId }: { eventId: string }) => {
   const dispatch = useDispatch<Dispatch>();
   const [eventData, setEventData] = useState<null | Event>();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const EventRsvpItem = ({ eventId }: { eventId: number }) => {
 
   const handleNavigate = () => {
     if (eventData?.id) {
-      navigate(`/event/${eventData.id}`);
+      navigate(`/event/${eventData.name}`);
       dispatch.userModel.setIsUserDrawerOpen(false);
     }
   };
@@ -27,7 +27,7 @@ const EventRsvpItem = ({ eventId }: { eventId: number }) => {
   useEffect(() => {
     if (!eventData) {
       fetchEventData();
-    } else if (eventData?.id !== eventId) {
+    } else if (eventData?.name !== eventId) {
       fetchEventData();
     } else {
       return;

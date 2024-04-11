@@ -19,7 +19,7 @@ const LandingPastEvents = () => {
         ?.map((event, index) => {
           if (isEventOver(event))
             return (
-              <Flex key={event?.id} {...styles.$videoStyle} onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.id)])}>
+              <Flex key={event?.id} {...styles.$videoStyle} onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.name)])}>
                 <Fade style={{ zIndex: 1000 }} in={hasVideoLoaded && !isUnloading} transition={constants.FADE_TRANSITIONS_UTIL(index)}>
                   <Box {...styles.$boxStyles} as={constants.AS_VIDEO} onPlay={setHasVideoLoaded.on} autoPlay src={event?.video} muted playsInline loop />
                   <Text {...styles.$textStyles}>{event.name}</Text>

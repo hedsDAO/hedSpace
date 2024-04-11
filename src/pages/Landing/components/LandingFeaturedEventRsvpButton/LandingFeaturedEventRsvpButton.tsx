@@ -25,7 +25,7 @@ const LandingFeaturedEventRsvpButton = () => {
     >
       <Text
         cursor={"pointer"}
-        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])}
+        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name)])}
         position={"relative"}
         textAlign={"end"}
         zIndex={200}

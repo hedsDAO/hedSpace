@@ -11,7 +11,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
   const navigate = useNavigate();
   const currentMonth = useSelector(store.select.eventsModel.selectCurrentMonth);
 
-  const handleNavigate = (id: number) => {
+  const handleNavigate = (id: string) => {
     if (calendarItem?.data?.event) {
       dispatch.globalModel.handleUnload([isUnloading, () => navigate(`/event/${id}`)]);
     }
@@ -32,7 +32,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
       }}
     >
       <GridItem
-        onClick={() => (calendarItem?.data?.event?.id ? handleNavigate(calendarItem?.data?.event?.id) : {})}
+        onClick={() => (calendarItem?.data?.event?.id ? handleNavigate(calendarItem?.data?.event?.name) : {})}
         key={calendarItem.day}
         w="100%"
         h="0"

@@ -1,6 +1,6 @@
 import { Dispatch, store } from "@/store/store";
 import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EventRsvpItem from "./components/EventRsvpItem/EventRsvpItem";
 import { DateTime } from "luxon";
@@ -8,8 +8,15 @@ import { DateTime } from "luxon";
 const UserDrawer = () => {
   const userData = useSelector(store.select.userModel.selectUser);
   const dispatch = useDispatch<Dispatch>();
+  const allEvents = useSelector(store.select.landingModel.selectEvents);
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
+
+  useEffect(() => {
+    if (!allEvents) {
+      dispatch.landingModel.getEvents();
+    }
+  }, []);
   return (
     <>
       <Drawer isOpen={isUserDrawerOpen} placement="right" onClose={() => dispatch.userModel.setIsUserDrawerOpen(false)} finalFocusRef={btnRef}>
@@ -54,9 +61,10 @@ const UserDrawer = () => {
                 </Text>
                 {userData?.eventRsvps
                   ?.sort((eventA, eventB) => eventB?.createdAt - eventA?.createdAt)
-                  ?.map((event) => (
-                    <EventRsvpItem key={event?.eventId} eventId={event.eventId} />
-                  ))}
+                  ?.map((event) => {
+                    const eventName = allEvents?.find((e) => e.id === event?.eventId)?.name;
+                    if (eventName) return <EventRsvpItem key={event?.eventId} eventId={eventName} />
+})}
               </Stack>
               <Button
                 mt={"auto"}

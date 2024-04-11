@@ -24,6 +24,6 @@ export const addUserDisplayName = ({ userId, displayName }: { userId: number; di
   return axios.put(`${USER_API_PREFIX}/${userId}`, { displayName });
 };
 
-export const getEventByEventId = (eventId: number) => {
+export const getEventByEventId = (eventId: string) => {
   return axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events/${eventId}`);
 };

@@ -49,7 +49,7 @@ const MobileCalendar = () => {
                 }}
               >
                 <Stack
-                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.id)])}
+                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.name)])}
                   boxShadow={"sm"}
                   p={1.5}
                   rounded={"lg"}

@@ -23,7 +23,7 @@ const Landing = () => {
   return (
     <Container {...styles.$containerStyles}>
       <LandingFeaturedEventVideo />
-      <Stack onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.id)])} {...styles.$stackStyles}>
+      <Stack onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name)])} {...styles.$stackStyles}>
         <LandingFeaturedHeadingText />
         <LandingFeaturedEventDetails />
         <LandingFeaturedEventRsvpButton />
