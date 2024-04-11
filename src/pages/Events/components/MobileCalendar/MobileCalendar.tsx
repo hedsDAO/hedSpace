@@ -49,7 +49,7 @@ const MobileCalendar = () => {
                 }}
               >
                 <Stack
-                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.name)])}
+                  onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + event.name.replace(/ /g,'-'))])}
                   boxShadow={"sm"}
                   p={1.5}
                   rounded={"lg"}
@@ -69,7 +69,7 @@ const MobileCalendar = () => {
                       key={event.id}
                       src={event.image}
                       alt={event.name}
-                      onClick={() => navigate("/event/" + event.id)}
+                      onClick={() => navigate("/event/" + event.name.replace(/ /g,'-'))}
                     />
                     <Stack alignSelf={"center"} gap={0} justifyContent={"start"}>
                       <Text textTransform={"uppercase"} px={2.5} fontFamily={"inter"} fontSize={"2xs"} fontWeight={"bold"} color="heds.300">

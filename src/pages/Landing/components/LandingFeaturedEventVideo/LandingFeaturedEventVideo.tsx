@@ -15,7 +15,7 @@ const LandingFeaturedEventVideo = () => {
   const [hasVideoLoaded, setHasVideoLoaded] = useBoolean();
   return (
     <Fade
-      onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name)])}
+      onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name.replace(/ /g,'-'))])}
       in={hasVideoLoaded && !isUnloading}
       style={{ zIndex: 2000 }}
       transition={constants.FADE_TRANSITIONS}

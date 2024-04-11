@@ -13,7 +13,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
 
   const handleNavigate = (id: string) => {
     if (calendarItem?.data?.event) {
-      dispatch.globalModel.handleUnload([isUnloading, () => navigate(`/event/${id}`)]);
+      dispatch.globalModel.handleUnload([isUnloading, () => navigate(`/event/${id.replace(/ /g,'-')}`)]);
     }
   };
 
@@ -32,7 +32,7 @@ const DesktopCalendarItem = ({ calendarItem }: { calendarItem: CalendarItemProps
       }}
     >
       <GridItem
-        onClick={() => (calendarItem?.data?.event?.id ? handleNavigate(calendarItem?.data?.event?.name) : {})}
+        onClick={() => (calendarItem?.data?.event?.id ? handleNavigate(calendarItem?.data?.event?.name.replace(/ /g,'-')) : {})}
         key={calendarItem.day}
         w="100%"
         h="0"

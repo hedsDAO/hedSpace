@@ -19,7 +19,7 @@ const EventRsvpItem = ({ eventId }: { eventId: string }) => {
 
   const handleNavigate = () => {
     if (eventData?.id) {
-      navigate(`/event/${eventData.name}`);
+      navigate(`/event/${eventData.name.replace(/ /g,'-')}`);
       dispatch.userModel.setIsUserDrawerOpen(false);
     }
   };
