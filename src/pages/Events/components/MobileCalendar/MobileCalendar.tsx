@@ -167,7 +167,7 @@ const MobileCalendar = () => {
               transition={"0.35s all ease-in-out"}
               mt={4}
               size="sm"
-              onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + mobileSelectedEvent?.id)])}
+              onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + mobileSelectedEvent?.name)])}
             >
               View Event
             </Button>

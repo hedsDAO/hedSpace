@@ -20,10 +20,10 @@ const AddRsvpButton = ({
   const userData = useSelector(store.select.userModel.selectUser);
   const isLoading = useSelector(store.select.userModel.selectIsLoading);
 
-  const handleRsvpAnimation = (userId: number, eventId: number) => {
+  const handleRsvpAnimation = (userId: number, eventId: number, eventName: string) => {
     setIsRsvping.on();
     setTimeout(() => {
-      dispatch.userModel.addRSVP([userId, eventId]);
+      dispatch.userModel.addRSVP([userId, eventId, eventName]);
     }, 1500);
   };
 
@@ -61,8 +61,8 @@ const AddRsvpButton = ({
         <Button
           isLoading={isLoading}
           onClick={() => {
-            if (userData?.id && event?.id) {
-              handleRsvpAnimation(userData.id, event.id);
+            if (userData?.id && event?.id && event.name) {
+              handleRsvpAnimation(userData.id, event.id, event.name);
             }
           }}
           isDisabled={!userData?.id || !userData?.displayName?.length || !event?.id || isLoading}
@@ -77,7 +77,6 @@ const AddRsvpButton = ({
           fontWeight={"bold"}
           fontFamily={"Helvetica"}
           fontSize={"sm"}
-
           minW="100%"
         >
           RSVP

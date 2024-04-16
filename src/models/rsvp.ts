@@ -1,4 +1,3 @@
-import { AUTH_API_ENDPOINT } from "./../store/constants";
 import type { RootModel } from "@/store";
 import { addUserDisplayName, addUserRSVP, getSMSCode, verifySMSCode } from "@/store/api";
 import { Event, EventRsvp } from "@/store/types";
@@ -118,17 +117,7 @@ export const rsvpModel = createModel<RootModel>()({
         this.setIsLoading(false);
       }
     },
-    async addDisplayNameToUser({
-      id,
-      firstName,
-      lastName,
-      eventId,
-    }: {
-      id: any;
-      firstName: string;
-      lastName: string;
-      eventId: number;
-    }) {
+    async addDisplayNameToUser({ id, firstName, lastName, eventId }: { id: any; firstName: string; lastName: string; eventId: number }) {
       this.setIsLoading(true);
       try {
         const user = await addUserDisplayName({
@@ -171,6 +160,6 @@ export const rsvpModel = createModel<RootModel>()({
       } finally {
         this.setIsLoading(false);
       }
-    }
+    },
   }),
 });

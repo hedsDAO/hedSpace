@@ -2,7 +2,7 @@ import { USER_API_PREFIX } from "./../store/constants";
 import { Event, User } from "./../store/types";
 
 import type { RootModel } from "@/store";
-import { addUserDisplayName, addUserRSVP, getSMSCode, verifySMSCode } from "@/store/api";
+import { addUserDisplayName, addUserRSVP, fetchApplePassDownload, getSMSCode, verifySMSCode } from "@/store/api";
 import { VERIFICATION_CODE_ERROR } from "@/store/constants";
 import { createModel } from "@rematch/core";
 import axios from "axios";
@@ -158,7 +158,7 @@ export const userModel = createModel<RootModel>()({
         this.setIsVerifying(false);
       }
     },
-    async addRSVP([userId, eventId]: [userId: number, eventId: number]) {
+    async addRSVP([userId, eventId, eventName]: [userId: number, eventId: number, eventName: string]) {
       this.setIsLoading(true);
       try {
         const rsvp = await addUserRSVP({
@@ -167,7 +167,7 @@ export const userModel = createModel<RootModel>()({
           status: "attending",
         });
         if (rsvp.data) {
-          await dispatch.eventModel.getEventById(eventId.toString());
+          await dispatch.eventModel.getEventByName(eventName);
           await this.updateUserDataById(userId);
           this.setIsLoading(false);
           this.closeAndReset();
@@ -202,6 +202,19 @@ export const userModel = createModel<RootModel>()({
       } catch (error: any) {
         this.closeAndReset();
         this.setError(error.message || "Failed to update user data");
+        this.setIsLoading(false);
+      }
+    },
+    async fetchApplePass({ eventId, displayName }: { eventId: number; displayName: string }) {
+      this.setIsLoading(true);
+      try {
+        const res = await fetchApplePassDownload({ eventId, displayName });
+        if (res) {
+          window.open(res);
+        }
+        this.setIsLoading(false);
+      } catch (error: any) {
+        this.setError(error.message || "Failed to fetch Apple Pass");
         this.setIsLoading(false);
       }
     },

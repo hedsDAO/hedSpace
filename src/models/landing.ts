@@ -1,5 +1,5 @@
 import type { RootModel } from "@/store";
-import { MANAGE_EVENTS_API_ENDPOINT } from "@/store/constants";
+import { MANAGE_EVENTS_API_PREFIX } from "@/store/constants";
 import { CalendarItemProps, Event } from "@/store/types";
 import { getCalendarInfo } from "@/store/utils";
 import { createModel } from "@rematch/core";
@@ -30,7 +30,7 @@ export const landingModel = createModel<RootModel>()({
   }),
   effects: () => ({
     async getEvents() {
-      const response = await axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events`);
+      const response = await axios.get(`${MANAGE_EVENTS_API_PREFIX}/events`);
       this.setEvents(response.data);
       const now = new Date().getTime();
       let difference = Math.abs(response.data[0].startTime - now);

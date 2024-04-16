@@ -1,12 +1,12 @@
 import axios from "axios";
-import { AUTH_API_ENDPOINT, GUEST_STATUS_API_PREFIX, USER_API_PREFIX, MANAGE_EVENTS_API_ENDPOINT } from "./constants";
+import { APPLE_PASS_API_PREFIX, AUTH_API_PREFIX, GUEST_STATUS_API_PREFIX, USER_API_PREFIX, MANAGE_EVENTS_API_PREFIX } from "./constants";
 
 export const getSMSCode = async (to: string): Promise<string> => {
-  return axios.get(`${AUTH_API_ENDPOINT}/sms/send/${to}`);
+  return axios.get(`${AUTH_API_PREFIX}/sms/send/${to}`);
 };
 
 export const verifySMSCode = (to: string, code: string) => {
-  return axios.get(`${AUTH_API_ENDPOINT}/sms/verify/${to}/${code}`);
+  return axios.get(`${AUTH_API_PREFIX}/sms/verify/${to}/${code}`);
 };
 
 export const addUserRSVP = ({ userId, eventId, status }: { userId: number; eventId: number; status: string }) => {
@@ -25,5 +25,9 @@ export const addUserDisplayName = ({ userId, displayName }: { userId: number; di
 };
 
 export const getEventByEventId = (eventId: string) => {
-  return axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events/${eventId}`);
+  return axios.get(`${MANAGE_EVENTS_API_PREFIX}/events/${eventId}`);
+};
+
+export const fetchApplePassDownload = ({ eventId, displayName }: { eventId: number; displayName: string }) => {
+  return `${APPLE_PASS_API_PREFIX}/generatePass/${eventId}/${displayName}`;
 };
