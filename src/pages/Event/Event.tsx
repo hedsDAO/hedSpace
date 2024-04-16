@@ -186,6 +186,13 @@ const Event = () => {
                       >
                         ATTENDING
                       </Text>
+                      <Button
+                        onClick={() => {
+                          if (userData?.displayName) {
+                            dispatch.userModel.fetchApplePass({ eventId: event?.id, displayName: userData.displayName });
+                          }
+                        }}
+                      ></Button>
                     </Flex>
                   ) : (
                     <></>

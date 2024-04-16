@@ -2,7 +2,7 @@ import { USER_API_PREFIX } from "./../store/constants";
 import { Event, User } from "./../store/types";
 
 import type { RootModel } from "@/store";
-import { addUserDisplayName, addUserRSVP, getSMSCode, verifySMSCode } from "@/store/api";
+import { addUserDisplayName, addUserRSVP, fetchApplePassDownload, getSMSCode, verifySMSCode } from "@/store/api";
 import { VERIFICATION_CODE_ERROR } from "@/store/constants";
 import { createModel } from "@rematch/core";
 import axios from "axios";
@@ -202,6 +202,16 @@ export const userModel = createModel<RootModel>()({
       } catch (error: any) {
         this.closeAndReset();
         this.setError(error.message || "Failed to update user data");
+        this.setIsLoading(false);
+      }
+    },
+    async fetchApplePass({ eventId, displayName }: { eventId: number; displayName: string }) {
+      this.setIsLoading(true);
+      try {
+        await fetchApplePassDownload({ eventId, displayName });
+        this.setIsLoading(false);
+      } catch (error: any) {
+        this.setError(error.message || "Failed to fetch Apple Pass");
         this.setIsLoading(false);
       }
     },
