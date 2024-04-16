@@ -29,5 +29,5 @@ export const getEventByEventId = (eventId: string) => {
 };
 
 export const fetchApplePassDownload = ({ eventId, displayName }: { eventId: number; displayName: string }) => {
-  return axios.get(`${APPLE_PASS_API_PREFIX}/generatePass/${eventId}/${displayName}`);
+  return `${APPLE_PASS_API_PREFIX}/generatePass/${eventId}/${displayName}`;
 };

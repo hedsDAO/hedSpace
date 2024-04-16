@@ -28,10 +28,10 @@ export const eventModel = createModel<RootModel>()({
     selectIsLoading: () => slice((state: EventModelState): boolean => state?.isLoading),
   }),
   effects: (dispatch) => ({
-    async getEventById(id: string) {
-      if (!id) return;
+    async getEventByName(name: string) {
+      if (!name) return;
       try {
-        const res = await axios.get(MANAGE_EVENTS_API_PREFIX + `/events/${id}`);
+        const res = await axios.get(MANAGE_EVENTS_API_PREFIX + `/events/${name}`);
         const data = res.data;
         if (data) {
           this.setEvent(data);
@@ -44,7 +44,7 @@ export const eventModel = createModel<RootModel>()({
         this.setEvent(null);
       }
     },
-    async removeRsvp([rsvpId, eventId, userId]: [number, number, number]) {
+    async removeRsvp([rsvpId, eventId, userId, eventName]: [number, number, number, string]) {
       try {
         await axios.delete(GUEST_STATUS_API_PREFIX + `/rsvps/${rsvpId}`);
         await this.getEventById(eventId.toString());

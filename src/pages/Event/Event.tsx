@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import CountdownClock from "./components/CountdownClock/CountdownClock";
 import { isEventOver } from "@/store/utils";
 import { DateTime } from "luxon";
+import { isIOS } from "react-device-detect";
+import addToAppleId from "../../../public/addToAppleWallet.svg";
 
 const Event = () => {
   const { id } = useParams();
@@ -22,16 +24,30 @@ const Event = () => {
 
   useEffect(() => {
     if (id && !event) {
-      dispatch.eventModel.getEventById(id);
-    } else if (id && event?.id && event?.id !== parseInt(id)) {
-      dispatch.eventModel.getEventById(id);
+      dispatch.eventModel.getEventByName(id);
+    } else if (id && event?.id && event?.name !== id) {
+      dispatch.eventModel.getEventByName(id);
     }
-    if (userData?.id && userData?.eventRsvps && id) {
-      const isAttending = userData?.eventRsvps?.find((rsvp) => `${rsvp.eventId}` === id);
+    if (userData?.id && userData?.eventRsvps && id && event?.id) {
+      const isAttending = userData?.eventRsvps?.find((rsvp) => rsvp.eventId == event?.id);
       if (isAttending) setIsAttending.on();
       else setIsAttending.off();
     } else setIsAttending.off();
+
+    return () => {
+      dispatch.eventModel.clearState();
+    };
   }, [id, userData]);
+
+  useEffect(() => {
+    if (event && id && userData?.eventRsvps?.length) {
+      if (userData?.id && userData?.eventRsvps && id && event?.id) {
+        const isAttending = userData?.eventRsvps?.find((rsvp) => rsvp.eventId == event?.id);
+        if (isAttending) setIsAttending.on();
+        else setIsAttending.off();
+      } else setIsAttending.off();
+    }
+  }, [event]);
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
@@ -159,41 +175,72 @@ const Event = () => {
                         dispatch.userModel.setIsUserModalOpen(true);
                       }}
                       _hover={{ bg: "heds.green", color: "black" }}
-                      size="sm"
+                      minW="100%"
+                      px={5}
+                      letterSpacing={"wide"}
+                      fontWeight={"semibold"}
+                      py={4}
+                      fontFamily={"Helvetica"}
+                      fontSize={"sm"}
+                      textAlign={"center"}
                       bg="transparent"
-                      border="1px solid"
+                      size="lg"
+                      border="0.25px solid black"
                       color="heds.green"
                       borderColor="heds.green"
-                      rounded="none"
+                      rounded="lg"
                       mt={6}
                     >
                       RSVP
                     </Button>
                   ) : !isEventOver(event) && isAttending ? (
-                    <Flex gap={3} mt={6} alignItems={"center"} minW="100%">
+                    <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
                       <Text
                         minW="100%"
-                        fontWeight={"medium"}
-                        py={1.5}
-                        fontSize={"xs"}
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={3}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
                         textAlign={"center"}
-                        size="sm"
                         bg="heds.green"
-                        border="1px solid"
+                        border="0.25px solid black"
                         color="black"
                         borderColor="heds.green"
-                        rounded="none"
+                        rounded="lg"
                       >
                         ATTENDING
                       </Text>
-                      <Button
-                        onClick={() => {
-                          if (userData?.displayName) {
-                            dispatch.userModel.fetchApplePass({ eventId: event?.id, displayName: userData.displayName });
-                          }
-                        }}
-                      ></Button>
-                    </Flex>
+                      {/* apple wallet integration */}
+                      {isIOS ? (
+                        <Button
+                          px={0}
+                          mt={3}
+                          fontWeight={"medium"}
+                          py={1.5}
+                          fontSize={"xs"}
+                          textAlign={"center"}
+                          size="sm"
+                          bg="transparent"
+                          _hover={{ bg: "transparent" }}
+                          border="1px solid"
+                          color="black"
+                          borderColor="transparent"
+                          rounded="none"
+                          onClick={() => {
+                            if (userData?.displayName) {
+                              dispatch.userModel.fetchApplePass({ eventId: event?.id, displayName: userData.displayName });
+                            }
+                          }}
+                        >
+                          <Image minH="46px" maxH="46px" src={addToAppleId}></Image>
+                        </Button>
+
+                      ) : (
+                        <></>
+                      )}
+                    </Stack>
                   ) : (
                     <></>
                   )}
@@ -225,7 +272,7 @@ const Event = () => {
                   <SimpleGrid mt={3} gap={1} columns={{ base: 7, lg: 5 }}>
                     {rsvps?.slice(0, isExpanded ? -1 : 15)?.map((rsvp) => {
                       return (
-                        <GridItem>
+                        <GridItem key={rsvp.id}>
                           <Flex alignItems={"center"} justifyContent={"center"} aspectRatio={1} bg="heds.800" rounded="2px">
                             <Text
                               fontWeight={800}
