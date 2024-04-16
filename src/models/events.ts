@@ -1,6 +1,6 @@
 import type { RootModel } from "@/store";
 import { createModel } from "@rematch/core";
-import { MANAGE_EVENTS_API_ENDPOINT } from "@/store/constants";
+import { MANAGE_EVENTS_API_PREFIX } from "@/store/constants";
 import { getCalendarInfo } from "@/store/utils";
 import axios from "axios";
 import { CalendarItemProps, Event } from "@/store/types";
@@ -41,7 +41,7 @@ export const eventsModel = createModel<RootModel>()({
   }),
   effects: () => ({
     async getEvents() {
-      const response = await axios.get(`${MANAGE_EVENTS_API_ENDPOINT}/events`);
+      const response = await axios.get(`${MANAGE_EVENTS_API_PREFIX}/events`);
       this.setEvents(response.data);
       const calendarInfo = getCalendarInfo(response.data);
       this.setCalendar(calendarInfo);
