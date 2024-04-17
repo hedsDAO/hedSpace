@@ -30,7 +30,7 @@ const MobileCalendar = () => {
       position="relative"
     >
       {!mobileSelectedEvent &&
-        events?.map((event) => {
+        events?.sort((a, b) => b.startTime - a.startTime)?.map((event) => {
           const currentEndTimeForEvent = new Date(event.endTime).getTime();
           if (currentEndTimeForEvent > new Date().getTime() && event?.name?.toLowerCase() !== 'test') {
             return (
