@@ -33,10 +33,6 @@ const Event = () => {
       if (isAttending) setIsAttending.on();
       else setIsAttending.off();
     } else setIsAttending.off();
-
-    return () => {
-      dispatch.eventModel.clearState();
-    };
   }, [id, userData]);
 
   useEffect(() => {
@@ -47,7 +43,7 @@ const Event = () => {
         else setIsAttending.off();
       } else setIsAttending.off();
     }
-  }, [event]);
+  }, [event, userData]);
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
