@@ -71,6 +71,8 @@ const SelectMessageAndSubmit = () => {
             onClick={() => {
               if (adminStep === AdminStep.TEXT_BLAST_FOR_EVENT && selectedEvent?.id) {
                 dispatch.adminModel.sendTextToAllForEvent([selectedEvent.id, message]);
+              } else if (adminStep === AdminStep.TEXT_BLAST_FOR_ALL) {
+                dispatch.adminModel.sendTextToAll(message);
               }
             }}
             border="1px solid"
