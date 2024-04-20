@@ -41,10 +41,13 @@ export const adminModel = createModel<RootModel>()({
       const response = await axios.get(`${MANAGE_EVENTS_API_PREFIX}/events`);
       if (response.data) this.setEvents(response.data);
     },
-    // async sendTextToAll() {
-    //   const response = await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`);
-    //   console.log(response.data);
-    // },
+    async sendTextToAll(message: string) {
+      try {
+        await axios.post(`${TWILIO_API_PREFIX}/sendTextBlast`, { message });
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async sendTextToAllForEvent([eventId, message]: [number, string]) {
       try {
         const response = await axios.post(`${TWILIO_API_PREFIX}/sendTextBlastForEvent`, {
