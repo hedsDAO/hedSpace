@@ -8,15 +8,23 @@ import { DateTime } from "luxon";
 const UserDrawer = () => {
   const userData = useSelector(store.select.userModel.selectUser);
   const dispatch = useDispatch<Dispatch>();
-  const allEvents = useSelector(store.select.landingModel.selectEvents);
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
+  const allEvents = useSelector(store.select.eventsModel.selectEvents);
+  const sortedEventRsvps = userData?.eventRsvps
+    ?.map((eventRsvp) => ({
+      ...eventRsvp,
+      event: allEvents?.find((e) => e.id === eventRsvp?.eventId),
+    }))
+    .filter((eventRsvp) => eventRsvp?.event)
+    ?.sort((a, b) => new Date(b.event?.startTime || 0).getTime() - new Date(a.event?.startTime || 0).getTime());
 
   useEffect(() => {
     if (!allEvents) {
-      dispatch.landingModel.getEvents();
+      dispatch.eventsModel.getEvents();
     }
   }, []);
+
   return (
     <>
       <Drawer isOpen={isUserDrawerOpen} placement="right" onClose={() => dispatch.userModel.setIsUserDrawerOpen(false)} finalFocusRef={btnRef}>
@@ -59,12 +67,9 @@ const UserDrawer = () => {
                 <Text textAlign={"start"} mb={1} color="heds.200" fontSize="md" fontWeight={"bold"} fontFamily={"open"}>
                   RSVPs
                 </Text>
-                {userData?.eventRsvps
-                  ?.sort((eventA, eventB) => eventB?.createdAt - eventA?.createdAt)
-                  ?.map((event) => {
-                    const eventName = allEvents?.find((e) => e.id === event?.eventId)?.name;
-                    if (eventName) return <EventRsvpItem key={event?.eventId} eventId={eventName} />
-})}
+                {sortedEventRsvps?.map((eventRsvp) => {
+                  if (eventRsvp.event?.name) return <EventRsvpItem key={eventRsvp.eventId} eventId={eventRsvp.event.name} />;
+                })}
               </Stack>
               <Button
                 mt={"auto"}
