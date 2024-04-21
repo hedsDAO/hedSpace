@@ -21,6 +21,8 @@ export interface Event {
   createdAt: number;
   updatedAt: null;
   maxGuests: number;
+  passInstructions: string;
+  stripImage: string;
   eventComments: EventCommentElement[];
   eventRsvps: EventCommentElement[];
   eventWaitlists: any[];
@@ -62,5 +64,6 @@ export interface User {
   collection: null;
   email: null;
   phoneNumber: string;
+  avatarImage: string;
   eventRsvps: EventRsvp[];
 }

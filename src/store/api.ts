@@ -28,6 +28,10 @@ export const getEventByEventId = (eventId: string) => {
   return axios.get(`${MANAGE_EVENTS_API_PREFIX}/events/${eventId}`);
 };
 
+export const updateAvatarImage = ({ id, avatarImage }: { id: number; avatarImage: string }) => {
+  return axios.put(`${USER_API_PREFIX}/${id}`, { avatar_image: avatarImage });
+};
+
 export const fetchApplePassDownload = ({ eventId, displayName }: { eventId: number; displayName: string }) => {
   return `${APPLE_PASS_API_PREFIX}/generatePass/${eventId}/${displayName}`;
 };
