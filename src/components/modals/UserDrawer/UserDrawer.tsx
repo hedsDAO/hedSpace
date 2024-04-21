@@ -1,13 +1,14 @@
 import { Dispatch, store } from "@/store/store";
-import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider } from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider, useBoolean } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EventRsvpItem from "./components/EventRsvpItem/EventRsvpItem";
 import { DateTime } from "luxon";
 
 const UserDrawer = () => {
-  const userData = useSelector(store.select.userModel.selectUser);
   const dispatch = useDispatch<Dispatch>();
+  const [isExpanded, setIsExpanded] = useBoolean();
+  const userData = useSelector(store.select.userModel.selectUser);
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
   const allEvents = useSelector(store.select.eventsModel.selectEvents);
@@ -67,9 +68,20 @@ const UserDrawer = () => {
                 <Text textAlign={"start"} mb={1} color="heds.200" fontSize="md" fontWeight={"bold"} fontFamily={"open"}>
                   RSVPs
                 </Text>
-                {sortedEventRsvps?.map((eventRsvp) => {
+                {(isExpanded ? sortedEventRsvps : sortedEventRsvps?.slice(0, 3))?.map((eventRsvp) => {
                   if (eventRsvp.event?.name) return <EventRsvpItem key={eventRsvp.eventId} eventId={eventRsvp.event.name} />;
                 })}
+                {(sortedEventRsvps?.length ?? 0) > 3 && (
+                  <Button
+                    onClick={() => setIsExpanded.toggle()}
+                    size="sm"
+                    textColor="heds.300"
+                    background="transparent"
+                    _hover={{ color: "heds.100", background: "transparent" }}
+                  >
+                    {isExpanded ? "Show Less" : "Show All"}
+                  </Button>
+                )}
               </Stack>
               <Button
                 mt={"auto"}
