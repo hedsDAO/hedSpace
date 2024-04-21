@@ -1,5 +1,5 @@
 import { Dispatch, store } from "@/store/store";
-import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider, useBoolean } from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider, useBoolean, Box } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EventRsvpItem from "./components/EventRsvpItem/EventRsvpItem";
@@ -8,6 +8,7 @@ import { DateTime } from "luxon";
 const UserDrawer = () => {
   const dispatch = useDispatch<Dispatch>();
   const [isExpanded, setIsExpanded] = useBoolean();
+  const [showArrows, setShowArrows] = useBoolean();
   const userData = useSelector(store.select.userModel.selectUser);
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
@@ -36,6 +37,26 @@ const UserDrawer = () => {
             <DrawerBody gap={1.5} as={Stack}>
               <Flex justifyContent={"center"} my={5}>
                 <Text as="i" className="fas fa-user-circle" fontSize="120px" color="whiteAlpha.600" mr={2} />
+                <Box
+                  as="i"
+                  className={showArrows ? "fas fa-check" : "fas fa-pencil-alt"}
+                  position="absolute"
+                  color={showArrows ? "green.700" : "whiteAlpha.700"}
+                  top="128px"
+                  right="48px"
+                  fontSize="16px"
+                  p="4px"
+                  borderRadius="full"
+                  transform="translate(50%,50%)"
+                  _hover={{ color: showArrows ? "green.400" : "whiteAlpha.900" }}
+                  onClick={() => setShowArrows.toggle()}
+                />
+                {showArrows && (
+                  <Flex direction="row" position="absolute" top="156px" right="16px" transform="translate(-50%, -50%)">
+                    <Box as="i" className="fas fa-arrow-left" fontSize="16px" color="whiteAlpha.800" _hover={{ color: "whiteAlpha.600" }} mr="120px" />
+                    <Box as="i" className="fas fa-arrow-right" fontSize="16px" color="whiteAlpha.800" />
+                  </Flex>
+                )}
               </Flex>
               <Stack px={4} py={2.5} rounded="xl" bg="whiteAlpha.50">
                 <Flex alignItems={"baseline"} justifyContent={"space-between"} gap={2}>
