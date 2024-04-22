@@ -107,7 +107,7 @@ export const userModel = createModel<RootModel>()({
     }),
   },
   selectors: (slice) => ({
-    selectAvatarIndex: () => slice((state: UserStateModel): number => state?.avatarIndex),
+    selectAvatarIndex: () => slice((state: UserStateModel): number => state?.avatarIndex || 0),
     selectInputValue: () => slice((state: UserStateModel): string => state?.inputValue),
     selectUser: () => slice((state: UserStateModel): User | null => state?.user),
     selectIsLoading: () => slice((state: UserStateModel): boolean => state?.isLoading),
