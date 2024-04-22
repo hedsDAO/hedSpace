@@ -54,11 +54,11 @@ const UserDrawer = () => {
   };
 
   const getAvatarImage = (index: number) => {
-    console.log(avatarIndex - 1 + avatarArray.length);
-
     const avatar = avatarArray[index <= 0 ? 0 : index];
-    console.log(avatar, "avatar");
-    console.log(avatarArray[10]);
+    if (avatar === userData?.avatarImage) {
+      return <Image src={avatar} w={showArrows ? "80px" : "120px"} h={showArrows ? "80px" : "120px"} borderRadius="full" />;
+    }
+
     return avatar.startsWith("fas") ? (
       <i className={avatar} style={{ fontSize: showArrows ? "80px" : "120px", marginRight: "2px" }} />
     ) : (
@@ -128,7 +128,9 @@ const UserDrawer = () => {
                   _hover={{ color: showArrows ? "green.400" : "whiteAlpha.900" }}
                   onClick={() => {
                     setShowArrows.toggle();
-                    if (showArrows) {
+                    const avatarImage = avatarArray[avatarIndex <= 0 ? 0 : avatarIndex];
+                    if (showArrows && avatarImage !== userData.avatarImage) {
+                      // dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
                     }
                   }}
                 />
