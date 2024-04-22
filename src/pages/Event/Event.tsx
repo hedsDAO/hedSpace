@@ -232,7 +232,6 @@ const Event = () => {
                         >
                           <Image minH="46px" maxH="46px" src={addToAppleId}></Image>
                         </Button>
-
                       ) : (
                         <></>
                       )}
