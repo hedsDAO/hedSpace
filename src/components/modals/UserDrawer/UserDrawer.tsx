@@ -130,7 +130,9 @@ const UserDrawer = () => {
                     setShowArrows.toggle();
                     const avatarImage = avatarArray[avatarIndex <= 0 ? 0 : avatarIndex];
                     if (showArrows && avatarImage !== userData.avatarImage) {
-                      // dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
+                      dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
+                      console.log(avatarArray.indexOf(avatarImage), "avatarArray.indexOf(avatarImage)");
+                      dispatch.userModel.setAvatarIndex(avatarArray.indexOf(avatarImage));
                     }
                   }}
                 />
