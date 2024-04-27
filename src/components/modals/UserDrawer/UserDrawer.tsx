@@ -10,11 +10,11 @@ import {
   HEDS_AVATAR_3,
   HEDS_AVATAR_4,
   HEDS_AVATAR_5,
-  HEDS_AVATAR_6,
-  HEDS_AVATAR_7,
-  HEDS_AVATAR_8,
-  HEDS_AVATAR_9,
-  HEDS_AVATAR_10,
+  // HEDS_AVATAR_6,
+  // HEDS_AVATAR_7,
+  // HEDS_AVATAR_8,
+  // HEDS_AVATAR_9,
+  // HEDS_AVATAR_10,
 } from "@/store/constants";
 
 const avatarArray = [
@@ -24,11 +24,11 @@ const avatarArray = [
   HEDS_AVATAR_3,
   HEDS_AVATAR_4,
   HEDS_AVATAR_5,
-  HEDS_AVATAR_6,
-  HEDS_AVATAR_7,
-  HEDS_AVATAR_8,
-  HEDS_AVATAR_9,
-  HEDS_AVATAR_10,
+  // HEDS_AVATAR_6,
+  // HEDS_AVATAR_7,
+  // HEDS_AVATAR_8,
+  // HEDS_AVATAR_9,
+  // HEDS_AVATAR_10,
 ];
 
 const UserDrawer = () => {
@@ -84,7 +84,7 @@ const UserDrawer = () => {
                 {showArrows && (
                   <>
                     <Box position="absolute" left="0" top="40px" transform="translateY(-50%)">
-                      {getAvatarImage(avatarIndex - 1 + avatarArray.length === 10 ? 10 : (avatarIndex - 1 + avatarArray.length) % avatarArray.length)}
+                      {getAvatarImage(avatarIndex - 1 + avatarArray.length === 5 ? 5 : (avatarIndex - 1 + avatarArray.length) % avatarArray.length)}
                     </Box>
                     <Box position="absolute" right="0" top="40px" transform="translateY(-50%)">
                       {getAvatarImage((avatarIndex + 1) % avatarArray.length)}
@@ -131,7 +131,6 @@ const UserDrawer = () => {
                     const avatarImage = avatarArray[avatarIndex <= 0 ? 0 : avatarIndex];
                     if (showArrows && avatarImage !== userData.avatarImage) {
                       dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
-                      console.log(avatarArray.indexOf(avatarImage), "avatarArray.indexOf(avatarImage)");
                       dispatch.userModel.setAvatarIndex(avatarArray.indexOf(avatarImage));
                     }
                   }}

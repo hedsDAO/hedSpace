@@ -25,22 +25,22 @@ export const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 /* Heds Avatar Images*/
 export const HEDS_AVATAR_1 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed75.png?alt=media&token=08f70251-ee6e-4f17-bb18-6de982cede8f";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fhed75.webp?alt=media&token=c6fe1b35-7024-4a67-a131-47fd41a20b05";
 export const HEDS_AVATAR_2 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed76.png?alt=media&token=0afa1711-8615-427f-8332-a8591542fbbb";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fhed76.webp?alt=media&token=47e7afda-f5fe-45c8-8719-1dce01972753";
 export const HEDS_AVATAR_3 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed77.png?alt=media&token=ad5bb720-223d-4174-9881-f869abbde8ac";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fhed77.webp?alt=media&token=264575e0-e412-439b-961d-c342a25bfa8f";
 export const HEDS_AVATAR_4 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed78.png?alt=media&token=f3bae3bb-7d14-4989-9f09-3553e10a6ed5";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fhed78.webp?alt=media&token=4dae8c15-9ecb-4952-82f7-7e9c69446020";
 export const HEDS_AVATAR_5 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed79.png?alt=media&token=d4ee580a-308c-42ec-9831-543b0cceb2f0";
-export const HEDS_AVATAR_6 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed80.png?alt=media&token=b6a2dc48-e0a9-41dc-8ac3-4bd713188980";
-export const HEDS_AVATAR_7 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed82.png?alt=media&token=17f007a1-0f4b-44f2-8d56-588677ad6a83";
-export const HEDS_AVATAR_8 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed83.png?alt=media&token=ab42de93-cd2f-4734-ba6b-5fdfd4ad7859";
-export const HEDS_AVATAR_9 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed84.png?alt=media&token=abc55632-d0ae-48e7-b2f9-379ceb7740ce";
-export const HEDS_AVATAR_10 =
-  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed85.png?alt=media&token=46317a45-7df2-47a9-bd7f-53790842e47e";
+  "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fhed79.webp?alt=media&token=a611e5e0-ccd2-42f8-a740-ca3cb43035c0";
+// export const HEDS_AVATAR_6 =
+//   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed80.png?alt=media&token=b6a2dc48-e0a9-41dc-8ac3-4bd713188980";
+// export const HEDS_AVATAR_7 =
+//   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed82.png?alt=media&token=17f007a1-0f4b-44f2-8d56-588677ad6a83";
+// export const HEDS_AVATAR_8 =
+//   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed83.png?alt=media&token=ab42de93-cd2f-4734-ba6b-5fdfd4ad7859";
+// export const HEDS_AVATAR_9 =
+//   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed84.png?alt=media&token=abc55632-d0ae-48e7-b2f9-379ceb7740ce";
+// export const HEDS_AVATAR_10 =
+//   "https://firebasestorage.googleapis.com/v0/b/heds-104d8.appspot.com/o/avatarImages%2Fghed85.png?alt=media&token=46317a45-7df2-47a9-bd7f-53790842e47e";

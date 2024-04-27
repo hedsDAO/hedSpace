@@ -32,7 +32,6 @@ const LoginModal = () => {
       }
     }
   }, [userData]);
-  console.log(userData?.avatarImage, "userData");
 
   return (
     <Flex ml="auto" mr={{ base: 3, lg: 1 }}>
