@@ -83,12 +83,12 @@ const UserDrawer = () => {
               <Flex justifyContent={"center"} my={5} position="relative">
                 {showArrows && (
                   <>
-                    <Box position="absolute" left="0" top="40px" transform="translateY(-50%)">
+                    <Flex position="absolute" left="0" top="40px" transform="translateY(-50%)">
                       {getAvatarImage(avatarIndex - 1 + avatarArray.length === 5 ? 5 : (avatarIndex - 1 + avatarArray.length) % avatarArray.length)}
-                    </Box>
-                    <Box position="absolute" right="0" top="40px" transform="translateY(-50%)">
+                    </Flex>
+                    <Flex position="absolute" right="0" top="40px" transform="translateY(-50%)">
                       {getAvatarImage((avatarIndex + 1) % avatarArray.length)}
-                    </Box>
+                    </Flex>
                     <Box
                       as="i"
                       className="fas fa-arrow-left"

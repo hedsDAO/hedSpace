@@ -46,7 +46,7 @@ export const adminModel = createModel<RootModel>()({
         await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`, {
           message,
           // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
-          mediaUrl: "https://sand-ox-5244.twil.io/assets/ccFlyer21.jpg",
+          mediaUrl: "https://sand-ox-5244.twil.io/assets/GSFLYER.jpg",
         });
       } catch (error) {
         console.error(error);
