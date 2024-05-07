@@ -1,13 +1,41 @@
 import { Dispatch, store } from "@/store/store";
-import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider, useBoolean } from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerOverlay, DrawerContent, Button, Stack, Text, Flex, DrawerCloseButton, Divider, useBoolean, Box, Image } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EventRsvpItem from "./components/EventRsvpItem/EventRsvpItem";
 import { DateTime } from "luxon";
+import {
+  HEDS_AVATAR_1,
+  HEDS_AVATAR_2,
+  HEDS_AVATAR_3,
+  HEDS_AVATAR_4,
+  HEDS_AVATAR_5,
+  // HEDS_AVATAR_6,
+  // HEDS_AVATAR_7,
+  // HEDS_AVATAR_8,
+  // HEDS_AVATAR_9,
+  // HEDS_AVATAR_10,
+} from "@/store/constants";
+
+const avatarArray = [
+  "fas fa-user-circle",
+  HEDS_AVATAR_1,
+  HEDS_AVATAR_2,
+  HEDS_AVATAR_3,
+  HEDS_AVATAR_4,
+  HEDS_AVATAR_5,
+  // HEDS_AVATAR_6,
+  // HEDS_AVATAR_7,
+  // HEDS_AVATAR_8,
+  // HEDS_AVATAR_9,
+  // HEDS_AVATAR_10,
+];
 
 const UserDrawer = () => {
   const dispatch = useDispatch<Dispatch>();
   const [isExpanded, setIsExpanded] = useBoolean();
+  const [showArrows, setShowArrows] = useBoolean();
+  const avatarIndex: number = useSelector(store.select.userModel.selectAvatarIndex);
   const userData = useSelector(store.select.userModel.selectUser);
   const isUserDrawerOpen = useSelector(store.select.userModel.selectIsUserDrawerOpen);
   const btnRef = useRef(null);
@@ -19,6 +47,24 @@ const UserDrawer = () => {
     }))
     .filter((eventRsvp) => eventRsvp?.event)
     ?.sort((a, b) => new Date(b.event?.startTime || 0).getTime() - new Date(a.event?.startTime || 0).getTime());
+
+  const handleArrowClick = (direction: number) => {
+    const newIndex = (avatarIndex + direction + avatarArray.length) % avatarArray.length;
+    dispatch.userModel.setAvatarIndex(newIndex);
+  };
+
+  const getAvatarImage = (index: number) => {
+    const avatar = avatarArray[index <= 0 ? 0 : index];
+    if (avatar === userData?.avatarImage) {
+      return <Image src={avatar} w={showArrows ? "80px" : "120px"} h={showArrows ? "80px" : "120px"} borderRadius="full" />;
+    }
+
+    return avatar.startsWith("fas") ? (
+      <i className={avatar} style={{ fontSize: showArrows ? "80px" : "120px", marginRight: "2px" }} />
+    ) : (
+      <Image src={avatar} w={showArrows ? "80px" : "120px"} h={showArrows ? "80px" : "120px"} borderRadius="full" />
+    );
+  };
 
   useEffect(() => {
     if (!allEvents) {
@@ -34,10 +80,63 @@ const UserDrawer = () => {
           <DrawerCloseButton size="sm" color="whiteAlpha.600" />
           {userData && (
             <DrawerBody gap={1.5} as={Stack}>
-              <Flex justifyContent={"center"} my={5}>
-                <Text as="i" className="fas fa-user-circle" fontSize="120px" color="whiteAlpha.600" mr={2} />
+              <Flex justifyContent={"center"} my={5} position="relative">
+                {showArrows && (
+                  <>
+                    <Flex position="absolute" left="0" top="40px" transform="translateY(-50%)">
+                      {getAvatarImage(avatarIndex - 1 + avatarArray.length === 5 ? 5 : (avatarIndex - 1 + avatarArray.length) % avatarArray.length)}
+                    </Flex>
+                    <Flex position="absolute" right="0" top="40px" transform="translateY(-50%)">
+                      {getAvatarImage((avatarIndex + 1) % avatarArray.length)}
+                    </Flex>
+                    <Box
+                      as="i"
+                      className="fas fa-arrow-left"
+                      onClick={() => handleArrowClick(-1)}
+                      position="absolute"
+                      top="90px"
+                      left="32px"
+                      cursor="pointer"
+                      color="heds.200"
+                      _hover={{ color: "heds.100" }}
+                    />
+                    <Box
+                      as="i"
+                      className="fas fa-arrow-right"
+                      onClick={() => handleArrowClick(1)}
+                      position="absolute"
+                      top="90px"
+                      right="32px"
+                      cursor="pointer"
+                      color="heds.200"
+                      _hover={{ color: "heds.100" }}
+                    />
+                  </>
+                )}
+                {getAvatarImage(avatarIndex)}
+                <Box
+                  as="i"
+                  className={showArrows ? "fas fa-check" : "fas fa-pencil-alt"}
+                  position="absolute"
+                  color={showArrows ? "green.700" : "whiteAlpha.700"}
+                  top="74px"
+                  right="0"
+                  fontSize="16px"
+                  p="4px"
+                  borderRadius="full"
+                  transform="translate(50%,50%)"
+                  _hover={{ color: showArrows ? "green.400" : "whiteAlpha.900" }}
+                  onClick={() => {
+                    setShowArrows.toggle();
+                    const avatarImage = avatarArray[avatarIndex <= 0 ? 0 : avatarIndex];
+                    if (showArrows && avatarImage !== userData.avatarImage) {
+                      dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
+                      dispatch.userModel.setAvatarIndex(avatarArray.indexOf(avatarImage));
+                    }
+                  }}
+                />
               </Flex>
-              <Stack px={4} py={2.5} rounded="xl" bg="whiteAlpha.50">
+              <Stack mt={4} px={4} py={2.5} rounded="xl" bg="whiteAlpha.50">
                 <Flex alignItems={"baseline"} justifyContent={"space-between"} gap={2}>
                   <Text fontWeight={"bold"} fontFamily={"Helvetica"} fontSize={"2xs"} color="whiteAlpha.400">
                     NAME

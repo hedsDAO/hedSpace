@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, store } from "@/store/store";
-import { Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Button, Flex, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
 
 import UserDrawer from "../UserDrawer/UserDrawer";
 import DisplayNameInput from "./components/DisplayNameInput/DisplayNameInput";
@@ -24,6 +24,7 @@ const LoginModal = () => {
     if (userData?.id && !isMissingDisplayName && !isRsvping && !event?.id) {
       dispatch.userModel.closeAndReset();
     }
+
     if (isRsvping) {
       const doesUserHaveAnExistingRsvp = userData?.eventRsvps?.filter((rsvp) => rsvp.eventId === event?.id);
       if (doesUserHaveAnExistingRsvp?.length) {
@@ -35,10 +36,10 @@ const LoginModal = () => {
   return (
     <Flex ml="auto" mr={{ base: 3, lg: 1 }}>
       {userData ? (
-        <Flex alignItems={"center"} gap={2} mr={{ base: 2, lg: 3 }}>
+        <Flex alignItems={"center"} gap={2} mr={{ base: userData.avatarImage ? 0.5 : 2, lg: userData.avatarImage ? 2 : 3 }}>
           <Button
             pl={{ base: 3.5, lg: 4 }}
-            pr={{ base: 3.5, lg: 3.5 }}
+            pr={{ base: 3.5, lg: 0 }}
             py={{ lg: 3 }}
             size="xs"
             fontSize="xs"
@@ -52,7 +53,11 @@ const LoginModal = () => {
             fontFamily={"Helvetica"}
             onClick={() => dispatch.userModel.setIsUserDrawerOpen(true)}
           >
-            <Text mr={{ base: "-1.5px", lg: 0 }} as="i" textAlign={"center"} fontSize={{ base: "2xs", lg: "base" }} className="fas fa-user" />
+            {!userData.avatarImage || userData.avatarImage.startsWith("fas") ? (
+              <Text mr={{ base: "-1.5px", lg: 0 }} as="i" textAlign={"center"} fontSize={{ base: "2xs", lg: "base" }} className="fas fa-user" />
+            ) : (
+              <Image h="28px" w="28px" borderRadius="24px" src={userData.avatarImage} />
+            )}
           </Button>
           <UserDrawer />
         </Flex>

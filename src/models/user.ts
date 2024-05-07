@@ -2,7 +2,7 @@ import { USER_API_PREFIX } from "./../store/constants";
 import { Event, User } from "./../store/types";
 
 import type { RootModel } from "@/store";
-import { addUserDisplayName, addUserRSVP, fetchApplePassDownload, getSMSCode, verifySMSCode } from "@/store/api";
+import { addUserDisplayName, addUserRSVP, fetchApplePassDownload, getSMSCode, updateAvatarImage, verifySMSCode } from "@/store/api";
 import { VERIFICATION_CODE_ERROR } from "@/store/constants";
 import { createModel } from "@rematch/core";
 import axios from "axios";
@@ -11,6 +11,7 @@ interface UserStateModel {
   user: User | null;
   isLoading: boolean;
   error: string | null;
+  avatarIndex: number;
   phoneNumber: string[];
   isVerifying: boolean;
   verificationCode: string[];
@@ -31,6 +32,7 @@ export const userModel = createModel<RootModel>()({
     user: null,
     isLoading: false,
     error: null,
+    avatarIndex: 0,
     phoneNumber: ["", "", "", "", "", "", "", "", "", ""],
     isVerifying: false,
     verificationCode: ["", "", "", "", "", ""],
@@ -47,6 +49,7 @@ export const userModel = createModel<RootModel>()({
   } as UserStateModel,
   reducers: {
     setUser: (state: UserStateModel, user: User) => ({ ...state, user }),
+    setAvatarIndex: (state: UserStateModel, avatarIndex: number) => ({ ...state, avatarIndex }),
     setIsLoading: (state: UserStateModel, isLoading: boolean) => ({ ...state, isLoading }),
     setError: (state: UserStateModel, error: string | null) => ({ ...state, error }),
     setPhoneNumber: (state: UserStateModel, phoneNumber: string[]) => ({ ...state, phoneNumber }),
@@ -61,6 +64,10 @@ export const userModel = createModel<RootModel>()({
     setEvent: (state: UserStateModel, event: Event) => ({ ...state, event }),
     setIsUserModalOpen: (state: UserStateModel, isUserModelOpen: boolean) => ({ ...state, isUserModelOpen }),
     logout: (state: UserStateModel) => ({ ...state, user: null }),
+    cycleAvatar: (state: UserStateModel, direction: number) => {
+      const newIndex = (state.avatarIndex + direction + 11) % 11;
+      return { ...state, avatarIndex: newIndex };
+    },
     closeAndReset: (state: UserStateModel) => ({
       ...state,
       isLoading: false,
@@ -83,6 +90,7 @@ export const userModel = createModel<RootModel>()({
       user: null,
       isLoading: false,
       error: null,
+      avatarIndex: 0,
       phoneNumber: ["", "", "", "", "", "", "", "", "", ""],
       isVerifying: false,
       verificationCode: ["", "", "", "", "", ""],
@@ -99,6 +107,7 @@ export const userModel = createModel<RootModel>()({
     }),
   },
   selectors: (slice) => ({
+    selectAvatarIndex: () => slice((state: UserStateModel): number => state?.avatarIndex || 0),
     selectInputValue: () => slice((state: UserStateModel): string => state?.inputValue),
     selectUser: () => slice((state: UserStateModel): User | null => state?.user),
     selectIsLoading: () => slice((state: UserStateModel): boolean => state?.isLoading),
@@ -202,6 +211,17 @@ export const userModel = createModel<RootModel>()({
       } catch (error: any) {
         this.closeAndReset();
         this.setError(error.message || "Failed to update user data");
+        this.setIsLoading(false);
+      }
+    },
+    async updateUserAvatarImage({ id, avatarImage }: { id: number; avatarImage: string }) {
+      this.setIsLoading(true);
+      try {
+        const user = await updateAvatarImage({ id, avatarImage });
+        this.setUser(user.data);
+        this.setIsLoading(false);
+      } catch (error: any) {
+        this.setError(error.message || "Failed to update avatar image");
         this.setIsLoading(false);
       }
     },
