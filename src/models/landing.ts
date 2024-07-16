@@ -31,11 +31,12 @@ export const landingModel = createModel<RootModel>()({
   effects: () => ({
     async getEvents() {
       const response = await axios.get(`${MANAGE_EVENTS_API_PREFIX}/events`);
-      this.setEvents(response.data);
+      const filteredEvents = response.data.filter((event: Event) => event.id !== 16);
+      this.setEvents(filteredEvents);
       const now = new Date().getTime();
       let difference = Math.abs(response.data[0].startTime - now);
       let latestEvent = null;
-      for (let i = 0; i < response.data.length; i++) {
+      for (let i = 0; i < filteredEvents.length; i++) {
         const current = response.data[i].startTime - now;
         if (response?.data?.[i]?.startTime - now > 0 && current < difference) {
           difference = current;
@@ -43,7 +44,7 @@ export const landingModel = createModel<RootModel>()({
         }
       }
       this.setLatestEvent(latestEvent);
-      const calendarInfo = getCalendarInfo(response.data);
+      const calendarInfo = getCalendarInfo(filteredEvents);
       this.setCalendar(calendarInfo);
     },
   }),
