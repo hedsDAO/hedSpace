@@ -18,6 +18,7 @@ export const TWILIO_API_PREFIX = "https://twilio-v6adscuyxq-uc.a.run.app";
 export const MANAGE_EVENTS_API_PREFIX = "https://manageevents-v6adscuyxq-uc.a.run.app";
 export const AUTH_API_PREFIX = "https://auth-v6adscuyxq-uc.a.run.app";
 export const APPLE_PASS_API_PREFIX = "https://applepass-v6adscuyxq-uc.a.run.app";
+export const STRIPE_API_PREFIX = "https://default-ryqeqp2kaq-uc.a.run.app";
 export const VERIFICATION_CODE_ERROR = "There was an error verifying your code.";
 export const MONTHS = ["January", "February", "March", "April ", "May", "June", "July", "August", "September", "October", "November", "December"];
 export const DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];

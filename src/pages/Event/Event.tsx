@@ -2,7 +2,7 @@ import { Dispatch, store } from "@/store/store";
 import { Box, Button, Container, Divider, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CountdownClock from "./components/CountdownClock/CountdownClock";
 import { isEventOver } from "@/store/utils";
 import { DateTime } from "luxon";
@@ -11,12 +11,15 @@ import addToAppleId from "../../../public/addToAppleWallet.svg";
 
 const Event = () => {
   const { id } = useParams();
+  const { pathname } = useLocation();
+  const checkoutSession = pathname.split("/").pop() ?? "";
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch>();
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const [isAttending, setIsAttending] = useBoolean();
   const [isExpanded, setIsExpanded] = useBoolean();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
+  const isDisabled = useSelector(store.select.eventModel.selectIsDisabled);
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
   const userData = useSelector(store.select.userModel.selectUser);
@@ -44,6 +47,14 @@ const Event = () => {
       } else setIsAttending.off();
     }
   }, [event, userData]);
+
+  useEffect(() => {
+    if (checkoutSession?.startsWith("cs") && checkoutSession && event?.id) {
+      console.log("here");
+      console.log(pathname.split("/").pop());
+      dispatch.eventModel.verifyPayment([checkoutSession, userData?.id || 0, event?.id || 0]);
+    }
+  }, [pathname]);
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
@@ -164,31 +175,63 @@ const Event = () => {
                     </Text>
                   </Flex>
                   {!isEventOver(event) && !isAttending ? (
-                    <Button
-                      onClick={() => {
-                        dispatch.userModel.setEvent(event);
-                        dispatch.userModel.setIsRsvping(true);
-                        dispatch.userModel.setIsUserModalOpen(true);
-                      }}
-                      _hover={{ bg: "heds.green", color: "black" }}
-                      minW="100%"
-                      px={5}
-                      letterSpacing={"wide"}
-                      fontWeight={"semibold"}
-                      py={4}
-                      fontFamily={"Helvetica"}
-                      fontSize={"sm"}
-                      textAlign={"center"}
-                      bg="transparent"
-                      size="lg"
-                      border="0.25px solid black"
-                      color="heds.green"
-                      borderColor="heds.green"
-                      rounded="lg"
-                      mt={6}
-                    >
-                      RSVP
-                    </Button>
+                    <Flex direction={"column"} alignItems={"center"} justifyContent={"space-between"} py={1}>
+                      <Button
+                        onClick={() => {
+                          dispatch.userModel.setEvent(event);
+                          dispatch.userModel.setIsRsvping(true);
+                          dispatch.userModel.setIsUserModalOpen(true);
+                        }}
+                        _hover={{ bg: !isDisabled ? "heds.green" : "transparent", color: !isDisabled ? "black" : "heds.red" }}
+                        minW="100%"
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={4}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
+                        textAlign={"center"}
+                        bg="transparent"
+                        size="lg"
+                        border="0.25px solid black"
+                        color={!isDisabled ? "heds.green" : "heds.red"}
+                        borderColor={!isDisabled ? "heds.green" : "heds.red"}
+                        rounded="lg"
+                        mt={6}
+                        isDisabled={isDisabled}
+                      >
+                        {!isDisabled ? "FREE RSVP" : "FREE RSVP CLOSED"}
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                          if (!userData?.displayName) {
+                            dispatch.userModel.setIsUserModalOpen(true);
+                          }
+                          if (userData?.displayName) {
+                            window.location.href = "https://checkout.heds.space/b/test_6oE8xO5XSfSb3F6dQR";
+                          }
+                        }}
+                        _hover={{ bg: "heds.green", color: "black" }}
+                        minW="100%"
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={4}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
+                        textAlign={"center"}
+                        bg="transparent"
+                        size="lg"
+                        border="0.25px solid black"
+                        color="heds.green"
+                        borderColor="heds.green"
+                        rounded="lg"
+                        mt={6}
+                      >
+                        $5 TICKET
+                      </Button>
+                    </Flex>
                   ) : !isEventOver(event) && isAttending ? (
                     <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
                       <Text

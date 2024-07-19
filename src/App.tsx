@@ -11,7 +11,7 @@ const App = () => {
     <Routes>
       <Route element={<LayoutWrapper />}>
         <Route path="/" element={<Landing />} />
-        <Route path="/event/:id" element={<Event />} />
+        <Route path="/event/:id/*" element={<Event />} />
         <Route path="/events" element={<Events />} />
         <Route
           path="/admin"
