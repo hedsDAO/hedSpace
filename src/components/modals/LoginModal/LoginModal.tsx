@@ -36,7 +36,7 @@ const LoginModal = () => {
   return (
     <Flex ml="auto" mr={{ base: 3, lg: 1 }}>
       {userData ? (
-        <Flex alignItems={"center"} gap={2} mr={{ base: userData.avatarImage ? 0.5 : 2, lg: userData.avatarImage ? 2 : 3 }}>
+        <Flex alignItems={"center"} gap={2} mr={{ base: 4, lg: 3 }}>
           <Button
             pl={{ base: 3.5, lg: 4 }}
             pr={{ base: 3.5, lg: 0 }}
@@ -45,6 +45,7 @@ const LoginModal = () => {
             fontSize="xs"
             bg="transparent"
             rounded="sm"
+            marginRight={{ base: -1, lg: 5 }}
             // border={{ base: "0.75px solid", lg: "1px solid" }}
             _hover={{ bg: "transparent", color: "whiteAlpha.800", borderColor: "whiteAlpha.900" }}
             color="whiteAlpha.700"

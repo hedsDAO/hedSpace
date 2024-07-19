@@ -81,60 +81,7 @@ const UserDrawer = () => {
           {userData && (
             <DrawerBody gap={1.5} as={Stack}>
               <Flex justifyContent={"center"} my={5} position="relative">
-                {showArrows && (
-                  <>
-                    <Flex position="absolute" left="0" top="40px" transform="translateY(-50%)">
-                      {getAvatarImage(avatarIndex - 1 + avatarArray.length === 5 ? 5 : (avatarIndex - 1 + avatarArray.length) % avatarArray.length)}
-                    </Flex>
-                    <Flex position="absolute" right="0" top="40px" transform="translateY(-50%)">
-                      {getAvatarImage((avatarIndex + 1) % avatarArray.length)}
-                    </Flex>
-                    <Box
-                      as="i"
-                      className="fas fa-arrow-left"
-                      onClick={() => handleArrowClick(-1)}
-                      position="absolute"
-                      top="90px"
-                      left="32px"
-                      cursor="pointer"
-                      color="heds.200"
-                      _hover={{ color: "heds.100" }}
-                    />
-                    <Box
-                      as="i"
-                      className="fas fa-arrow-right"
-                      onClick={() => handleArrowClick(1)}
-                      position="absolute"
-                      top="90px"
-                      right="32px"
-                      cursor="pointer"
-                      color="heds.200"
-                      _hover={{ color: "heds.100" }}
-                    />
-                  </>
-                )}
                 {getAvatarImage(avatarIndex)}
-                <Box
-                  as="i"
-                  className={showArrows ? "fas fa-check" : "fas fa-pencil-alt"}
-                  position="absolute"
-                  color={showArrows ? "green.700" : "whiteAlpha.700"}
-                  top="74px"
-                  right="0"
-                  fontSize="16px"
-                  p="4px"
-                  borderRadius="full"
-                  transform="translate(50%,50%)"
-                  _hover={{ color: showArrows ? "green.400" : "whiteAlpha.900" }}
-                  onClick={() => {
-                    setShowArrows.toggle();
-                    const avatarImage = avatarArray[avatarIndex <= 0 ? 0 : avatarIndex];
-                    if (showArrows && avatarImage !== userData.avatarImage) {
-                      dispatch.userModel.updateUserAvatarImage({ id: userData.id, avatarImage: avatarImage });
-                      dispatch.userModel.setAvatarIndex(avatarArray.indexOf(avatarImage));
-                    }
-                  }}
-                />
               </Flex>
               <Stack mt={4} px={4} py={2.5} rounded="xl" bg="whiteAlpha.50">
                 <Flex alignItems={"baseline"} justifyContent={"space-between"} gap={2}>
