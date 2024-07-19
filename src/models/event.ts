@@ -83,6 +83,7 @@ export const eventModel = createModel<RootModel>()({
         });
         await axios.get(STRIPE_API_PREFIX + `/verify-session/${sessionId}/${userId}/${eventId}`);
         dispatch.eventModel.getEventById(eventId);
+        dispatch.userModel.updateUserDataById(userId);
       } catch (e) {
         console.log(e);
       }

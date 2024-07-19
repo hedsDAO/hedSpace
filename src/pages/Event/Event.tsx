@@ -50,11 +50,10 @@ const Event = () => {
 
   useEffect(() => {
     if (checkoutSession?.startsWith("cs") && checkoutSession && event?.id) {
-      console.log("here");
-      console.log(pathname.split("/").pop());
       dispatch.eventModel.verifyPayment([checkoutSession, userData?.id || 0, event?.id || 0]);
+      navigate(`/event/${event?.name}`);
     }
-  }, [pathname]);
+  }, [event]);
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
