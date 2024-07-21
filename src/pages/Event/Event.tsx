@@ -181,7 +181,7 @@ const Event = () => {
                           dispatch.userModel.setIsRsvping(true);
                           dispatch.userModel.setIsUserModalOpen(true);
                         }}
-                        _hover={{ bg: !isDisabled ? "heds.green" : "transparent", color: !isDisabled ? "black" : "heds.red" }}
+                        _hover={{ bg: !isDisabled ? "heds.green" : "transparent", color: !isDisabled ? "black" : "grey.50" }}
                         minW="100%"
                         px={5}
                         letterSpacing={"wide"}
@@ -193,8 +193,8 @@ const Event = () => {
                         bg="transparent"
                         size="lg"
                         border="0.25px solid black"
-                        color={!isDisabled ? "heds.green" : "heds.red"}
-                        borderColor={!isDisabled ? "heds.green" : "heds.red"}
+                        color={!isDisabled ? "heds.green" : "grey.50"}
+                        borderColor={!isDisabled ? "heds.green" : "grey.50"}
                         rounded="lg"
                         mt={6}
                         isDisabled={isDisabled}
@@ -211,7 +211,11 @@ const Event = () => {
                             window.location.href = "https://checkout.heds.space/b/test_6oE8xO5XSfSb3F6dQR";
                           }
                         }}
-                        _hover={{ bg: "heds.green", color: "black" }}
+                        _hover={{
+                          bg: !isDisabled ? "transparent" : "heds.green",
+                          color: !isDisabled ? "grey.100" : "heds.green",
+                          borderColor: !isDisabled ? "grey.100" : "heds.green",
+                        }}
                         minW="100%"
                         px={5}
                         letterSpacing={"wide"}
@@ -223,10 +227,11 @@ const Event = () => {
                         bg="transparent"
                         size="lg"
                         border="0.25px solid black"
-                        color="heds.green"
-                        borderColor="heds.green"
+                        color={!isDisabled ? "grey.50" : "heds.green"}
+                        borderColor={!isDisabled ? "grey.50" : "heds.green"}
                         rounded="lg"
                         mt={6}
+                        isDisabled={!isDisabled}
                       >
                         $5 TICKET
                       </Button>

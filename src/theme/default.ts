@@ -16,6 +16,18 @@ export const defaultTheme = extendTheme({
       800: "#0B0A0A",
       900: "#000000",
     },
+    grey: {
+      50: "#f5f5f5",
+      100: "#e0e0e0",
+      200: "#cccccc",
+      300: "#b3b3b3",
+      400: "#999999",
+      500: "#808080",
+      600: "#666666",
+      700: "#4d4d4d",
+      800: "#333333",
+      900: "#1a1a1a",
+    },
   },
   fonts: {
     space: "'Space Mono', sans-serif",

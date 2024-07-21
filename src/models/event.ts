@@ -29,7 +29,7 @@ export const eventModel = createModel<RootModel>()({
     selectIsDisabled: () =>
       slice((state: EventModelState): boolean => {
         const rsvpCount = state?.rsvps?.length || 0;
-        return rsvpCount > 5;
+        return rsvpCount > 0;
       }),
   }),
   effects: (dispatch) => ({
@@ -65,7 +65,7 @@ export const eventModel = createModel<RootModel>()({
         this.setEvent(null);
       }
     },
-    async removeRsvp([rsvpId, eventId, userId, eventName]: [number, number, number, string]) {
+    async removeRsvp([rsvpId, eventId, userId]: [number, number, number]) {
       try {
         await axios.delete(GUEST_STATUS_API_PREFIX + `/rsvps/${rsvpId}`);
         this.getEventById(eventId.toString());
