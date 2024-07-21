@@ -1,5 +1,21 @@
 import { Dispatch, store } from "@/store/store";
-import { Box, Button, Container, Divider, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Fade,
+  Flex,
+  GridItem,
+  Image,
+  SimpleGrid,
+  Spinner,
+  Stack,
+  Text,
+  Tooltip,
+  useBoolean,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -213,7 +229,7 @@ const Event = () => {
                         }}
                         _hover={{
                           bg: !isDisabled ? "transparent" : "heds.green",
-                          color: !isDisabled ? "grey.100" : "heds.green",
+                          color: !isDisabled ? "grey.800" : "grey.100",
                           borderColor: !isDisabled ? "grey.100" : "heds.green",
                         }}
                         minW="100%"
@@ -238,23 +254,31 @@ const Event = () => {
                     </Flex>
                   ) : !isEventOver(event) && isAttending ? (
                     <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
-                      <Text
-                        minW="100%"
-                        px={5}
-                        letterSpacing={"wide"}
-                        fontWeight={"semibold"}
-                        py={3}
-                        fontFamily={"Helvetica"}
-                        fontSize={"sm"}
-                        textAlign={"center"}
-                        bg="heds.green"
-                        border="0.25px solid black"
-                        color="black"
-                        borderColor="heds.green"
-                        rounded="lg"
+                      <Tooltip
+                        color="heds.200"
+                        fontFamily="Helvetica"
+                        label="Check email for receipt if you purchased a ticket"
+                        fontSize="sm"
+                        backgroundColor="transparent"
                       >
-                        ATTENDING
-                      </Text>
+                        <Text
+                          minW="100%"
+                          px={5}
+                          letterSpacing="wide"
+                          fontWeight="semibold"
+                          py={3}
+                          fontFamily="Helvetica"
+                          fontSize="sm"
+                          textAlign="center"
+                          bg="heds.green"
+                          border="0.25px solid black"
+                          color="black"
+                          borderColor="heds.green"
+                          rounded="lg"
+                        >
+                          ATTENDING
+                        </Text>
+                      </Tooltip>
                       {/* apple wallet integration */}
                       {isIOS ? (
                         <Button
