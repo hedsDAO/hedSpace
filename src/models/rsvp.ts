@@ -140,6 +140,8 @@ export const rsvpModel = createModel<RootModel>()({
           status: "attending",
         });
         this.setRsvp(rsvp.data);
+        dispatch.userModel.updateUserDataById(userId);
+        dispatch.eventModel.getEventById(eventId);
       } catch (error: any) {
         this.setError(error.message || "Failed to add RSVP");
       } finally {

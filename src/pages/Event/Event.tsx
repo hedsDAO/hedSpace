@@ -1,8 +1,24 @@
 import { Dispatch, store } from "@/store/store";
-import { Box, Button, Container, Divider, Fade, Flex, GridItem, Image, SimpleGrid, Spinner, Stack, Text, useBoolean, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Fade,
+  Flex,
+  GridItem,
+  Image,
+  SimpleGrid,
+  Spinner,
+  Stack,
+  Text,
+  Tooltip,
+  useBoolean,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CountdownClock from "./components/CountdownClock/CountdownClock";
 import { isEventOver } from "@/store/utils";
 import { DateTime } from "luxon";
@@ -11,12 +27,17 @@ import addToAppleId from "../../../public/addToAppleWallet.svg";
 
 const Event = () => {
   const { id } = useParams();
+  const { pathname } = useLocation();
+  const checkoutSession = pathname.split("/").pop() ?? "";
   const navigate = useNavigate();
   const dispatch = useDispatch<Dispatch>();
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const [isAttending, setIsAttending] = useBoolean();
   const [isExpanded, setIsExpanded] = useBoolean();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
+  const isTierOneDisabled = useSelector(store.select.eventModel.selectIsTierOneDisabled);
+  const isTierTwoDisabled = useSelector(store.select.eventModel.selectIsTierTwoDisabled);
+  const isTierThreeDisabled = useSelector(store.select.eventModel.selectIsTierThreeDisabled);
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
   const userData = useSelector(store.select.userModel.selectUser);
@@ -44,6 +65,14 @@ const Event = () => {
       } else setIsAttending.off();
     }
   }, [event, userData]);
+
+  useEffect(() => {
+    if (checkoutSession?.startsWith("cs") && checkoutSession && event?.id) {
+      dispatch.eventModel.verifyPayment([checkoutSession, userData?.id || 0, event?.id || 0]);
+      dispatch.rsvpModel.addRSVP([userData?.id || 0, event?.id || 0]);
+      navigate(`/event/${event?.name}`);
+    }
+  }, [event]);
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
@@ -118,7 +147,7 @@ const Event = () => {
                   </Text>
                   <Text ml={3} color="heds.100" fontSize={{ base: "xl", lg: "20px" }} className="fa-sharp fa-solid fa-asterisk" as="i" />
                 </Flex>
-                <Text mt={-1} fontSize={{ base: "2xs", lg: "2xs" }} fontWeight={300} color="heds.200">
+                <Text mt={-1} fontSize={{ base: "2xs", lg: "sm" }} fontWeight={300} color="heds.200">
                   {event?.description}
                 </Text>
                 <Stack mt={4} gap={0}>
@@ -160,54 +189,136 @@ const Event = () => {
                       LOCATION
                     </Text>
                     <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
-                      7515 MELROSE AVE, LA
+                      {event.id === 16 ? " 944 PALISADES BEACH RD, SANTA MONICA" : "7515 MELROSE AVE, LA"}
                     </Text>
                   </Flex>
                   {!isEventOver(event) && !isAttending ? (
-                    <Button
-                      onClick={() => {
-                        dispatch.userModel.setEvent(event);
-                        dispatch.userModel.setIsRsvping(true);
-                        dispatch.userModel.setIsUserModalOpen(true);
-                      }}
-                      _hover={{ bg: "heds.green", color: "black" }}
-                      minW="100%"
-                      px={5}
-                      letterSpacing={"wide"}
-                      fontWeight={"semibold"}
-                      py={4}
-                      fontFamily={"Helvetica"}
-                      fontSize={"sm"}
-                      textAlign={"center"}
-                      bg="transparent"
-                      size="lg"
-                      border="0.25px solid black"
-                      color="heds.green"
-                      borderColor="heds.green"
-                      rounded="lg"
-                      mt={6}
-                    >
-                      RSVP
-                    </Button>
-                  ) : !isEventOver(event) && isAttending ? (
-                    <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
-                      <Text
+                    <Flex direction={"column"} alignItems={"center"} justifyContent={"space-between"} py={1}>
+                      <Button
+                        onClick={() => {
+                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                          if (!userData?.displayName) {
+                            dispatch.userModel.setIsUserModalOpen(true);
+                          }
+                          if (userData?.displayName) {
+                            // console.log(event.stripeUrl);
+                            window.location.href = event.stripeUrl.tierOne;
+                          }
+                        }}
+                        _hover={{
+                          bg: isTierOneDisabled ? "transparent" : "heds.green",
+                          color: isTierOneDisabled ? "grey.800" : "grey.100",
+                          borderColor: isTierOneDisabled ? "grey.100" : "heds.green",
+                        }}
                         minW="100%"
                         px={5}
                         letterSpacing={"wide"}
                         fontWeight={"semibold"}
-                        py={3}
+                        py={4}
                         fontFamily={"Helvetica"}
                         fontSize={"sm"}
                         textAlign={"center"}
-                        bg="heds.green"
+                        bg="transparent"
+                        size="lg"
                         border="0.25px solid black"
-                        color="black"
-                        borderColor="heds.green"
+                        color={isTierOneDisabled ? "grey.50" : "heds.green"}
+                        borderColor={isTierOneDisabled ? "grey.50" : "heds.green"}
                         rounded="lg"
+                        mt={6}
+                        isDisabled={isTierOneDisabled}
                       >
-                        ATTENDING
-                      </Text>
+                        $10 EARLY TICKET
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                          if (!userData?.displayName) {
+                            dispatch.userModel.setIsUserModalOpen(true);
+                          }
+                          if (userData?.displayName) {
+                            window.location.href = event.stripeUrl.tierTwo;
+                          }
+                        }}
+                        _hover={{
+                          bg: isTierTwoDisabled ? "transparent" : "heds.green",
+                          color: isTierTwoDisabled ? "grey.800" : "grey.100",
+                          borderColor: isTierTwoDisabled ? "grey.100" : "heds.green",
+                        }}
+                        minW="100%"
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={4}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
+                        textAlign={"center"}
+                        bg="transparent"
+                        size="lg"
+                        border="0.25px solid black"
+                        color={isTierTwoDisabled ? "grey.50" : "heds.green"}
+                        borderColor={isTierTwoDisabled ? "grey.50" : "heds.green"}
+                        rounded="lg"
+                        mt={6}
+                        isDisabled={isTierTwoDisabled}
+                      >
+                        $15 GENERAL TICKET
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                          if (!userData?.displayName) {
+                            dispatch.userModel.setIsUserModalOpen(true);
+                          }
+                          if (userData?.displayName) {
+                            window.location.href = event.stripeUrl.tierThree;
+                          }
+                        }}
+                        _hover={{
+                          bg: isTierThreeDisabled ? "transparent" : "heds.green",
+                          color: isTierThreeDisabled ? "grey.800" : "grey.100",
+                          borderColor: isTierThreeDisabled ? "grey.100" : "heds.green",
+                        }}
+                        minW="100%"
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={4}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
+                        textAlign={"center"}
+                        bg="transparent"
+                        size="lg"
+                        border="0.25px solid black"
+                        color={isTierThreeDisabled ? "grey.50" : "heds.green"}
+                        borderColor={isTierThreeDisabled ? "grey.50" : "heds.green"}
+                        rounded="lg"
+                        mt={6}
+                        isDisabled={isTierThreeDisabled}
+                      >
+                        $20 LAST CHANCE TICKET
+                      </Button>
+                    </Flex>
+                  ) : !isEventOver(event) && isAttending ? (
+                    <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
+                      <Tooltip color="heds.200" fontFamily="Helvetica" label="Check email for receipt of purchased ticket" fontSize="sm" backgroundColor="transparent">
+                        <Text
+                          minW="100%"
+                          px={5}
+                          letterSpacing="wide"
+                          fontWeight="semibold"
+                          py={3}
+                          fontFamily="Helvetica"
+                          fontSize="sm"
+                          textAlign="center"
+                          bg="heds.green"
+                          border="0.25px solid black"
+                          color="black"
+                          borderColor="heds.green"
+                          rounded="lg"
+                        >
+                          ATTENDING
+                        </Text>
+                      </Tooltip>
                       {/* apple wallet integration */}
                       {isIOS ? (
                         <Button

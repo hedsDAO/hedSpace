@@ -8,7 +8,7 @@ const persistConfig = {
   key: "root",
   storage,
   version: 2,
-  blacklist: ["productModel", "landingModel", "rsvpModel", 'eventModel'],
+  blacklist: ["productModel", "landingModel", "rsvpModel", "eventModel"],
   whitelist: ["userModel"],
 };
 
@@ -17,7 +17,7 @@ export const store = init<RootModel>({
   plugins: [selectPlugin(), persistPlugin(persistConfig)],
   redux: {
     devtoolOptions: {
-      disabled: process.env.NODE_ENV !== "development",
+      disabled: true,
     },
   },
 });
