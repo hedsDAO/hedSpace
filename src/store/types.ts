@@ -23,10 +23,16 @@ export interface Event {
   maxGuests: number;
   passInstructions: string;
   stripImage: string;
-  stripeUrl: string;
+  stripeUrl: StripeUrl;
   eventComments: EventCommentElement[];
   eventRsvps: EventCommentElement[];
   eventWaitlists: any[];
+}
+
+export interface StripeUrl {
+  tierOne: string;
+  tierTwo: string;
+  tierThree: string;
 }
 
 export interface EventCommentElement {

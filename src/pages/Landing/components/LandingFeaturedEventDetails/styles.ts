@@ -10,7 +10,7 @@ export const $textStyles1: TextProps = {
   lineHeight: { base: "10px", lg: "50px" },
   fontFamily: "hanken",
   fontWeight: { base: 300, lg: 300 },
-  fontSize: { base: "25px", lg: "50px" },
+  fontSize: { base: "16px", lg: "50px" },
 };
 
 export const $textStyles2: TextProps = {
@@ -19,8 +19,8 @@ export const $textStyles2: TextProps = {
   zIndex: 200,
   textTransform: "uppercase",
   color: "heds.200",
-  lineHeight: { base: "50px", lg: "100px" },
+  lineHeight: { base: "16px", lg: "100px" },
   fontFamily: "hanken",
   fontWeight: { base: 600, lg: 600 },
-  fontSize: { base: "30px", lg: "100px" },
+  fontSize: { base: "18px", lg: "100px" },
 };

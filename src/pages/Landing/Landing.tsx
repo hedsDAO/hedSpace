@@ -17,13 +17,18 @@ const Landing = () => {
   const latestEvent = useSelector(store.select.landingModel.selectLatestEvent);
   const dispatch = useDispatch<Dispatch>();
   useEffect(() => {
+    console.log(latestEvent);
     if (!latestEvent) dispatch.landingModel.getEvents();
   }, []);
 
   return (
     <Container {...styles.$containerStyles}>
       <LandingFeaturedEventVideo />
-      <Stack onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name.replace(/ /g, "-"))])} {...styles.$stackStyles}>
+      <Stack
+        gap={0}
+        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name.replace(/ /g, "-"))])}
+        {...styles.$stackStyles}
+      >
         <LandingFeaturedHeadingText />
         <LandingFeaturedEventDetails />
         {latestEvent && <LandingFeaturedEventRsvpButton />}

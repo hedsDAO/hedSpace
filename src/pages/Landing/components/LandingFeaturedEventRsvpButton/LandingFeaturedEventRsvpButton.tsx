@@ -25,7 +25,7 @@ const LandingFeaturedEventRsvpButton = () => {
     >
       <Text
         cursor={"pointer"}
-        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name.replace(/ /g,'-'))])}
+        onClick={() => dispatch.globalModel.handleUnload([isUnloading, () => navigate("/event/" + latestEvent?.name.replace(/ /g, "-"))])}
         position={"relative"}
         textAlign={"end"}
         zIndex={200}
@@ -35,6 +35,7 @@ const LandingFeaturedEventRsvpButton = () => {
         fontFamily="hanken"
         fontWeight={{ base: 300, lg: 300 }}
         fontSize={{ base: "20px", lg: "30px" }}
+        mb={{ base: "8px", lg: 0 }}
       >
         RSVP <Text ml={1} mb={"-0.5px"} as="i" className="fal fa-arrow-right" />
       </Text>

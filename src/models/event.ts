@@ -26,10 +26,38 @@ export const eventModel = createModel<RootModel>()({
     selectEvent: () => slice((state: EventModelState): Event | null => state?.event),
     selectRSVPs: () => slice((state: EventModelState): EventRsvp[] | null => state?.rsvps),
     selectIsLoading: () => slice((state: EventModelState): boolean => state?.isLoading),
-    selectIsDisabled: () =>
+    selectIsTierOneDisabled: () =>
       slice((state: EventModelState): boolean => {
         const rsvpCount = state?.rsvps?.length || 0;
-        return rsvpCount > 0;
+        return rsvpCount >= 50;
+      }),
+    selectIsTierTwoDisabled: () =>
+      slice((state: EventModelState): boolean => {
+        if (!state?.event) return false;
+        const rsvpCount = state?.rsvps?.length || 0;
+        const eventStartDate = new Date(state?.event?.startTime);
+        const eventStartOfDay = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate());
+        const currentTime = new Date();
+        const isDayOfEvent = currentTime >= eventStartOfDay && currentTime < new Date(eventStartOfDay.getTime() + 24 * 60 * 60 * 1000);
+        if (isDayOfEvent) {
+          return true;
+        } else {
+          if (rsvpCount < 50 || rsvpCount >= 150) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }),
+    selectIsTierThreeDisabled: () =>
+      slice((state: EventModelState): boolean => {
+        if (!state?.event) return false;
+        const eventStartDate = new Date(state?.event?.startTime);
+        const eventStartOfDay = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate());
+        const currentTime = new Date();
+        const isDayOfEvent = currentTime >= eventStartOfDay && currentTime < new Date(eventStartOfDay.getTime() + 24 * 60 * 60 * 1000);
+        const rsvpCount = state?.rsvps?.length || 0;
+        return !isDayOfEvent || rsvpCount < 150;
       }),
   }),
   effects: (dispatch) => ({
@@ -76,14 +104,10 @@ export const eventModel = createModel<RootModel>()({
     },
     async verifyPayment([sessionId, userId, eventId]: [string, number, number]) {
       try {
-        console.log({
-          sessionId,
-          userId,
-          eventId,
-        });
         await axios.get(STRIPE_API_PREFIX + `/verify-session/${sessionId}/${userId}/${eventId}`);
-        dispatch.eventModel.getEventById(eventId);
-        dispatch.userModel.updateUserDataById(userId);
+        // console.log(receipt);
+        // dispatch.eventModel.getEventById(eventId);
+        // dispatch.userModel.updateUserDataById(userId);
       } catch (e) {
         console.log(e);
       }
