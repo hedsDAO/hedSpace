@@ -23,6 +23,7 @@ export interface Event {
   maxGuests: number;
   passInstructions: string;
   stripImage: string;
+  stripeUrl: string;
   eventComments: EventCommentElement[];
   eventRsvps: EventCommentElement[];
   eventWaitlists: any[];

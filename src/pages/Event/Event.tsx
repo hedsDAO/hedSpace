@@ -67,6 +67,7 @@ const Event = () => {
   useEffect(() => {
     if (checkoutSession?.startsWith("cs") && checkoutSession && event?.id) {
       dispatch.eventModel.verifyPayment([checkoutSession, userData?.id || 0, event?.id || 0]);
+      dispatch.rsvpModel.addRSVP([userData?.id || 0, event?.id || 0]);
       navigate(`/event/${event?.name}`);
     }
   }, [event]);
@@ -191,7 +192,7 @@ const Event = () => {
                   </Flex>
                   {!isEventOver(event) && !isAttending ? (
                     <Flex direction={"column"} alignItems={"center"} justifyContent={"space-between"} py={1}>
-                      <Button
+                      {/* <Button
                         onClick={() => {
                           dispatch.userModel.setEvent(event);
                           dispatch.userModel.setIsRsvping(true);
@@ -216,7 +217,7 @@ const Event = () => {
                         isDisabled={isDisabled}
                       >
                         {!isDisabled ? "FREE RSVP" : "FREE RSVP CLOSED"}
-                      </Button>
+                      </Button> */}
                       <Button
                         onClick={() => {
                           //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
@@ -224,7 +225,7 @@ const Event = () => {
                             dispatch.userModel.setIsUserModalOpen(true);
                           }
                           if (userData?.displayName) {
-                            window.location.href = "https://checkout.heds.space/b/test_6oE8xO5XSfSb3F6dQR";
+                            window.location.href = event.stripeUrl;
                           }
                         }}
                         _hover={{
@@ -249,7 +250,7 @@ const Event = () => {
                         mt={6}
                         isDisabled={!isDisabled}
                       >
-                        $5 TICKET
+                        $10 TICKET
                       </Button>
                     </Flex>
                   ) : !isEventOver(event) && isAttending ? (
