@@ -188,7 +188,7 @@ const Event = () => {
                     <Text fontFamily={"hanken"} fontWeight={500} fontSize={{ base: "2xs", lg: "xs" }} color="heds.300">
                       LOCATION
                     </Text>
-                    <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", lg: "xs" }} color="heds.100">
+                    <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "2xs", sm: "2xs", lg: "xs" }} color="heds.100">
                       {event.id === 16 ? " 944 PALISADES BEACH RD, SANTA MONICA" : "7515 MELROSE AVE, LA"}
                     </Text>
                   </Flex>

@@ -141,7 +141,6 @@ export const userModel = createModel<RootModel>()({
       this.setIsLoading(true);
       this.setIsVerifying(true);
       try {
-        console.log(to, code);
         const res = await verifySMSCode(to, code);
         if (res.data?.id) {
           const userData: User = res.data;
