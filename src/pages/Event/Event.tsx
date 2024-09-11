@@ -1,4 +1,5 @@
 import { Dispatch, store } from "@/store/store";
+import { Helmet } from "react-helmet";
 import {
   Box,
   Button,
@@ -76,6 +77,14 @@ const Event = () => {
 
   return (
     <Container px={0} minW="100vw" minH="100vh">
+      <Helmet>
+        <title>{event?.name}</title>
+        <meta property="og:title" content={event?.name} />
+        <meta property="og:description" content={event?.description} />
+        <meta property="og:image" content={event?.image} />
+        <meta property="og:url" content={`https://heds.space/events/${event?.name}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <Box
         autoPlay
         src={event?.video}
@@ -199,6 +208,43 @@ const Event = () => {
                           //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
                           if (!userData?.displayName) {
                             dispatch.userModel.setIsUserModalOpen(true);
+                          } else {
+                            dispatch.rsvpModel.addRSVP([userData?.id || 0, event?.id || 0]);
+                          }
+                          // if (userData?.displayName) {
+                          //   // console.log(event.stripeUrl);
+                          //   window.location.href = event.stripeUrl.tierOne;
+                          // }
+                        }}
+                        _hover={{
+                          bg: isTierOneDisabled ? "transparent" : "heds.green",
+                          color: isTierOneDisabled ? "grey.800" : "grey.100",
+                          borderColor: isTierOneDisabled ? "grey.100" : "heds.green",
+                        }}
+                        minW="100%"
+                        px={5}
+                        letterSpacing={"wide"}
+                        fontWeight={"semibold"}
+                        py={4}
+                        fontFamily={"Helvetica"}
+                        fontSize={"sm"}
+                        textAlign={"center"}
+                        bg="transparent"
+                        size="lg"
+                        border="0.25px solid black"
+                        color={isTierOneDisabled ? "grey.50" : "heds.green"}
+                        borderColor={isTierOneDisabled ? "grey.50" : "heds.green"}
+                        rounded="lg"
+                        mt={6}
+                        isDisabled={isTierOneDisabled}
+                      >
+                        Free RSVP
+                      </Button>
+                      {/* <Button
+                        onClick={() => {
+                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                          if (!userData?.displayName) {
+                            dispatch.userModel.setIsUserModalOpen(true);
                           }
                           if (userData?.displayName) {
                             // console.log(event.stripeUrl);
@@ -227,76 +273,80 @@ const Event = () => {
                         mt={6}
                         isDisabled={isTierOneDisabled}
                       >
-                        $10 EARLY TICKET
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
-                          if (!userData?.displayName) {
-                            dispatch.userModel.setIsUserModalOpen(true);
-                          }
-                          if (userData?.displayName) {
-                            window.location.href = event.stripeUrl.tierTwo;
-                          }
-                        }}
-                        _hover={{
-                          bg: isTierTwoDisabled ? "transparent" : "heds.green",
-                          color: isTierTwoDisabled ? "grey.800" : "grey.100",
-                          borderColor: isTierTwoDisabled ? "grey.100" : "heds.green",
-                        }}
-                        minW="100%"
-                        px={5}
-                        letterSpacing={"wide"}
-                        fontWeight={"semibold"}
-                        py={4}
-                        fontFamily={"Helvetica"}
-                        fontSize={"sm"}
-                        textAlign={"center"}
-                        bg="transparent"
-                        size="lg"
-                        border="0.25px solid black"
-                        color={isTierTwoDisabled ? "grey.50" : "heds.green"}
-                        borderColor={isTierTwoDisabled ? "grey.50" : "heds.green"}
-                        rounded="lg"
-                        mt={6}
-                        isDisabled={isTierTwoDisabled}
-                      >
-                        $15 GENERAL TICKET
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
-                          if (!userData?.displayName) {
-                            dispatch.userModel.setIsUserModalOpen(true);
-                          }
-                          if (userData?.displayName) {
-                            window.location.href = event.stripeUrl.tierThree;
-                          }
-                        }}
-                        _hover={{
-                          bg: isTierThreeDisabled ? "transparent" : "heds.green",
-                          color: isTierThreeDisabled ? "grey.800" : "grey.100",
-                          borderColor: isTierThreeDisabled ? "grey.100" : "heds.green",
-                        }}
-                        minW="100%"
-                        px={5}
-                        letterSpacing={"wide"}
-                        fontWeight={"semibold"}
-                        py={4}
-                        fontFamily={"Helvetica"}
-                        fontSize={"sm"}
-                        textAlign={"center"}
-                        bg="transparent"
-                        size="lg"
-                        border="0.25px solid black"
-                        color={isTierThreeDisabled ? "grey.50" : "heds.green"}
-                        borderColor={isTierThreeDisabled ? "grey.50" : "heds.green"}
-                        rounded="lg"
-                        mt={6}
-                        isDisabled={isTierThreeDisabled}
-                      >
-                        $20 LAST CHANCE TICKET
-                      </Button>
+                        {event.id !== 17 ? "$10 EARLY TICKET" : "$10 TICKET"}
+                      </Button> */}
+                      {/* {event.id !== 17 && (
+                        <Button
+                          onClick={() => {
+                            //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                            if (!userData?.displayName) {
+                              dispatch.userModel.setIsUserModalOpen(true);
+                            }
+                            if (userData?.displayName) {
+                              window.location.href = event.stripeUrl.tierTwo;
+                            }
+                          }}
+                          _hover={{
+                            bg: isTierTwoDisabled ? "transparent" : "heds.green",
+                            color: isTierTwoDisabled ? "grey.800" : "grey.100",
+                            borderColor: isTierTwoDisabled ? "grey.100" : "heds.green",
+                          }}
+                          minW="100%"
+                          px={5}
+                          letterSpacing={"wide"}
+                          fontWeight={"semibold"}
+                          py={4}
+                          fontFamily={"Helvetica"}
+                          fontSize={"sm"}
+                          textAlign={"center"}
+                          bg="transparent"
+                          size="lg"
+                          border="0.25px solid black"
+                          color={isTierTwoDisabled ? "grey.50" : "heds.green"}
+                          borderColor={isTierTwoDisabled ? "grey.50" : "heds.green"}
+                          rounded="lg"
+                          mt={6}
+                          isDisabled={isTierTwoDisabled}
+                        >
+                          $15 GENERAL TICKET
+                        </Button>
+                      )} */}
+                      {/* {event.id !== 17 && (
+                        <Button
+                          onClick={() => {
+                            //send them to the stripe checkout page at https://checkout.heds.space/b/8wMaGLdOH6td6Mo4gh
+                            if (!userData?.displayName) {
+                              dispatch.userModel.setIsUserModalOpen(true);
+                            }
+                            if (userData?.displayName) {
+                              window.location.href = event.stripeUrl.tierThree;
+                            }
+                          }}
+                          _hover={{
+                            bg: isTierThreeDisabled ? "transparent" : "heds.green",
+                            color: isTierThreeDisabled ? "grey.800" : "grey.100",
+                            borderColor: isTierThreeDisabled ? "grey.100" : "heds.green",
+                          }}
+                          minW="100%"
+                          px={5}
+                          letterSpacing={"wide"}
+                          fontWeight={"semibold"}
+                          py={4}
+                          fontFamily={"Helvetica"}
+                          fontSize={"sm"}
+                          textAlign={"center"}
+                          bg="transparent"
+                          size="lg"
+                          border="0.25px solid black"
+                          color={isTierThreeDisabled ? "grey.50" : "heds.green"}
+                          borderColor={isTierThreeDisabled ? "grey.50" : "heds.green"}
+                          rounded="lg"
+                          mt={6}
+                          isDisabled={isTierThreeDisabled}
+                        >
+                          $20 LAST CHANCE TICKET
+                        </Button>
+                      )} */}
                     </Flex>
                   ) : !isEventOver(event) && isAttending ? (
                     <Stack justifyContent={"start"} gap={3} mt={7} alignItems={"center"} minW="100%">
@@ -353,7 +403,7 @@ const Event = () => {
                 </Stack>
               </Stack>
             </Flex>
-            {!ifPhorin && (
+            {!ifPhorin && isAttending && (
               <Stack my={10}>
                 <Flex cursor={"pointer"} minW="100%" justifyContent={"space-between"} onClick={() => setIsExpanded.toggle()} alignItems={"center"} gap={3}>
                   <Text fontFamily={"hanken"} fontWeight={700} fontSize={{ base: "12px", lg: "20px" }} color="heds.200">

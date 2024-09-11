@@ -29,20 +29,23 @@ export const eventModel = createModel<RootModel>()({
     selectIsTierOneDisabled: () =>
       slice((state: EventModelState): boolean => {
         const rsvpCount = state?.rsvps?.length || 0;
-        return rsvpCount >= 50;
+        const cutoff = state.event?.stripeUrl?.tierOneCutoff || 1000;
+        return rsvpCount >= cutoff;
       }),
     selectIsTierTwoDisabled: () =>
       slice((state: EventModelState): boolean => {
         if (!state?.event) return false;
         const rsvpCount = state?.rsvps?.length || 0;
+        const tierOneCutoff = state?.event?.stripeUrl?.tierOneCutoff || 60;
+        const tierTwoCutoff = state?.event?.stripeUrl?.tierTwoCutoff || 160;
         const eventStartDate = new Date(state?.event?.startTime);
         const eventStartOfDay = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate());
         const currentTime = new Date();
         const isDayOfEvent = currentTime >= eventStartOfDay && currentTime < new Date(eventStartOfDay.getTime() + 24 * 60 * 60 * 1000);
-        if (isDayOfEvent) {
+        if (isDayOfEvent && state?.event?.id !== 17) {
           return true;
         } else {
-          if (rsvpCount < 50 || rsvpCount >= 150) {
+          if (rsvpCount < tierOneCutoff || rsvpCount >= tierTwoCutoff) {
             return true;
           } else {
             return false;

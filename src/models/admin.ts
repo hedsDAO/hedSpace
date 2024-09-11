@@ -46,25 +46,25 @@ export const adminModel = createModel<RootModel>()({
         await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`, {
           message,
           // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
-          mediaUrl: "https://sand-ox-5244.twil.io/assets/GSFLYER.jpg",
+          mediaUrl: "https://sand-ox-5244.twil.io/assets/Artboard_1_v22x.jpg",
         });
       } catch (error) {
         console.error(error);
       }
     },
-    async sendTextToAllForEvent([eventId, message]: [number, string]) {
-      try {
-        const response = await axios.post(`${TWILIO_API_PREFIX}/sendTextBlastForEvent`, {
-          eventId: eventId,
-          message: message,
-          // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
-          mediaUrl: "https://sand-ox-5244.twil.io/assets/ccFlyer21.jpg",
-        });
-        if (response) console.log(response.data);
-        this.clearState();
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // async sendTextToAllForEvent([eventId, message]: [number, string]) {
+    //   try {
+    //     const response = await axios.post(`${TWILIO_API_PREFIX}/sendTextBlastForEvent`, {
+    //       eventId: eventId,
+    //       message: message,
+    //       // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
+    //       mediaUrl: "https://www.heds.space/event/Beach-House",
+    //     });
+    //     if (response) console.log(response.data);
+    //     this.clearState();
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
   }),
 });

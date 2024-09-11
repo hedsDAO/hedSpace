@@ -33,6 +33,8 @@ export interface StripeUrl {
   tierOne: string;
   tierTwo: string;
   tierThree: string;
+  tierOneCutoff?: number;
+  tierTwoCutoff?: number;
 }
 
 export interface EventCommentElement {
