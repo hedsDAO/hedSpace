@@ -41,17 +41,17 @@ export const adminModel = createModel<RootModel>()({
       const response = await axios.get(`${MANAGE_EVENTS_API_PREFIX}/events`);
       if (response.data) this.setEvents(response.data);
     },
-    async sendTextToAll(message: string) {
-      try {
-        await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`, {
-          message,
-          // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
-          mediaUrl: "https://sand-ox-5244.twil.io/assets/Artboard_1_v22x.jpg",
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // async sendTextToAll(message: string) {
+    //   try {
+    //     await axios.post(`${TWILIO_API_PREFIX}/sendMassTextBlast`, {
+    //       message,
+    //       // Add mediaUrl to the request body if you want to include an image in the text blast (MUST BE JPG)
+    //       mediaUrl: "https://sand-ox-5244.twil.io/assets/POTATO_FLYER_WRAP_PARTY.jpg",
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
     // async sendTextToAllForEvent([eventId, message]: [number, string]) {
     //   try {
     //     const response = await axios.post(`${TWILIO_API_PREFIX}/sendTextBlastForEvent`, {

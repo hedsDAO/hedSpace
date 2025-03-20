@@ -24,7 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <>
     <Global styles={HELVETICA_STYLE} />
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <BrowserRouter>
         <RematchProvider store={store}>
           <ChakraWrapper>
@@ -33,6 +33,6 @@ root.render(
           </ChakraWrapper>
         </RematchProvider>
       </BrowserRouter>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </>
 );

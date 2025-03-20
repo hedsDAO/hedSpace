@@ -37,8 +37,8 @@ const Event = () => {
   const [isExpanded, setIsExpanded] = useBoolean();
   const isUnloading = useSelector(store.select.globalModel.selectIsUnloading);
   const isTierOneDisabled = useSelector(store.select.eventModel.selectIsTierOneDisabled);
-  const isTierTwoDisabled = useSelector(store.select.eventModel.selectIsTierTwoDisabled);
-  const isTierThreeDisabled = useSelector(store.select.eventModel.selectIsTierThreeDisabled);
+  // const isTierTwoDisabled = useSelector(store.select.eventModel.selectIsTierTwoDisabled);
+  // const isTierThreeDisabled = useSelector(store.select.eventModel.selectIsTierThreeDisabled);
   const event = useSelector(store.select.eventModel.selectEvent);
   const rsvps = useSelector(store.select.eventModel.selectRSVPs);
   const userData = useSelector(store.select.userModel.selectUser);
